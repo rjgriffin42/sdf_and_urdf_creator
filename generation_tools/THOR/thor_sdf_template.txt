@@ -1,12 +1,7 @@
 <?xml version="1.0" ?>
 <sdf version="1.4">
 <model name="thor">
-  <plugin name="gz_comms_manager" filename="libgz_comms_manager.so" />
-  <plugin name="gz_pose_manager" filename="libgz_pose_manager.so" />
   <static>false</static>
-
-  ${torso.optional_fixed_pose}
-  ${torso.optional_fixed_link}
 
   <link name="torso">
     <pose>${torso.Xcog} ${torso.Ycog} ${torso.Zcog} 0 0 0</pose>
@@ -799,136 +794,6 @@
         <ixy>${chest.Ixyc}</ixy>
       </inertia>
     </inertial>
-    <sensor name="camera.ptgrey" type="camera">
-      <pose>0.1323009 -0.0675 0.2217387 0 0.611 0</pose>
-      <camera>
-        <horizontal_fov>1.75</horizontal_fov>
-        <image>
-          <width>640</width>
-          <height>480</height>
-          <format>R8G8B8</format>
-        </image>
-        <clip>
-          <near>0.5</near>
-          <far>30</far>
-        </clip>
-        <noise>
-          <type>gaussian</type>
-          <!-- Noise is sampled independently per pixel on each frame.
-               That pixel's noise value is added to each of its color
-               channels, which at that point lie in the range [0,1]. -->
-          <mean>0.0</mean>
-          <stddev>0.007</stddev>
-        </noise>
-      </camera>
-      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
-        <alwaysOn>true</alwaysOn>
-        <updateRate>30.0</updateRate>
-        <cameraName>chest/camera</cameraName>
-        <imageTopicName>image_raw</imageTopicName>
-        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-        <frameName>camera.ptgrey</frameName>
-        <hackBaseline>0.0</hackBaseline>
-        <distortionK1>-0.293600</distortionK1>
-        <distortionK2>0.212124</distortionK2>
-        <distortionK3>-0.138326</distortionK3>
-        <distortionT1>0.000764</distortionT1>
-        <distortionT2>-0.000452</distortionT2>
-      </plugin>
-    </sensor>
-  </link>
-
-  <joint name="chest_lidar_pitch" type="revolute">
-    <pose>${chest_lidar_pitch.X - chest_lidar.Xcog} ${chest_lidar_pitch.Y - chest_lidar.Ycog} ${chest_lidar_pitch.Z - chest_lidar.Zcog} 0 0 0</pose>
-    <parent>
-      chest
-    </parent>
-    <child>
-      chest_lidar
-    </child>
-    <axis>
-      <xyz>0 1 0</xyz>
-      <limit>
-        <lower>${chest_lidar_pitch.pitch_lower_limit}</lower>
-        <upper>${chest_lidar_pitch.pitch_upper_limit}</upper>
-        <effort>150</effort>
-        <velocity>12</velocity>
-      </limit>
-      <dynamics>
-        <damping>1.0</damping>
-        <friction>0</friction>
-      </dynamics>
-    </axis>
-    <physics>
-      <ode>
-        <cfm_damping>1</cfm_damping>
-      </ode>
-    </physics>
-  </joint>
-
-  <link name="chest_lidar">
-    <pose>${chest_lidar.Xcog} ${chest_lidar.Ycog} ${chest_lidar.Zcog} 0 0 0</pose>
-    <collision name="chest_lidar_collision">
-      <geometry>
-        <box>
-          <size>${chest_lidar.Xbb} ${chest_lidar.Ybb} ${chest_lidar.Zbb}</size>
-        </box>
-      </geometry>
-    </collision>
-    <visual name="chest_lidar_visual">
-      <pose>${chest_lidar.pose}</pose>
-      <geometry>
-        ${chest_lidar.geometry}
-      </geometry>
-      <material>
-        <script>
-          <uri>file://media/materials/scripts/gazebo.material</uri>
-          <name>Gazebo/FlatBlack</name>
-        </script>
-      </material>
-    </visual>
-    <inertial>
-      <pose>${chest_lidar.Xcbar - chest_lidar.Xcog} ${chest_lidar.Ycbar - chest_lidar.Ycog} ${chest_lidar.Zcbar - chest_lidar.Zcog} 0 0 0</pose>
-      <mass>${chest_lidar.Mass * mass.sdf_scale_factor}</mass>
-      <inertia>
-        <ixx>${chest_lidar.Ixc}</ixx>
-        <iyy>${chest_lidar.Iyc}</iyy>
-        <izz>${chest_lidar.Izc}</izz>
-        <iyz>${chest_lidar.Iyzc}</iyz>
-        <ixz>${chest_lidar.Ixzc}</ixz>
-        <ixy>${chest_lidar.Ixyc}</ixy>
-      </inertia>
-    </inertial>
-    <sensor name="lidar.chest_hokuyo" type="ray">
-      <!-- Hokuyo UTM-30LX-EW -->
-      <always_on>1</always_on>
-      <update_rate>40</update_rate>
-      <pose>${chest_lidar.SensorX - chest_lidar.Xcog} ${chest_lidar.SensorY - chest_lidar.Ycog} ${chest_lidar.SensorZ - chest_lidar.Zcog} 0 1.57079633 0</pose>
-      <ray>
-        <scan>
-          <horizontal>
-            <samples>1081</samples>
-            <resolution>1</resolution>
-            <min_angle>-2.35619449</min_angle>
-            <max_angle>2.35619449</max_angle>
-          </horizontal>
-        </scan>
-        <range>
-          <min>.1</min>
-          <max>70</max>
-          <resolution>.05</resolution>
-        </range>
-        <noise>
-          <type>gaussian</type>
-          <mean>0.0</mean>
-          <stddev>0.01</stddev>
-        </noise>
-      </ray>
-      <plugin name="gazebo_ros_chest_hokuyo" filename="libgazebo_ros_laser.so">
-        <topicName>/chest/laser/scan/</topicName>
-        <frameName>chest_lidar_emitter</frameName>
-      </plugin>
-    </sensor>
   </link>
 
   <joint name="head_yaw" type="revolute">

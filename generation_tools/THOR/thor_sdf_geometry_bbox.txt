@@ -30,10 +30,6 @@ pose=0 0 0 0 0 0
 geometry=<box>\n					<size>${chest.Xbb} ${chest.Ybb} ${chest.Zbb}</size>\n				</box>
 pose=0 0 0 0 0 0
 
-**chest_lidar
-geometry=<box>\n					<size>${chest_lidar.Xbb} ${chest_lidar.Ybb} ${chest_lidar.Zbb}</size>\n				</box>
-pose=0 0 0 0 0 0
-
 **neck
 geometry=<box>\n					<size>${neck.Xbb} ${neck.Ybb} ${neck.Zbb}</size>\n				</box>
 pose=0 0 0 0 0 0

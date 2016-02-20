@@ -1,97 +1,93 @@
 **torso
-geometry=<mesh filename="package://thor_description/meshes/torso.stl" scale=".001 .001 .001" />
+geometry=<mesh filename="package://thor/meshes/torso.stl" scale=".001 .001 .001" />
 origin=${-torso_frame.X} ${-torso_frame.Y} ${-torso_frame.Z}
 
 **l_thigh
-geometry=<mesh filename="package://thor_description/meshes/l_thigh.stl" scale=".001 .001 .001" />
+geometry=<mesh filename="package://thor/meshes/l_thigh.stl" scale=".001 .001 .001" />
 origin=${-l_hip.X} ${-l_hip.Y} ${-l_hip.Z}
 
 **r_thigh
-geometry=<mesh filename="package://thor_description/meshes/r_thigh.stl" scale=".001 .001 .001" />
+geometry=<mesh filename="package://thor/meshes/r_thigh.stl" scale=".001 .001 .001" />
 origin=${-r_hip.X} ${-r_hip.Y} ${-r_hip.Z}
 
 **l_shin
-geometry=<mesh filename="package://thor_description/meshes/l_shin.stl" scale=".001 .001 .001" />
+geometry=<mesh filename="package://thor/meshes/l_shin.stl" scale=".001 .001 .001" />
 origin=${-l_knee.X} ${-l_knee.Y} ${-l_knee.Z}
 
 **r_shin
-geometry=<mesh filename="package://thor_description/meshes/r_shin.stl" scale=".001 .001 .001" />
+geometry=<mesh filename="package://thor/meshes/r_shin.stl" scale=".001 .001 .001" />
 origin=${-r_knee.X} ${-r_knee.Y} ${-r_knee.Z}
 
 **l_foot
-geometry=<mesh filename="package://thor_description/meshes/l_foot.stl" scale=".001 .001 .001" />
+geometry=<mesh filename="package://thor/meshes/l_foot.stl" scale=".001 .001 .001" />
 origin=${-l_ankle.X} ${-l_ankle.Y} ${-l_ankle.Z}
 
 **r_foot
-geometry=<mesh filename="package://thor_description/meshes/r_foot.stl" scale=".001 .001 .001" />
+geometry=<mesh filename="package://thor/meshes/r_foot.stl" scale=".001 .001 .001" />
 origin=${-r_ankle.X} ${-r_ankle.Y} ${-r_ankle.Z}
 
 **chest
-geometry=<mesh filename="package://thor_description/meshes/chest.stl" scale=".001 .001 .001" />
+geometry=<mesh filename="package://thor/meshes/chest.stl" scale=".001 .001 .001" />
 origin=${-waist.X} ${-waist.Y} ${-waist.Z}
 
-**chest_lidar
-geometry=<mesh filename="package://thor_description/meshes/chest_lidar.stl" scale=".001 .001 .001" />
-origin=${-chest_lidar_pitch.X} ${-chest_lidar_pitch.Y} ${-chest_lidar_pitch.Z}
-
 **neck
-geometry=<mesh filename="package://thor_description/meshes/neck.stl" scale=".001 .001 .001" />
+geometry=<mesh filename="package://thor/meshes/neck.stl" scale=".001 .001 .001" />
 origin=${-head_yaw.X} ${-head_yaw.Y} ${-head_yaw.Z}
 
 **head
-geometry=<mesh filename="package://thor_description/meshes/head.stl" scale=".001 .001 .001" />
+geometry=<mesh filename="package://thor/meshes/head.stl" scale=".001 .001 .001" />
 origin=${-head_pitch.X} ${-head_pitch.Y} ${-head_pitch.Z}
 
 **head_lidar
-geometry=<mesh filename="package://thor_description/meshes/head_lidar.stl" scale=".001 .001 .001" />
+geometry=<mesh filename="package://thor/meshes/head_lidar.stl" scale=".001 .001 .001" />
 origin=${-head_lidar_roll.X} ${-head_lidar_roll.Y} ${-head_lidar_roll.Z}
 
 **l_arm
-geometry=<mesh filename="package://thor_description/meshes/l_arm.stl" scale=".001 .001 .001" />
+geometry=<mesh filename="package://thor/meshes/l_arm.stl" scale=".001 .001 .001" />
 origin=${-l_shoulder.X} ${-l_shoulder.Y} ${-l_shoulder.Z}
 
 **r_arm
-geometry=<mesh filename="package://thor_description/meshes/r_arm.stl" scale=".001 .001 .001" />
+geometry=<mesh filename="package://thor/meshes/r_arm.stl" scale=".001 .001 .001" />
 origin=${-r_shoulder.X} ${-r_shoulder.Y} ${-r_shoulder.Z}
 
 **l_forearm
-geometry=<mesh filename="package://thor_description/meshes/l_forearm.stl" scale=".001 .001 .001" />
+geometry=<mesh filename="package://thor/meshes/l_forearm.stl" scale=".001 .001 .001" />
 origin=${-l_elbow.X} ${-l_elbow.Y} ${-l_elbow.Z}
 
 **r_forearm
-geometry=<mesh filename="package://thor_description/meshes/r_forearm.stl" scale=".001 .001 .001" />
+geometry=<mesh filename="package://thor/meshes/r_forearm.stl" scale=".001 .001 .001" />
 origin=${-r_elbow.X} ${-r_elbow.Y} ${-r_elbow.Z}
 
 **l_foreforearm
-geometry=<mesh filename="package://thor_description/meshes/l_foreforearm.stl" scale=".001 .001 .001" />
+geometry=<mesh filename="package://thor/meshes/l_foreforearm.stl" scale=".001 .001 .001" />
 origin=${-l_wrist_upper.X} ${-l_wrist_upper.Y} ${-l_wrist_upper.Z}
 
 **r_foreforearm
-geometry=<mesh filename="package://thor_description/meshes/r_foreforearm.stl" scale=".001 .001 .001" />
+geometry=<mesh filename="package://thor/meshes/r_foreforearm.stl" scale=".001 .001 .001" />
 origin=${-r_wrist_upper.X} ${-r_wrist_upper.Y} ${-r_wrist_upper.Z}
 
 **l_palm
-geometry=<mesh filename="package://thor_description/meshes/l_palm.stl" scale=".001 .001 .001" />
+geometry=<mesh filename="package://thor/meshes/l_palm.stl" scale=".001 .001 .001" />
 origin=${-l_wrist_lower.X} ${-l_wrist_lower.Y} ${-l_wrist_lower.Z}
 
 **r_palm
-geometry=<mesh filename="package://thor_description/meshes/r_palm.stl" scale=".001 .001 .001" />
+geometry=<mesh filename="package://thor/meshes/r_palm.stl" scale=".001 .001 .001" />
 origin=${-r_wrist_lower.X} ${-r_wrist_lower.Y} ${-r_wrist_lower.Z}
 
 **l_finger_link
-geometry=<mesh filename="package://thor_description/meshes/l_finger.stl" scale=".001 .001 .001" />
+geometry=<mesh filename="package://thor/meshes/l_finger.stl" scale=".001 .001 .001" />
 origin=${-l_finger.X} ${-l_finger.Y} ${-l_finger.Z}
 
 **r_finger_link
-geometry=<mesh filename="package://thor_description/meshes/r_finger.stl" scale=".001 .001 .001" />
+geometry=<mesh filename="package://thor/meshes/r_finger.stl" scale=".001 .001 .001" />
 origin=${-r_finger.X} ${-r_finger.Y} ${-r_finger.Z}
 
 **l_gripper_link
-geometry=<mesh filename="package://thor_description/meshes/l_gripper.stl" scale=".001 .001 .001" />
+geometry=<mesh filename="package://thor/meshes/l_gripper.stl" scale=".001 .001 .001" />
 origin=${-l_gripper.X} ${-l_gripper.Y} ${-l_gripper.Z}
 
 **r_gripper_link
-geometry=<mesh filename="package://thor_description/meshes/r_gripper.stl" scale=".001 .001 .001" />
+geometry=<mesh filename="package://thor/meshes/r_gripper.stl" scale=".001 .001 .001" />
 origin=${-r_gripper.X} ${-r_gripper.Y} ${-r_gripper.Z}
 
 **l_thumb_link

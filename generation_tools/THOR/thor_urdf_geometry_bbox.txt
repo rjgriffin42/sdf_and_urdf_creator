@@ -30,10 +30,6 @@ origin=${r_foot.Xcog - r_ankle.X} ${r_foot.Ycog - r_ankle.Y} ${r_foot.Zcog - r_a
 geometry=<box size="${chest.Xbb} ${chest.Ybb} ${chest.Zbb}" />
 origin=${chest.Xcog - waist.X} ${chest.Ycog - waist.Y} ${chest.Zcog - waist.Z}
 
-**chest_lidar
-geometry=<box size="${chest_lidar.Xbb} ${chest_lidar.Ybb} ${chest_lidar.Zbb}" />
-origin=${chest_lidar.Xcog - chest_lidar_pitch.X} ${chest_lidar.Ycog - chest_lidar_pitch.Y} ${chest_lidar.Zcog - chest_lidar_pitch.Z}
-
 **neck
 geometry=<box size="${neck.Xbb} ${neck.Ybb} ${neck.Zbb}" />
 origin=${neck.Xcog - head_yaw.X} ${neck.Ycog - head_yaw.Y} ${neck.Zcog - head_yaw.Z}

@@ -402,44 +402,6 @@
     </inertial>
   </link>
 
-  <joint name="chest_lidar_pitch" type="revolute">
-    <origin xyz="${chest_lidar_pitch.X - waist.X} ${chest_lidar_pitch.Y - waist.Y} ${chest_lidar_pitch.Z - waist.Z}" />
-    <parent link="chest" />
-    <child link="chest_lidar" />
-    <axis xyz="0 1 0" />
-    <limit lower="${chest_lidar_pitch.pitch_lower_limit}" upper="${chest_lidar_pitch.pitch_upper_limit}" effort="150" velocity="1.6" />
-    <dynamics damping="1.0" friction="0" />
-  </joint>
-
-  <link name="chest_lidar">
-    <collision name="chest_lidar_collision">
-      <origin xyz="${chest_lidar.Xcog - chest_lidar_pitch.X} ${chest_lidar.Ycog - chest_lidar_pitch.Y} ${chest_lidar.Zcog - chest_lidar_pitch.Z}" />
-      <geometry>
-        <box size="${chest_lidar.Xbb} ${chest_lidar.Ybb} ${chest_lidar.Zbb}" />
-      </geometry>
-    </collision>
-    <visual name="chest_lidar_visual">
-      <origin xyz="${chest_lidar.origin}" />
-      <geometry>
-        ${chest_lidar.geometry}
-      </geometry>
-    </visual>
-    <inertial>
-      <origin xyz="${chest_lidar.Xcbar - chest_lidar_pitch.X} ${chest_lidar.Ycbar - chest_lidar_pitch.Y} ${chest_lidar.Zcbar - chest_lidar_pitch.Z}" />
-      <mass value="${chest_lidar.Mass * mass.sdf_scale_factor}" />
-      <inertia ixx="${chest_lidar.Ixc}" iyy="${chest_lidar.Iyc}" izz="${chest_lidar.Izc}" iyz="${chest_lidar.Iyzc}" ixz="${chest_lidar.Ixzc}" ixy="${chest_lidar.Ixyc}" />
-    </inertial>
-  </link>
-
-  <joint name="chest_lidar_emitter_joint" type="fixed">
-    <origin xyz="${chest_lidar.SensorX - chest_lidar.Xcog} ${chest_lidar.SensorY - chest_lidar.Ycog} ${chest_lidar.SensorZ - chest_lidar.Zcog}" rpy="0 1.57079633 0" />
-    <parent link="chest_lidar" />
-    <child link="chest_lidar_emitter" />
-  </joint>
-
-  <link name="chest_lidar_emitter">
-  </link>
-
   <joint name="head_yaw" type="revolute">
     <origin xyz="${head_yaw.X - waist.X} ${head_yaw.Y - waist.Y} ${head_yaw.Z - waist.Z}" />
     <parent link="chest" />

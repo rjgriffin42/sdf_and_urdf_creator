@@ -54,9 +54,6 @@ Iyzc, Ixzc, Ixyc      =    0.000299081,    0.000191055,    0.000230307
 Xcog, Ycog, Zcog = -0.0085,	0,	1.0180015
 Xbb, Ybb, Zbb    = 0.250,	0.30,	0.3299971
 
-optional_fixed_pose = ${with.fixed_torso == 0 and '' or '<pose>0 0 0.3 0 0 0</pose>'}
-optional_fixed_link = ${with.fixed_torso == 0 and '' or '<joint name="base" type="prismatic"><pose>0 0 0 0 0 0</pose><parent>world</parent><child>torso</child><axis><xyz>0 0 1</xyz><limit><upper>0</upper><lower>0</lower></limit></axis></joint>'}
-
 ************************r_foot
 Mass                  =    1.667693508
 Xcbar, Ycbar, Zcbar   =   -0.002942557,   -0.100949839,    0.032009542
@@ -85,41 +82,13 @@ Xcog, Ycog, Zcog = -0.002281,	-0.117675,	0.6903315
 Xbb, Ybb, Zbb    = 0.10,	0.18965,	0.4496629
 
 ************************chest
-Lidar
-Mass_lidar                  =   9.828191474
-Xcbar_lidar, Ycbar_lidar, Zcbar_lidar   = -0.009475235,    0.003477582,    1.367292633
-Ixc_lidar, Iyc_lidar, Izc_lidar         =  0.212139518,    0.177608078,    0.082558505
-Iyzc_lidar, Ixzc_lidar, Ixyc_lidar      =  0.000482353,   -0.001780773,    0.000361146
-
-No Lidar
-Mass_no_lidar                  = 8.639354686
-Xcbar_no_lidar, Ycbar_no_lidar, Zcbar_no_lidar   = -0.009475235,    0.003477582,    1.367292633
-Ixc_no_lidar, Iyc_no_lidar, Izc_no_lidar         =  0.212139518,    0.177608078,    0.082558505
-Iyzc_no_lidar, Ixzc_no_lidar, Ixyc_no_lidar      =  0.000482353,   -0.001780773,    0.000361146
+Mass                  = 8.639354686
+Xcbar, Ycbar, Zcbar   = -0.009475235,    0.003477582,    1.367292633
+Ixc, Iyc, Izc         =  0.212139518,    0.177608078,    0.082558505
+Iyzc, Ixzc, Ixyc      =  0.000482353,   -0.001780773,    0.000361146
 
 Xcog, Ycog, Zcog = 0.001,	0,	1.35125
 Xbb, Ybb, Zbb    = 0.250,	0.30,	0.3685
-
-Mass  = ${chest['Mass_'.. (with.lidar == 1 and '' or 'no_')..'lidar']}
-Xcbar = ${chest['Xcbar_'..(with.lidar == 1 and '' or 'no_')..'lidar']}
-Ycbar = ${chest['Ycbar_'..(with.lidar == 1 and '' or 'no_')..'lidar']}
-Zcbar = ${chest['Zcbar_'..(with.lidar == 1 and '' or 'no_')..'lidar']}
-Ixc   = ${chest['Ixc_'..  (with.lidar == 1 and '' or 'no_')..'lidar']}
-Iyc   = ${chest['Iyc_'..  (with.lidar == 1 and '' or 'no_')..'lidar']}
-Izc   = ${chest['Izc_'..  (with.lidar == 1 and '' or 'no_')..'lidar']}
-Iyzc  = ${chest['Iyzc_'.. (with.lidar == 1 and '' or 'no_')..'lidar']}
-Ixzc  = ${chest['Ixzc_'.. (with.lidar == 1 and '' or 'no_')..'lidar']}
-Ixyc  = ${chest['Ixyc_'.. (with.lidar == 1 and '' or 'no_')..'lidar']}
-
-************************chest_lidar
-Mass                  =    0.05
-Xcbar, Ycbar, Zcbar   =    0.139664846,   -0.003112220,    1.409964286
-Ixc, Iyc, Izc         =    0.000203256,    0.000353460,    0.000382989
-Iyzc, Ixzc, Ixyc      =    0.000000117,    0.000000232,    0.000026199
-
-Xcog, Ycog, Zcog =  0.1491,	-0.0075,	1.41085
-Xbb, Ybb, Zbb = 0.092,	0.075,	0.062
-SensorX, SensorY, SensorZ = ${chest_lidar_pitch.X - 0.02 + 0.0605}, ${chest_lidar_pitch.Y + 0.042}, ${chest_lidar_pitch.Z}
 
 ************************l_arm
 Mass                  =    2.933504702
@@ -373,7 +342,6 @@ pitch_lower_limit, pitch_upper_limit = ${math.pi/180 * -120}, ${math.pi/180 * 30
 X, Y, Z = -0.0085,      0,      1.0180015
 roll, pitch, yaw = 0, 0, ${math.pi/2}
 
-4/8/2015
 *****kvh_joint
 X, Y, Z = -0.184,	0,	1.009355
 roll, pitch, yaw = 0, 0, ${math.pi/2}
@@ -427,10 +395,6 @@ roll_lower_limit, roll_upper_limit = -1.5675, 1.5675
 *****r_wrist_lower
 X, Y, Z =        0,   -0.2375,  0.8425
 pitch_lower_limit, pitch_upper_limit = ${-math.pi}, ${math.pi}
-
-*****chest_lidar_pitch
-X, Y, Z =        0.1281,   0,        1.40985
-pitch_lower_limit, pitch_upper_limit = ${math.pi/180 * -90}, ${math.pi/180 * 90}
 
 *****head_lidar_roll
 X, Y, Z =        0,        0,        1.6515

@@ -30,10 +30,6 @@ pose=${-r_foot.Xcog} ${-r_foot.Ycog} ${-r_foot.Zcog} 0 0 0
 geometry=<mesh>\n					<uri>file://thor/meshes/chest.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
 pose=${-chest.Xcog} ${-chest.Ycog} ${-chest.Zcog} 0 0 0
 
-**chest_lidar
-geometry=<mesh>\n					<uri>file://thor/meshes/chest_lidar.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
-pose=${-chest_lidar.Xcog} ${-chest_lidar.Ycog} ${-chest_lidar.Zcog} 0 0 0
-
 **neck
 geometry=<mesh>\n					<uri>file://thor/meshes/neck.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
 pose=${-neck.Xcog} ${-neck.Ycog} ${-neck.Zcog} 0 0 0

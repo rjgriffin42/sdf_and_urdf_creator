@@ -1,7 +1,6 @@
 #!/bin/bash
 
 ##########################################################################
-## Adapted from code written by Nikolaus Wittenstein
 ## Written by Robert Griffin
 ##########################################################################
 
@@ -14,23 +13,34 @@ while getopts $options option ; do
     esac
 done
 
-robot=$1
-robot=${robot:-escher_hdt}
-robot_dir=$robot
-if [ $robot = "escher_hdt" ]; then
-  robot="escher"
+robot_input=$1
+robot_input=${robot_input:-escher}
+if [ $robot_input == "escher" ]; then
+  robot="ESCHER"
+  robot_lower_case="escher"
+  robot_dir=$robot
+elif [ $robot_input == "thor" ]; then
+  robot="THOR"
+  robot_lower_case="thor"
+  robot_dir=$robot
+elif [ $robot_input == "v2exoskeleton" ]; then
+  robot="V2Exoskeleton"
+  robot_lower_case="v2exoskeleton"
+  robot_dir=$robot
+else
+  echo "Valid robot build target not specified."
+  echo "Input options are : "
+  echo "     escher"
+  echo "     thor"
+  echo "     v2exoskeleton"
 fi
 
-ros_test=`rospack find ${robot}_description | grep "[rospack] Error: package"`
+use_meshes=$2
+use_meshes=${use_meshes:-false}
 
-if [ -z "ros_test" ]; then
-  echo "Cannot find ROS packages, bailing out."
-  exit 1
-fi
-
-urdf_dir="`rospack find ${robot}_description`/urdf"
-robot_sdf_dir="`rospack find trec_platforms`/gazebo_models"
-root_dir="$ASGARD_HOME/Tools/generate_model"
+script_dir=$(dirname $0)
+data_dir=$script_dir/$robot_dir
+target_dir=$script_dir/../model_directory/$robot_dir
 
 #for KDL
 echo -e "*with \nlidar=1  \nfixed_torso=0" > kdl_temp
@@ -40,56 +50,44 @@ echo -e "*with \nlidar=0  \nfixed_torso=0" > urdf_temp
 
 #for SDF (Gazebo)
 echo -e "*with \nlidar=0  \nfixed_torso=0" > sdf_temp
-echo -e "*with \nlidar=0  \nfixed_torso=1" > sdf_fixed_temp
 
-for i in kdl_temp urdf_temp sdf_temp sdf_fixed_temp; do
-  cat $root_dir/$robot_dir/${robot}_nx_data.txt >> $i
+for i in kdl_temp urdf_temp sdf_temp sdf_temp; do
+  cat $script_dir/$robot_dir/${robot}_cad_data.txt >> $i
 
   # reduce_template creates a file named something like "nx_data84". Rename it to something better.
   mv $(./reduce_template.sh $i) $i
 done
 
-echo "Generating $robot URDF Models"
+if [ $use_meshes == "true" ]; then
 
-# Robot URDF Mesh Model
-lua $root_dir/format_model.lua $root_dir/$robot_dir/${robot}_urdf_geometry_mesh.txt $root_dir/$robot_dir/${robot}_urdf_template.txt > mesh_temp
-lua $root_dir/format_model.lua urdf_temp mesh_temp > $urdf_dir/${robot}_mesh.xacro
+  echo "Generating $robot URDF Mesh Collision Models"
 
-# Robot URDF Bounding Box Model
-lua $root_dir/format_model.lua $root_dir/$robot_dir/${robot}_urdf_geometry_bbox.txt $root_dir/$robot_dir/${robot}_urdf_template.txt > bbox_temp
-lua $root_dir/format_model.lua urdf_temp bbox_temp > $urdf_dir/${robot}_bbox.xacro
+  # Robot URDF Mesh Model
+  lua $script_dir/format_model.lua $data_dir/${robot_lower_case}_urdf_geometry_mesh.txt $data_dir/${robot_lower_case}_urdf_template.txt > mesh_temp
+  lua $script_dir/format_model.lua urdf_temp mesh_temp > $target_dir/${robot_lower_case}.xacro
 
-
-echo "Generating $robot SDF Models"
-
-# Robot SDF Mesh Model
-lua $root_dir/format_model.lua $root_dir/$robot_dir/${robot}_sdf_geometry_mesh.txt $root_dir/$robot_dir/${robot}_sdf_template.txt > mesh_temp
-lua $root_dir/format_model.lua sdf_temp mesh_temp > $robot_sdf_dir/$robot/${robot}.sdf
-
-# Robot SDF Mesh Fixed Model
-lua $root_dir/format_model.lua $root_dir/$robot_dir/${robot}_sdf_geometry_mesh.txt $root_dir/$robot_dir/${robot}_sdf_template.txt > mesh_fixed_temp
-lua $root_dir/format_model.lua sdf_fixed_temp mesh_fixed_temp > $robot_sdf_dir/${robot}_fixed/${robot}_fixed.sdf
-
-# Robot SDF Bounding Box Model
-lua $root_dir/format_model.lua $root_dir/$robot_dir/${robot}_sdf_geometry_bbox.txt $root_dir/$robot_dir/${robot}_sdf_template.txt > bbox_temp
-lua $root_dir/format_model.lua sdf_temp bbox_temp > $robot_sdf_dir/${robot}_bbox/${robot}_bbox.sdf
-
-# Robot SDF Bounding Box Fixed Model
-lua $root_dir/format_model.lua $root_dir/$robot_dir/${robot}_sdf_geometry_bbox.txt $root_dir/$robot_dir/${robot}_sdf_template.txt > bbox_fixed_temp
-lua $root_dir/format_model.lua sdf_fixed_temp bbox_fixed_temp > $robot_sdf_dir/${robot}_bbox_fixed/${robot}_bbox_fixed.sdf
+  echo "Generating $robot SDF Mesh Collision Models"
+  
+  # Robot SDF Mesh Model
+  lua $script_dir/format_model.lua $data_dir/${robot_lower_case}_sdf_geometry_mesh.txt $data_dir/${robot_lower_case}_sdf_template.txt > mesh_temp
+  lua $script_dir/format_model.lua sdf_temp mesh_temp > $target_dir/${robot_lower_case}.sdf
+else
+  echo "Generating $robot URDF Bounding Box Collision Models"
+  
+  # Robot URDF Bounding Box Model
+  lua $script_dir/format_model.lua $data_dir/${robot_lower_case}_urdf_geometry_bbox.txt $data_dir/${robot_lower_case}_urdf_template.txt > bbox_temp
+  lua $script_dir/format_model.lua urdf_temp bbox_temp > $target_dir/${robot_lower_case}.xacro
+  
+  echo "Generating $robot SDF Bounding Box Collision Models"
+  
+  # Robot SDF Bounding Box Model
+  lua $script_dir/format_model.lua $data_dir/${robot_lower_case}_sdf_geometry_bbox.txt $data_dir/${robot_lower_case}_sdf_template.txt > bbox_temp
+  lua $script_dir/format_model.lua sdf_temp bbox_temp > $target_dir/${robot_lower_case}.sdf
+fi
 
 #KDL Mechanics
 echo "Generating $robot KDL Mechanics"
-lua $root_dir/format_model.lua kdl_temp $root_dir/$robot_dir/${robot}_kdl_template.txt > $ASGARD_HOME/Platform/gazebo_${robot}/Mechanics/Mechanics.cpp
-
-cp ../../Platform/gazebo_${robot}/Mechanics/Mechanics.cpp $ASGARD_HOME/Platform/$robot/Mechanics/Mechanics.cpp
-if [ $robot == "escher" ]; then
-    sed -i "s/GazeboEscher/Escher/g" $ASGARD_HOME/Platform/$robot/Mechanics/Mechanics.cpp
-    sed -i "s/gazebo_escher/escher/" $ASGARD_HOME/Platform/$robot/Mechanics/Mechanics.cpp
-else
-    sed -i "s/GazeboThor/Thor/g" $ASGARD_HOME/Platform/$robot/Mechanics/Mechanics.cpp
-    sed -i "s/gazebo_thor/thor/" $ASGARD_HOME/Platform/$robot/Mechanics/Mechanics.cpp
-fi
+lua $script_dir/format_model.lua kdl_temp $data_dir/${robot_lower_case}_kdl_template.txt > $target_dir/${robot_lower_case}.cpp
 
 rm -f nx_data*
 rm -f *temp
