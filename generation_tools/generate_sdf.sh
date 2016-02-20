@@ -8,7 +8,7 @@ printUsage()
 {
   echo ""
   echo "Usage: generate_sdf.sh [-r robot_name] [-m meshes (true:-false)]"
-  echo "                       [-t target_directory]"
+  echo "                       [-t target_directory] [-k make_kdl (true:-false)]"
   echo ""
   echo "Creates sdf and urdf files, as well as a KDL model."
   echo ""
@@ -20,7 +20,9 @@ printUsage()
   echo "Meshes flag creates collisions for SDFs and URDFs using either"
   echo "STL file meshes or bounding boxes."
   echo ""
-  echo "The target directory defaults to model_directoy/robot_name"
+  echo "The target directory defaults to model_directoy/robot_name."
+  echo ""
+  echo "The make KDL flag determines whether or not to generate a KDL C++ file."
   echo ""
 }
 
@@ -34,12 +36,13 @@ checkDirectory()
   fi
 }
 
-options='r:m:t:fh?:'
+options='r:m:t:k:fh?:'
 while getopts $options option ; do
     case $option in
         r  ) robot_input=${OPTARG};;
         m  ) use_meshes=${OPTARG};;
         t  ) checkDirectory ${OPTARG};;
+        k  ) make_kdl=${OPTARG};;
         h  ) printUsage; exit 1;;
         \? ) printUsage; exit 1;;
         *  ) printUsage; exit 1;;
@@ -61,14 +64,20 @@ elif [ $robot_input == "v2exoskeleton" ]; then
   robot_lower_case="v2exoskeleton"
   robot_dir=$robot
 else
+  echo ""
   echo "Valid robot build target not specified."
   echo "Input options are : "
   echo "     escher"
   echo "     thor"
   echo "     v2exoskeleton"
+  echo ""
+  exit 0;
 fi
 
+# define variables
 use_meshes=${use_meshes:-false}
+make_kdl=${make_kdl:-false}
+
 script_dir=$(dirname $0)
 data_dir=$script_dir/robot_templates/$robot_dir
 default_target_dir=$script_dir/../model_directory/$robot_dir
@@ -120,10 +129,12 @@ buildFiles()
     lua $script_dir/format_model.lua sdf_temp bbox_temp > $target_dir/${robot_lower_case}.sdf
   fi
   
-  #KDL Mechanics
-  echo "Generating $robot KDL Mechanics"
-  lua $script_dir/format_model.lua kdl_temp $data_dir/${robot_lower_case}_kdl_template.txt > $target_dir/${robot_lower_case}.cpp
-  
+  if [ $make_kdl == "true" ]; then
+    #KDL Mechanics
+    echo "Generating $robot KDL Mechanics"
+    lua $script_dir/format_model.lua kdl_temp $data_dir/${robot_lower_case}_kdl_template.txt > $target_dir/${robot_lower_case}.cpp
+  fi
+    
   rm -f data_container*
   rm -f *temp
 }
