@@ -1,0 +1,131 @@
+**torso
+geometry=<mesh>\n					<uri>file://escher/meshes/torso.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-torso.Xcog} ${-torso.Ycog} ${-torso.Zcog} 0 0 0
+
+**l_thigh
+geometry=<mesh>\n					<uri>file://escher/meshes/l_thigh.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-l_thigh.Xcog} ${-l_thigh.Ycog} ${-l_thigh.Zcog} 0 0 0
+
+**r_thigh
+geometry=<mesh>\n					<uri>file://escher/meshes/r_thigh.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-r_thigh.Xcog} ${-r_thigh.Ycog} ${-r_thigh.Zcog} 0 0 0
+
+**l_shin
+geometry=<mesh>\n					<uri>file://escher/meshes/l_shin.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-l_shin.Xcog} ${-l_shin.Ycog} ${-l_shin.Zcog} 0 0 0
+
+**r_shin
+geometry=<mesh>\n					<uri>file://escher/meshes/r_shin.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-r_shin.Xcog} ${-r_shin.Ycog} ${-r_shin.Zcog} 0 0 0
+
+**l_foot
+geometry=<mesh>\n					<uri>file://escher/meshes/l_foot.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-l_foot.Xcog} ${-l_foot.Ycog} ${-l_foot.Zcog} 0 0 0
+
+**r_foot
+geometry=<mesh>\n					<uri>file://escher/meshes/r_foot.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-r_foot.Xcog} ${-r_foot.Ycog} ${-r_foot.Zcog} 0 0 0
+
+**chest
+geometry=<mesh>\n					<uri>file://escher/meshes/chest.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-chest.Xcog_1} ${-chest.Ycog_1} ${-chest.Zcog_1} 0 0 0
+
+**neck
+geometry=<mesh>\n					<uri>file://escher/meshes/neck.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-neck.Xcog} ${-neck.Ycog} ${-neck.Zcog} 0 0 0
+
+**head
+geometry=<mesh>\n					<uri>file://escher/meshes/head.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-head.Xcog} ${-head.Ycog} ${-head.Zcog} 0 0 0
+
+**head_lidar
+geometry=<mesh>\n					<uri>file://escher/meshes/head_lidar.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=0 0 0 0 0 0
+
+**l_shoulder
+geometry=<mesh>\n					<uri>file://escher/meshes/ShoulderPitchLeft.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-l_shoulder_pitch.X} ${-l_shoulder_pitch.Y} ${-l_shoulder_pitch.Z} 0 0 0
+
+**r_shoulder
+geometry=<mesh>\n					<uri>file://escher/meshes/ShoulderPitchRight.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-r_shoulder_pitch.X} ${-r_shoulder_pitch.Y} ${-r_shoulder_pitch.Z} 0 0 0
+
+**l_shoulder_roll
+geometry=<mesh>\n					<uri>file://escher/meshes/ShoulderRollLeft.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-l_shoulder.X} ${-l_shoulder.Y} ${-l_shoulder.Zcog} 0 0 0
+
+**r_shoulder_roll
+geometry=<mesh>\n					<uri>file://escher/meshes/ShoulderRollRight.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-r_shoulder.X} ${-r_shoulder.Y} ${-r_shoulder.Zcog} 0 0 0
+
+**l_arm
+geometry=<mesh>\n					<uri>file://escher/meshes/ShoulderYawLeft.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-l_shoulder.X} ${-l_shoulder.Y} ${-l_shoulder.Z} 0 0 0
+
+**r_arm
+geometry=<mesh>\n					<uri>file://escher/meshes/ShoulderYawRight.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-r_shoulder.X} ${-r_shoulder.Y} ${-r_shoulder.Z} 0 0 0
+
+**l_elbow_link
+geometry=<mesh>\n					<uri>file://escher/meshes/ElbowLeft.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-l_elbow.X} ${-l_elbow.Y} ${-l_elbow.Z} 0 0 0
+
+**r_elbow_link
+geometry=<mesh>\n					<uri>file://escher/meshes/ElbowRight.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-r_elbow.X} ${-r_elbow.Y} ${-r_elbow.Z} 0 0 0
+
+**l_forearm
+geometry=<mesh>\n					<uri>file://escher/meshes/WristYawLeft.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-l_elbow.X} ${-l_elbow.Y} ${-l_elbow.Z} 0 0 0
+
+**r_forearm
+geometry=<mesh>\n					<uri>file://escher/meshes/WristYawRight.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-r_elbow.X} ${-r_elbow.Y} ${-r_elbow.Z} 0 0 0
+
+**l_foreforearm
+geometry=<mesh>\n					<uri>file://escher/meshes/WristPitchRollLeft.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-l_wrist_pitch.X} ${-l_wrist_pitch.Y} ${-l_wrist_pitch.Z} 0 0 0
+
+**r_foreforearm
+geometry=<mesh>\n					<uri>file://escher/meshes/WristPitchRollRight.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-r_wrist_pitch.X} ${-r_wrist_pitch.Y} ${-r_wrist_pitch.Z} 0 0 0
+
+**l_palm
+geometry=<mesh>\n					<uri>file://escher/meshes/PalmLeft.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-l_wrist_yaw.X} ${-l_wrist_yaw.Y} ${-l_wrist_yaw.Z} 0 0 0
+
+**r_palm
+geometry=<mesh>\n					<uri>file://escher/meshes/PalmRight.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-r_wrist_yaw.X} ${-r_wrist_yaw.Y} ${-r_wrist_yaw.Z} 0 0 0
+
+**l_index_link
+geometry=<mesh>\n					<uri>file://escher/meshes/PointerLeft.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-l_index_yaw.X} ${-l_index_yaw.Y} ${-l_index_yaw.Z} 0 0 0
+
+**r_index_link
+geometry=<mesh>\n					<uri>file://escher/meshes/PointerRight.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-r_index_yaw.X} ${-r_index_yaw.Y} ${-r_index_yaw.Z} 0 0 0
+
+**l_ring_link
+geometry=<mesh>\n					<uri>file://escher/meshes/RingLeft.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-l_ring_yaw.X} ${-l_ring_yaw.Y} ${-l_ring_yaw.Z} 0 0 0
+
+**r_ring_link
+geometry=<mesh>\n					<uri>file://escher/meshes/RingRight.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-r_ring_yaw.X} ${-r_ring_yaw.Y} ${-r_ring_yaw.Z} 0 0 0
+
+**l_thumb_base
+geometry=<mesh>\n					<uri>file://escher/meshes/ThumbBaseLeft.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-l_thumb_roll.X} ${-l_thumb_roll.Y} ${-l_thumb_roll.Z} 0 0 0
+
+**r_thumb_base
+geometry=<mesh>\n					<uri>file://escher/meshes/ThumbBaseRight.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-r_thumb_roll.X} ${-r_thumb_roll.Y} ${-r_thumb_roll.Z} 0 0 0
+
+**l_thumb_link
+geometry=<mesh>\n					<uri>file://escher/meshes/ThumbLeft.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-l_thumb_pitch.X} ${-l_thumb_pitch.Y} ${-l_thumb_pitch.Z} 0 0 0
+
+**r_thumb_link
+geometry=<mesh>\n					<uri>file://escher/meshes/ThumbRight.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-r_thumb_pitch.X} ${-r_thumb_pitch.Y} ${-r_thumb_pitch.Z} 0 0 0
