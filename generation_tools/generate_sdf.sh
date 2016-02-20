@@ -8,6 +8,7 @@ printUsage()
 {
   echo ""
   echo "Usage: generate_sdf.sh [-r robot_name] [-m meshes (true:-false)]"
+  echo "                       [-t target_directory]"
   echo ""
   echo "Creates sdf and urdf files, as well as a KDL model."
   echo ""
@@ -19,18 +20,32 @@ printUsage()
   echo "Meshes flag creates collisions for SDFs and URDFs using either"
   echo "STL file meshes or bounding boxes."
   echo ""
+  echo "The target directory defaults to model_directoy/robot_name"
+  echo ""
 }
 
-options='fh?:r:m'
+checkDirectory()
+{
+  target_dir=$1
+  echo "Writing to custom directory $target_dir ..."
+  if [[ ! -e $target_dir ]]; then
+    echo "Making directory $target_dir"
+    mkdir -p $target_dir
+  fi
+}
+
+options='r:m:t:fh?:'
 while getopts $options option ; do
     case $option in
         r  ) robot_input=${OPTARG};;
         m  ) use_meshes=${OPTARG};;
+        t  ) checkDirectory ${OPTARG};;
         h  ) printUsage; exit 1;;
         \? ) printUsage; exit 1;;
         *  ) printUsage; exit 1;;
     esac
 done
+
 
 robot_input=${robot_input:-escher}
 if [ $robot_input == "escher" ]; then
@@ -56,7 +71,8 @@ fi
 use_meshes=${use_meshes:-false}
 script_dir=$(dirname $0)
 data_dir=$script_dir/robot_templates/$robot_dir
-target_dir=$script_dir/../model_directory/$robot_dir
+default_target_dir=$script_dir/../model_directory/$robot_dir
+target_dir=${target_dir:-$default_target_dir}
 
 # Starts the building of the seperate files
 buildFiles()
