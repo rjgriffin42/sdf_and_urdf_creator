@@ -1,0 +1,104 @@
+**torso
+geometry=<mesh>\n					<uri>file://thor/meshes/torso.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-torso.Xcog} ${-torso.Ycog} ${-torso.Zcog} 0 0 0
+
+**l_thigh
+geometry=<mesh>\n					<uri>file://thor/meshes/l_thigh.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-l_thigh.Xcog} ${-l_thigh.Ycog} ${-l_thigh.Zcog} 0 0 0
+
+**r_thigh
+geometry=<mesh>\n					<uri>file://thor/meshes/r_thigh.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-r_thigh.Xcog} ${-r_thigh.Ycog} ${-r_thigh.Zcog} 0 0 0
+
+**l_shin
+geometry=<mesh>\n					<uri>file://thor/meshes/l_shin.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-l_shin.Xcog} ${-l_shin.Ycog} ${-l_shin.Zcog} 0 0 0
+
+**r_shin
+geometry=<mesh>\n					<uri>file://thor/meshes/r_shin.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-r_shin.Xcog} ${-r_shin.Ycog} ${-r_shin.Zcog} 0 0 0
+
+**l_foot
+geometry=<mesh>\n					<uri>file://thor/meshes/l_foot.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-l_foot.Xcog} ${-l_foot.Ycog} ${-l_foot.Zcog} 0 0 0
+
+**r_foot
+geometry=<mesh>\n					<uri>file://thor/meshes/r_foot.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-r_foot.Xcog} ${-r_foot.Ycog} ${-r_foot.Zcog} 0 0 0
+
+**chest
+geometry=<mesh>\n					<uri>file://thor/meshes/chest.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-chest.Xcog} ${-chest.Ycog} ${-chest.Zcog} 0 0 0
+
+**chest_lidar
+geometry=<mesh>\n					<uri>file://thor/meshes/chest_lidar.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-chest_lidar.Xcog} ${-chest_lidar.Ycog} ${-chest_lidar.Zcog} 0 0 0
+
+**neck
+geometry=<mesh>\n					<uri>file://thor/meshes/neck.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-neck.Xcog} ${-neck.Ycog} ${-neck.Zcog} 0 0 0
+pose=${-neck.Xcog} ${-neck.Ycog} ${-neck.Zcog} 0 0 0
+
+**head
+geometry=<mesh>\n					<uri>file://thor/meshes/head.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-head.Xcog} ${-head.Ycog} ${-head.Zcog} 0 0 0
+
+**head_lidar
+geometry=<mesh>\n					<uri>file://thor/meshes/head_lidar.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-head_lidar.Xcog} ${-head_lidar.Ycog} ${-head_lidar.Zcog} 0 0 0
+
+**l_arm
+geometry=<mesh>\n					<uri>file://thor/meshes/l_arm.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-l_arm.Xcog} ${-l_arm.Ycog} ${-l_arm.Zcog} 0 0 0
+
+**r_arm
+geometry=<mesh>\n					<uri>file://thor/meshes/r_arm.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-r_arm.Xcog} ${-r_arm.Ycog} ${-r_arm.Zcog} 0 0 0
+
+**l_forearm
+geometry=<mesh>\n					<uri>file://thor/meshes/l_forearm.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-l_forearm.Xcog} ${-l_forearm.Ycog} ${-l_forearm.Zcog} 0 0 0
+
+**r_forearm
+geometry=<mesh>\n					<uri>file://thor/meshes/r_forearm.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-r_forearm.Xcog} ${-r_forearm.Ycog} ${-r_forearm.Zcog} 0 0 0
+
+**l_foreforearm
+geometry=<mesh>\n					<uri>file://thor/meshes/l_foreforearm.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-l_foreforearm.Xcog} ${-l_foreforearm.Ycog} ${-l_foreforearm.Zcog} 0 0 0
+
+**r_foreforearm
+geometry=<mesh>\n					<uri>file://thor/meshes/r_foreforearm.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-r_foreforearm.Xcog} ${-r_foreforearm.Ycog} ${-r_foreforearm.Zcog} 0 0 0
+
+**l_palm
+geometry=<mesh>\n					<uri>file://thor/meshes/l_palm.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-l_palm.Xcog} ${-l_palm.Ycog} ${-l_palm.Zcog} 0 0 0
+
+**r_palm
+geometry=<mesh>\n					<uri>file://thor/meshes/r_palm.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-r_palm.Xcog} ${-r_palm.Ycog} ${-r_palm.Zcog} 0 0 0
+
+**l_finger_link
+geometry=<mesh>\n					<uri>file://thor/meshes/l_finger.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-l_finger_link.Xcog} ${-l_finger_link.Ycog} ${-l_finger_link.Zcog} 0 0 0
+
+**r_finger_link
+geometry=<mesh>\n					<uri>file://thor/meshes/r_finger.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-r_finger_link.Xcog} ${-r_finger_link.Ycog} ${-r_finger_link.Zcog} 0 0 0
+
+**l_gripper_link
+geometry=<mesh>\n					<uri>file://thor/meshes/l_gripper.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-l_gripper_link.Xcog} ${-l_gripper_link.Ycog} ${-l_gripper_link.Zcog} 0 0 0
+
+**r_gripper_link
+geometry=<mesh>\n					<uri>file://thor/meshes/r_gripper.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
+pose=${-r_gripper_link.Xcog} ${-r_gripper_link.Ycog} ${-r_gripper_link.Zcog} 0 0 0
+
+**l_thumb_link
+geometry=<empty></empty>
+pose=0 0 0 0 0 0
+
+**r_thumb_link
+geometry=<empty></empty>
+pose=0 0 0 0 0 0

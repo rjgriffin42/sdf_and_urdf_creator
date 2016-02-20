@@ -1,25 +1,5 @@
 <?xml version="1.0"?>
-<robot name="escher" xmlns:xacro="http://www.ros.org/wiki/xacro">
-
-  <material name="$black">
-    <color rgba="${0/255} ${0/255} ${0/255} 1.0"/>
-  </material>
-
-  <material name="$grey">
-    <color rgba="${40/255} ${40/255} ${40/255} 1.0"/>
-  </material>
-
-  <material name="$silver">
-    <color rgba="${169/255} ${169/255} ${169/255} 1.0"/>
-  </material>
-
-  <link name="base_link">
-    <origin xyz="${torso_frame.X} ${torso_frame.Y} ${torso_frame.Z}" />
-    <inertial>
-      <mass value="0" />
-      <inertia ixx="0" iyy="0" izz="0" ixy="0" ixz="0" iyz="0" />
-    </inertial>
-  </link>
+<robot name="V2Exoskeleton">
 
   <link name="torso">
     <origin xyz="${torso_frame.X} ${torso_frame.Y} ${torso_frame.Z}" />
@@ -42,24 +22,6 @@
       <inertia ixx="${torso.Ixc}" iyy="${torso.Iyc}" izz="${torso.Izc}" iyz="${torso.Iyzc}" ixz="${torso.Ixzc}" ixy="${torso.Ixyc}" />
     </inertial>
   </link>
-
-  <link name="kvh_link" />
-
-  <joint name="kvh_joint" type="fixed">
-    <origin xyz="${kvh_joint.X - torso_frame.X} ${kvh_joint.Y - torso_frame.Y} ${kvh_joint.Z - torso_frame.Z}" rpy="${kvh_joint.roll} ${kvh_joint.pitch} ${kvh_joint.yaw}" />
-    <axis xyz="0 0 1" />
-    <parent link="torso" />
-    <child link="kvh_link" />
-  </joint>
-
-  <link name="pelvis" />
-
-  <joint name="pelvis_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="0 0 0" />
-    <axis xyz="0 0 1" />
-    <parent link="torso" />
-    <child link="pelvis" />
-  </joint>
 
   <link name="microstrain_link" />
 
@@ -154,7 +116,6 @@
     </inertial>
   </link>
 
-
   <link name="l_foot">
     <collision name="l_foot_collision">
       <origin xyz="${l_foot.Xcog - l_ankle.X} ${l_foot.Ycog - l_ankle.Y} ${l_foot.Zcog - l_ankle.Z}" />
@@ -197,134 +158,21 @@
     </inertial>
   </link>
 
-  <link name="l_sole"/>
-
-  <link name="r_sole"/>
-
-  <joint name="l_sole_joint" type="fixed">
-    <origin xyz="${l_foot_frame.X - l_ankle.X} ${l_foot_frame.Y - l_ankle.Y} ${l_foot_frame.Z - l_ankle.Z}" />
-    <parent link="l_foot"/>
-    <child link="l_sole"/>
-  </joint>
-
-  <joint name="r_sole_joint" type="fixed">
-    <origin xyz="${r_foot_frame.X - r_ankle.X} ${r_foot_frame.Y - r_ankle.Y} ${r_foot_frame.Z - r_ankle.Z}" />
-    <parent link="r_foot"/>
-    <child link="r_sole"/>
-  </joint>
-
-  <link name="l_hip_yaw_trunnion">
-    <!-- Axis = "z", -->
-    <inertial>
-      <mass value="${trunnion.Mass * mass.sdf_scale_factor}" />
-      <inertia ixx="${trunnion.Ixc}" iyy="${trunnion.Iyc}" izz="${trunnion.Izc}" ixy="${trunnion.Ixyc}" ixz="${trunnion.Ixzc}" iyz="${trunnion.Iyzc}" />
-    </inertial>
-  </link>
-
-  <link name="r_hip_yaw_trunnion">
-    <!-- Axis = "z", -->
-    <inertial>
-      <mass value="${trunnion.Mass * mass.sdf_scale_factor}" />
-      <inertia ixx="${trunnion.Ixc}" iyy="${trunnion.Iyc}" izz="${trunnion.Izc}" ixy="${trunnion.Ixyc}" ixz="${trunnion.Ixzc}" iyz="${trunnion.Iyzc}" />
-    </inertial>
-  </link>
-
-
-  <link name="l_hip_pitch_trunnion">
-    <!-- Axis = "y", -->
-    <inertial>
-      <origin rpy="${math.pi/2} 0 0" />
-      <mass value="${trunnion.Mass * mass.sdf_scale_factor}" />
-      <inertia ixx="${trunnion.Ixc}" iyy="${trunnion.Iyc}" izz="${trunnion.Izc}" ixy="${trunnion.Ixyc}" ixz="${trunnion.Ixzc}" iyz="${trunnion.Iyzc}" />
-    </inertial>
-  </link>
-
-  <link name="r_hip_pitch_trunnion">
-    <!-- Axis = "y", -->
-    <inertial>
-      <origin rpy="${math.pi/2} 0 0" />
-      <mass value="${trunnion.Mass * mass.sdf_scale_factor}" />
-      <inertia ixx="${trunnion.Ixc}" iyy="${trunnion.Iyc}" izz="${trunnion.Izc}" ixy="${trunnion.Ixyc}" ixz="${trunnion.Ixzc}" iyz="${trunnion.Iyzc}" />
-    </inertial>
-  </link>
-
-
-  <link name="l_ankle_pitch_trunnion">
-    <!-- Axis = "y", -->
-    <inertial>
-      <origin rpy="${math.pi/2} 0 0" />
-      <mass value="${trunnion.Mass * mass.sdf_scale_factor}" />
-      <inertia ixx="${trunnion.Ixc}" iyy="${trunnion.Iyc}" izz="${trunnion.Izc}" ixy="${trunnion.Ixyc}" ixz="${trunnion.Ixzc}" iyz="${trunnion.Iyzc}" />
-    </inertial>
-  </link>
-
-  <link name="r_ankle_pitch_trunnion">
-    <!-- Axis = "y", -->
-    <inertial>
-      <origin rpy="${math.pi/2} 0 0" />
-      <mass value="${trunnion.Mass * mass.sdf_scale_factor}" />
-      <inertia ixx="${trunnion.Ixc}" iyy="${trunnion.Iyc}" izz="${trunnion.Izc}" ixy="${trunnion.Ixyc}" ixz="${trunnion.Ixzc}" iyz="${trunnion.Iyzc}" />
-    </inertial>
-  </link>
-
-  <joint name="base_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="0 0 0" />
-    <axis xyz="0 0 1"/>
-    <parent link="base_link" />
-    <child link="torso" />
-  </joint>
-
-  <joint name="l_hip_yaw" type="revolute">
-    <origin xyz="${l_hip.X - torso_frame.X} ${l_hip.Y - torso_frame.Y} ${l_hip.Z - torso_frame.Z}" />
-    <parent link="torso" />
-    <child link="l_hip_yaw_trunnion" />
-    <axis xyz="0 0 1" />
-    <limit lower="${l_hip.yaw_lower_limit}" upper="${l_hip.yaw_upper_limit}" effort="150" velocity="1.6" />
-    <dynamics damping="1.0" friction="0" />
-  </joint>
-
-  <joint name="r_hip_yaw" type="revolute">
-    <origin xyz="${r_hip.X - torso_frame.X} ${r_hip.Y - torso_frame.Y} ${r_hip.Z - torso_frame.Z}" />
-    <parent link="torso" />
-    <child link="r_hip_yaw_trunnion" />
-    <axis xyz="0 0 1" />
-    <limit lower="${r_hip.yaw_lower_limit}" upper="${r_hip.yaw_upper_limit}" effort="150" velocity="1.6" />
-    <dynamics damping="1.0" friction="0" />
-  </joint>
-
-  <joint name="l_hip_roll" type="revolute">
-    <origin xyz="0 0 0" />
-    <parent link="l_hip_yaw_trunnion" />
-    <child link="l_hip_pitch_trunnion" />
-    <axis xyz="1 0 0" />
-    <limit lower="${l_hip.roll_lower_limit}" upper="${l_hip.roll_upper_limit}" effort="150" velocity="1.6" />
-    <dynamics damping="1.0" friction="0" />
-  </joint>
-
-  <joint name="r_hip_roll" type="revolute">
-    <origin xyz="0 0 0" />
-    <parent link="r_hip_yaw_trunnion" />
-    <child link="r_hip_pitch_trunnion" />
-    <axis xyz="1 0 0" />
-    <limit lower="${r_hip.roll_lower_limit}" upper="${r_hip.roll_upper_limit}" effort="150" velocity="1.6" />
-    <dynamics damping="1.0" friction="0" />
-  </joint>
-
   <joint name="l_hip_pitch" type="revolute">
     <origin xyz="0 0 0" />
-    <parent link="l_hip_pitch_trunnion" />
+    <parent link="torso" />
     <child link="l_thigh" />
     <axis xyz="0 1 0" />
-    <limit lower="${l_hip.pitch_lower_limit}" upper="${l_hip.pitch_upper_limit}" effort="150" velocity="1.6" />
+    <limit lower="${l_hip.pitch_lower_limit}" upper="${l_hip.pitch_upper_limit}" effort="500" velocity="1.6" />
     <dynamics damping="1.0" friction="0" />
   </joint>
 
   <joint name="r_hip_pitch" type="revolute">
     <origin xyz="0 0 0" />
-    <parent link="r_hip_pitch_trunnion" />
+    <parent link="torso" />
     <child link="r_thigh" />
     <axis xyz="0 1 0" />
-    <limit lower="${r_hip.pitch_lower_limit}" upper="${r_hip.pitch_upper_limit}" effort="150" velocity="1.6" />
+    <limit lower="${r_hip.pitch_lower_limit}" upper="${r_hip.pitch_upper_limit}" effort="500" velocity="1.6" />
     <dynamics damping="1.0" friction="0" />
   </joint>
 
@@ -333,7 +181,7 @@
     <parent link="l_thigh" />
     <child link="l_shin" />
     <axis xyz="0 1 0" />
-    <limit lower="${l_knee.pitch_lower_limit}" upper="${l_knee.pitch_upper_limit}" effort="150" velocity="1.6" />
+    <limit lower="${l_knee.pitch_lower_limit}" upper="${l_knee.pitch_upper_limit}" effort="500" velocity="1.6" />
     <dynamics damping="1.0" friction="0" />
   </joint>
 
@@ -342,363 +190,25 @@
     <parent link="r_thigh" />
     <child link="r_shin" />
     <axis xyz="0 1 0" />
-    <limit lower="${r_knee.pitch_lower_limit}" upper="${r_knee.pitch_upper_limit}" effort="150" velocity="1.6" />
+    <limit lower="${r_knee.pitch_lower_limit}" upper="${r_knee.pitch_upper_limit}" effort="500" velocity="1.6" />
     <dynamics damping="1.0" friction="0" />
   </joint>
 
   <joint name="l_ankle_pitch" type="revolute">
     <origin xyz="${l_ankle.X - l_knee.X} ${l_ankle.Y - l_knee.Y} ${l_ankle.Z - l_knee.Z}" />
     <parent link="l_shin" />
-    <child link="l_ankle_pitch_trunnion" />
+    <child link="l_foot" />
     <axis xyz="0 1 0" />
-    <limit lower="${l_ankle.pitch_lower_limit}" upper="${l_ankle.pitch_upper_limit}" effort="150" velocity="1.6" />
+    <limit lower="${l_ankle.pitch_lower_limit}" upper="${l_ankle.pitch_upper_limit}" effort="500" velocity="1.6" />
     <dynamics damping="1.0" friction="0" />
   </joint>
 
   <joint name="r_ankle_pitch" type="revolute">
     <origin xyz="${r_ankle.X - r_knee.X} ${r_ankle.Y - r_knee.Y} ${r_ankle.Z - r_knee.Z}" />
     <parent link="r_shin" />
-    <child link="r_ankle_pitch_trunnion" />
-    <axis xyz="0 1 0" />
-    <limit lower="${r_ankle.pitch_lower_limit}" upper="${r_ankle.pitch_upper_limit}" effort="150" velocity="1.6" />
-    <dynamics damping="1.0" friction="0" />
-  </joint>
-
-  <joint name="l_ankle_roll" type="revolute">
-    <origin xyz="0 0 0" />
-    <parent link="l_ankle_pitch_trunnion" />
-    <child link="l_foot" />
-    <axis xyz="1 0 0" />
-    <limit lower="${l_ankle.roll_lower_limit}" upper="${l_ankle.roll_upper_limit}" effort="150" velocity="1.6" />
-    <dynamics damping="1.0" friction="0" />
-  </joint>
-
-  <joint name="r_ankle_roll" type="revolute">
-    <origin xyz="0 0 0" />
-    <parent link="r_ankle_pitch_trunnion" />
     <child link="r_foot" />
-    <axis xyz="1 0 0" />
-    <limit lower="${r_ankle.roll_lower_limit}" upper="${r_ankle.roll_upper_limit}" effort="150" velocity="1.6" />
-    <dynamics damping="1.0" friction="0" />
-  </joint>
-
-  <joint name="waist_yaw" type="revolute">
-    <origin xyz="${waist.X - torso_frame.X} ${waist.Y - torso_frame.Y} ${waist.Z - torso_frame.Z}" />
-    <parent link="torso" />
-    <child link="chest" />
-    <axis xyz="0 0 1" />
-    <limit lower="${waist.yaw_lower_limit}" upper="${waist.yaw_upper_limit}" effort="150" velocity="1.6" />
-    <dynamics damping="1.0" friction="0" />
-  </joint>
-
-  <link name="chest">
-    <collision name="chest_collision">
-      <origin xyz="${chest.Xcog_1 - waist.X} ${chest.Ycog_1 - waist.Y} ${chest.Zcog_1 - waist.Z}" />
-      <geometry>
-        <box size="${chest.Xbb_1} ${chest.Ybb_1} ${chest.Zbb_1}" />
-      </geometry>
-    </collision>
-    <collision name="chest_collision_2">
-      <origin xyz="${chest.Xcog_2 - waist.X} ${chest.Ycog_2 - waist.Y} ${chest.Zcog_2 - waist.Z}" />
-      <geometry>
-        <box size="${chest.Xbb_2} ${chest.Ybb_2} ${chest.Zbb_2}" />
-      </geometry>
-    </collision>
-    <collision name="chest_collision_3">
-      <origin xyz="${chest.Xcog_3 - waist.X} ${chest.Ycog_3 - waist.Y} ${chest.Zcog_3 - waist.Z}" />
-      <geometry>
-        <box size="${chest.Xbb_3} ${chest.Ybb_3} ${chest.Zbb_3}" />
-      </geometry>
-    </collision>
-    <collision name="chest_collision_4">
-      <origin xyz="${chest.Xcog_4 - waist.X} ${chest.Ycog_4 - waist.Y} ${chest.Zcog_4 - waist.Z}" />
-      <geometry>
-        <box size="${chest.Xbb_4} ${chest.Ybb_4} ${chest.Zbb_4}" />
-      </geometry>
-    </collision>
-    <visual name="chest_visual">
-      <origin xyz="${chest.origin}" />
-      <geometry>
-        ${chest.geometry}
-      </geometry>
-      <material name="$silver"/>
-    </visual>
-    <inertial>
-      <origin xyz="${chest.Xcbar - waist.X} ${chest.Ycbar - waist.Y} ${chest.Zcbar - waist.Z}" />
-      <mass value="${chest.Mass * mass.sdf_scale_factor}" />
-      <inertia ixx="${chest.Ixc}" iyy="${chest.Iyc}" izz="${chest.Izc}" iyz="${chest.Iyzc}" ixz="${chest.Ixzc}" ixy="${chest.Ixyc}" />
-    </inertial>
-  </link>
-
-  <link name="utorso" />
-
-  <joint name="utorso_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="0 0 0" />
-    <axis xyz="0 0 1" />
-    <parent link="chest" />
-    <child link="utorso" />
-  </joint>
-
-  <joint name="head_yaw" type="revolute">
-    <origin xyz="${head_yaw.X - waist.X} ${head_yaw.Y - waist.Y} ${head_yaw.Z - waist.Z}" />
-    <parent link="chest" />
-    <child link="neck" />
-    <axis xyz="0 0 1" />
-    <limit lower="${head_yaw.yaw_lower_limit}" upper="${head_yaw.yaw_upper_limit}" effort="150" velocity="1.6" />
-    <dynamics damping="1.0" friction="0" />
-  </joint>
-
-  <link name="neck">
-    <collision name="neck_collision">
-      <origin xyz="${neck.Xcog - head_yaw.X} ${neck.Ycog - head_yaw.Y} ${neck.Zcog - head_yaw.Z}" />
-      <geometry>
-        <box size="${neck.Xbb} ${neck.Ybb} ${neck.Zbb}" />
-      </geometry>
-    </collision>
-    <visual name="neck_visual">
-      <origin xyz="${neck.origin}" />
-      <geometry>
-        ${neck.geometry}
-      </geometry>
-      <material name="$silver"/>
-    </visual>
-    <inertial>
-      <origin xyz="${neck.Xcbar - head_yaw.X} ${neck.Ycbar - head_yaw.Y} ${neck.Zcbar - head_yaw.Z}" />
-      <mass value="${neck.Mass * mass.sdf_scale_factor}" />
-      <inertia ixx="${neck.Ixc}" iyy="${neck.Iyc}" izz="${neck.Izc}" iyz="${neck.Iyzc}" ixz="${neck.Ixzc}" ixy="${neck.Ixyc}" />
-    </inertial>
-  </link>
-
-  <joint name="head_pitch" type="revolute">
-    <origin xyz="${head_pitch.X - head_yaw.X} ${head_pitch.Y - head_yaw.Y} ${head_pitch.Z - head_yaw.Z}" />
-    <parent link="neck" />
-    <child link="head" />
     <axis xyz="0 1 0" />
-    <limit lower="${head_pitch.pitch_lower_limit}" upper="${head_pitch.pitch_upper_limit}" effort="150" velocity="1.6" />
+    <limit lower="${r_ankle.pitch_lower_limit}" upper="${r_ankle.pitch_upper_limit}" effort="500" velocity="1.6" />
     <dynamics damping="1.0" friction="0" />
   </joint>
-
-  <link name="head">
-    <collision name="head_collision">
-      <origin xyz="${head.Xcog - head_pitch.X} ${head.Ycog - head_pitch.Y} ${head.Zcog - head_pitch.Z}" />
-      <geometry>
-        <box size="${head.Xbb} ${head.Ybb} ${head.Zbb}" />
-      </geometry>
-    </collision>
-    <visual name="head_visual">
-      <origin xyz="${head.origin}" />
-      <geometry>
-        ${head.geometry}
-      </geometry>
-      <material name="$grey"/>
-    </visual>
-    <inertial>
-      <origin xyz="${head.Xcbar - head_pitch.X} ${head.Ycbar - head_pitch.Y} ${head.Zcbar - head_pitch.Z}" />
-      <mass value="${head.Mass * mass.sdf_scale_factor}" />
-      <inertia ixx="${head.Ixc}" iyy="${head.Iyc}" izz="${head.Izc}" iyz="${head.Iyzc}" ixz="${head.Ixzc}" ixy="${head.Ixyc}" />
-    </inertial>
-  </link>
-
-  <!-- MultiSense stereo camera -->
-
-  <gazebo reference="left_camera_frame">
-    <sensor type="multicamera" name="stereo_camera">
-      <!-- see MultiSenseSLPlugin.h for available modes -->
-      <update_rate>30.0</update_rate>
-      <camera name="left">
-        <!-- Spec sheet says 80deg X 45deg @ 1024x544pix.  Based on feedback
-             from teams, we're instead doing 80deg X 80deg @ 800x800pix. -->
-        <horizontal_fov>1.3962634</horizontal_fov>
-        <image>
-          <width>800</width>
-          <height>800</height>
-          <format>R8G8B8</format>
-        </image>
-        <clip>
-          <near>0.02</near>
-          <far>300</far>
-        </clip>
-        <noise>
-          <type>gaussian</type>
-          <mean>0.0</mean>
-          <stddev>0.007</stddev>
-        </noise>
-      </camera>
-      <camera name="right">
-        <pose>0 -0.07 0 0 0 0</pose>
-        <!-- Spec sheet says 80deg X 45deg @ 1024x544pix.  Based on feedback
-             from teams, we're instead doing 80deg X 80deg @ 800x800pix. -->
-        <horizontal_fov>1.3962634</horizontal_fov>
-        <image>
-          <width>800</width>
-          <height>800</height>
-          <format>R8G8B8</format>
-        </image>
-        <clip>
-          <near>0.02</near>
-          <far>300</far>
-        </clip>
-        <noise>
-          <type>gaussian</type>
-          <!-- Noise is sampled independently per pixel on each frame.
-               That pixel's noise value is added to each of its color
-               channels, which at that point lie in the range [0,1].
-               The stddev value of 0.007 is based on experimental data
-               from a camera in a Sandia hand pointed at a static scene
-               in a couple of different lighting conditions.  -->
-          <mean>0.0</mean>
-          <stddev>0.007</stddev>
-        </noise>
-      </camera>
-      <plugin name="stereo_camera_controller" filename="libgazebo_ros_multicamera.so">
-        <alwaysOn>true</alwaysOn>
-        <updateRate>0.0</updateRate>
-        <cameraName>multisense</cameraName>
-        <imageTopicName>image_color</imageTopicName>
-        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-        <frameName>/multisense/left_camera_optical_frame</frameName>
-        <!--<rightFrameName>/multisense/right_camera_optical_frame</rightFrameName>-->
-        <hackBaseline>0.07</hackBaseline>
-        <distortionK1>0.0</distortionK1>
-        <distortionK2>0.0</distortionK2>
-        <distortionK3>0.0</distortionK3>
-        <distortionT1>0.0</distortionT1>
-        <distortionT2>0.0</distortionT2>
-      </plugin>
-    </sensor>
-  </gazebo>
-
-  <!-- Multisense params Imported from Official Multisense URDF -->
-  <link name="multisense_root"/>
-
-  <joint name="multisense_joint" type="fixed">
-    <origin xyz="${multisense_joint.X - head_pitch.X} ${multisense_joint.Y - head_pitch.Y} ${multisense_joint.Z - head_pitch.Z}" />
-    <parent link="head"/>
-    <child link="multisense_root"/>
-  </joint>
-
-  <joint name="left_camera_joint" type="fixed">
-    <origin xyz="0.052 0.035 0.0"/>
-    <parent link="multisense_root"/>
-    <child link="left_camera_frame"/>
-  </joint>
-
-  <link name="left_camera_frame"/>
-
-  <joint name="right_camera_joint" type="fixed">
-    <origin xyz="0.052 -0.035 0.0"/>
-    <parent link="multisense_root"/>
-    <child link="right_camera_frame"/>
-  </joint>
-
-  <link name="right_camera_frame"/>
-
-  <joint name="left_camera_optical_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="-1.57079632679 0.0 -1.57079632679"/>
-    <parent link="left_camera_frame"/>
-    <child link="/multisense/left_camera_optical_frame"/>
-  </joint>
-
-  <link name="/multisense/left_camera_optical_frame"/>
-
-  <joint name="right_camera_optical_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="-1.57079632679 0.0 -1.57079632679"/>
-    <parent link="right_camera_frame"/>
-    <child link="/multisense/right_camera_optical_frame"/>
-  </joint>
-
-  <link name="/multisense/right_camera_optical_frame"/>
-
-  <joint name="accel_joint" type="fixed">
-    <origin xyz="0.047 0.0302 -0.00075" rpy="0.0 1.57079632679 0.0"/>
-    <parent link="multisense_root"/>
-    <child link="accel"/>
-  </joint>
-
-  <link name="accel"/>
-
-  <joint name="mag_joint" type="fixed">
-    <origin xyz="0.047 0.0302 -0.00075" rpy="0.0 1.57079632679 0.0"/>
-    <parent link="multisense_root"/>
-    <child link="mag"/>
-  </joint>
-
-  <link name="mag"/>
-
-  <joint name="gyro_joint" type="fixed">
-    <origin xyz="0.047 0.03880 0.00125" rpy="-1.57079632679 0.0 -1.57079632679"/>
-    <parent link="multisense_root"/>
-    <child link="gyro"/>
-  </joint>
-
-  <link name="gyro"/>
-
-  <!-- Head Lidar -->
-  <joint name="head_lidar_roll" type="continuous">
-    <origin xyz="${head_lidar_roll.X - head_pitch.X} ${head_lidar_roll.Y - head_pitch.Y} ${head_lidar_roll.Z - head_pitch.Z}" />
-    <parent link="head" />
-    <child link="head_lidar" />
-    <axis xyz="1 0 0" />
-    <limit effort="150" velocity="1.6"/>
-    <dynamics damping="1.0" friction="0" />
-  </joint>
-
-  <link name="head_lidar">
-    <collision name="head_lidar_collision">
-      <origin xyz="0 0 0" />
-      <geometry>
-        <box size="${head_lidar.Xbb} ${head_lidar.Ybb} ${head_lidar.Zbb}" />
-      </geometry>
-    </collision>
-    <visual name="head_lidar_visual">
-      <origin xyz="${head_lidar.origin}" />
-      <geometry>
-        ${head_lidar.geometry}
-      </geometry>
-      <material name="$black"/>
-    </visual>
-    <inertial>
-      <origin xyz="${head_lidar.Xcbar - head_lidar_roll.X} ${head_lidar.Ycbar - head_lidar_roll.Y} ${-head_lidar.Zcbar - head_lidar_roll.Z}" />
-      <mass value="${head_lidar.Mass * mass.sdf_scale_factor}" />
-      <inertia ixx="${head_lidar.Ixc}" iyy="${head_lidar.Iyc}" izz="${head_lidar.Izc}" iyz="${head_lidar.Iyzc}" ixz="${head_lidar.Ixzc}" ixy="${head_lidar.Ixyc}" />
-    </inertial>
-  </link>
-
-  <joint name="head_lidar_emitter_joint" type="fixed">
-    <origin xyz="${head_lidar.EmitterX} ${head_lidar.EmitterY} ${head_lidar.EmitterZ}" />
-    <parent link="head_lidar" />
-    <child link="head_lidar_emitter" />
-  </joint>
-
-  <link name="head_hokuyo_frame" />
-
-  <joint name="head_hokuyo_frame_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="0 0 0" />
-    <axis xyz="0 0 1" />
-    <parent link="head_lidar" />
-    <child link="head_hokuyo_frame" />
-  </joint>
-
-  <link name="head_lidar_emitter"/>
-
-  <joint name="head_lidar_receiver_joint" type="fixed">
-    <origin xyz="${head_lidar.ReceiverX} ${head_lidar.ReceiverY} ${head_lidar.ReceiverZ}" />
-    <parent link="head_lidar" />
-    <child link="head_lidar_receiver" />
-  </joint>
-
-  <link name="head_lidar_receiver"/>
-
-  <joint name="head_lidar_empirical_joint" type="fixed">
-    <origin xyz="${head_lidar.EmpiricalX} ${head_lidar.EmpiricalY} ${head_lidar.EmpiricalZ}" />
-    <parent link="head_lidar_emitter" />
-    <child link="head_lidar_empirical" />
-  </joint>
-
-  <link name="head_lidar_empirical" />
-
-  <!-- hdt arms -->
-  <xacro:include filename="$(find hdt_7dof_description)/urdf/${arm_name.model_type}" />
-  <xacro:hdt_7dof_left parent="chest" x="${l_shoulder_pitch.X - waist.X}" y="${l_shoulder_pitch.Y - waist.Y}" z="${l_shoulder_pitch.Z - waist.Z}" prefix="l_" motor_base_id="41" />
-  <xacro:hdt_7dof_right parent="chest" x="${r_shoulder_pitch.X - waist.X}" y="${r_shoulder_pitch.Y - waist.Y}" z="${r_shoulder_pitch.Z - waist.Z}" prefix="r_" motor_base_id="1" />
 </robot>

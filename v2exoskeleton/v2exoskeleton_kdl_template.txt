@@ -1,45 +1,11 @@
-#include "Mechanics.h"
-#include "factory/RegisterPlugin.h"
-
 #include <stdio.h>
-
-// hands: undefined (use ends of wrists)
-// chest: avg of shoulders
-// torso: avg of hips
-// thigh (e.g.): transform from hip to knee
-// foot: center bottom of plate
 
 using namespace KDL;
 
-GazeboEscherMechanics::GazeboEscherMechanics()
+V2ExoskeletonMechanics::V2ExoskeletonMechanics()
 {
   // coordinate transforms
   /////////////////////////////////////////////////////////////////////////
-
-  // head
-  clavicle_transform = Frame(Vector(${head_yaw.X - chest_frame.X}, ${head_yaw.Y - chest_frame.Y}, ${head_yaw.Z - chest_frame.Z}));
-  neck_transform = Frame(Vector(${head_pitch.X - head_yaw.X}, ${head_pitch.Y - head_yaw.Y}, ${head_pitch.Z - head_yaw.Z}));
-  head_transform = Frame(Vector(${head_frame.X - head_pitch.X}, ${head_frame.Y - head_pitch.Y}, ${head_frame.Z - head_pitch.Z}));
-
-  // l_arm
-  l_shoulder_transform = Frame(Vector(${0}, ${l_shoulder_pitch.Y}, ${0}));
-  l_shoulder_roll_transform = Frame(Vector(${l_shoulder.X - l_shoulder_pitch.X}, ${l_shoulder.Y - l_shoulder_pitch.Y}, ${l_shoulder.Z - l_shoulder_pitch.Z}));
-  l_arm_transform = Frame(Vector(${l_elbow.X - l_shoulder.X}, ${l_elbow.Y - l_shoulder.Y}, ${l_elbow.Z - l_shoulder.Z}));
-  l_forearm_transform = Frame(Vector(${l_wrist_pitch.X - l_elbow.X}, ${l_wrist_pitch.Y - l_elbow.Y}, ${l_wrist_pitch.Z - l_elbow.Z}));
-  l_foreforearm_transform = Frame(Vector(${l_wrist_yaw.X - l_wrist_pitch.X}, ${l_wrist_yaw.Y - l_wrist_pitch.Y}, ${l_wrist_yaw.Z - l_wrist_pitch.Z}));
-  l_hand_transform = Frame(Vector(${l_hand_frame.X - l_wrist_yaw.X}, ${l_hand_frame.Y - l_wrist_yaw.Y}, ${l_hand_frame.Z - l_wrist_yaw.Z}));
-
-  // r_arm
-  r_shoulder_transform = Frame(Vector(${0}, ${r_shoulder_pitch.Y}, ${0}));
-  r_shoulder_roll_transform = Frame(Vector(${r_shoulder.X - r_shoulder_pitch.X}, ${r_shoulder.Y - r_shoulder_pitch.Y}, ${r_shoulder.Z - r_shoulder_pitch.Z}));
-  r_arm_transform = Frame(Vector(${r_elbow.X - r_shoulder.X}, ${r_elbow.Y - r_shoulder.Y}, ${r_elbow.Z - r_shoulder.Z}));
-  r_forearm_transform = Frame(Vector(${r_wrist_pitch.X - r_elbow.X}, ${r_wrist_pitch.Y - r_elbow.Y}, ${r_wrist_pitch.Z - r_elbow.Z}));
-  r_foreforearm_transform = Frame(Vector(${r_wrist_yaw.X - r_wrist_pitch.X}, ${r_wrist_yaw.Y - r_wrist_pitch.Y}, ${r_wrist_yaw.Z - r_wrist_pitch.Z}));
-  r_hand_transform = Frame(Vector(${r_hand_frame.X - r_wrist_yaw.X}, ${r_hand_frame.Y - r_wrist_yaw.Y}, ${r_hand_frame.Z - r_wrist_yaw.Z}));
-
-  // waist
-  torso_waist_transform = Frame(Vector(${waist.X - torso_frame.X}, ${waist.Y - torso_frame.Y}, ${waist.Z - torso_frame.Z}));
-  waist_chest_transform = Frame(Vector(${chest_frame.X - waist.X}, ${chest_frame.Y - waist.Y}, ${chest_frame.Z - waist.Z}));
 
   // l_leg
   l_hip_transform = Frame(Vector(${0}, ${l_hip.Y}, ${0}));
@@ -56,120 +22,12 @@ GazeboEscherMechanics::GazeboEscherMechanics()
   // link inertias
   /////////////////////////////////////////////////////////////////////////
 
-  // head
-  neck_inertia = RigidBodyInertia(
-                   ${neck.Mass * mass.kdl_scale_factor},
-                   Vector(${neck.Xcbar - head_yaw.X}, ${neck.Ycbar - head_yaw.Y}, ${neck.Zcbar - head_yaw.Z}),
-                   RotationalInertia(${neck.Ixc}, ${neck.Iyc}, ${neck.Izc},
-                                     ${neck.Ixyc}, ${neck.Ixzc}, ${neck.Iyzc})
-                 );
-  head_inertia = RigidBodyInertia(
-                   ${head.Mass * mass.kdl_scale_factor},
-                   Vector(${head.Xcbar - head_pitch.X}, ${head.Ycbar - head_pitch.Y}, ${head.Zcbar - head_pitch.Z}),
-                   RotationalInertia(${head.Ixc}, ${head.Iyc}, ${head.Izc},
-                                     ${head.Ixyc}, ${head.Ixzc}, ${head.Iyzc})
-                 );
-
-  // l_arm
-  l_shoulder_inertia = RigidBodyInertia(
-                         ${l_shoulder.Mass * mass.kdl_scale_factor},
-                         Vector(${l_shoulder.Xcbar - l_shoulder.X}, ${l_shoulder.Ycbar - l_shoulder.Y}, ${l_shoulder.Zcbar - l_shoulder.Z}),
-                         RotationalInertia(${l_shoulder.Ixc}, ${l_shoulder.Iyc}, ${l_shoulder.Izc},
-                                           ${l_shoulder.Ixyc}, ${l_shoulder.Ixzc}, ${l_shoulder.Iyzc})
-                       );
-  l_shoulder_roll_link_inertia = RigidBodyInertia(
-                         ${l_shoulder_roll_link.Mass * mass.kdl_scale_factor},
-                         Vector(${l_shoulder_roll_link.Xcbar - l_shoulder.X}, ${l_shoulder_roll_link.Ycbar - l_shoulder.Y}, ${l_shoulder_roll_link.Zcbar - l_shoulder.Z}),
-                         RotationalInertia(${l_shoulder_roll_link.Ixc}, ${l_shoulder_roll_link.Iyc}, ${l_shoulder_roll_link.Izc},
-                                           ${l_shoulder_roll_link.Ixyc}, ${l_shoulder_roll_link.Ixzc}, ${l_shoulder_roll_link.Iyzc})
-                       );
-  l_arm_inertia = RigidBodyInertia(
-                    ${l_arm.Mass * mass.kdl_scale_factor},
-                    Vector(${l_arm.Xcbar - l_elbow.X}, ${l_arm.Ycbar - l_elbow.Y}, ${l_arm.Zcbar - l_elbow.Z}),
-                    RotationalInertia(${l_arm.Ixc}, ${l_arm.Iyc}, ${l_arm.Izc},
-                                      ${l_arm.Ixyc}, ${l_arm.Ixzc}, ${l_arm.Iyzc})
-                  );
-  l_elbow_link_inertia = RigidBodyInertia(
-                    ${l_elbow_link.Mass * mass.kdl_scale_factor},
-                    Vector(${l_elbow_link.Xcbar - l_elbow.X}, ${l_elbow_link.Ycbar - l_elbow.Y}, ${l_elbow_link.Zcbar - l_elbow.Z}),
-                    RotationalInertia(${l_elbow_link.Ixc}, ${l_elbow_link.Iyc}, ${l_elbow_link.Izc},
-                                      ${l_elbow_link.Ixyc}, ${l_elbow_link.Ixzc}, ${l_elbow_link.Iyzc})
-                  );
-  l_forearm_inertia = RigidBodyInertia(
-                        ${l_forearm.Mass * mass.kdl_scale_factor},
-                        Vector(${l_forearm.Xcbar - l_wrist_pitch.X}, ${l_forearm.Ycbar - l_wrist_pitch.Y}, ${l_forearm.Zcbar - l_wrist_pitch.Z}),
-                        RotationalInertia(${l_forearm.Ixc}, ${l_forearm.Iyc}, ${l_forearm.Izc},
-                                          ${l_forearm.Ixyc}, ${l_forearm.Ixzc}, ${l_forearm.Iyzc})
-                      );
-  l_foreforearm_inertia = RigidBodyInertia(
-                        ${l_foreforearm.Mass * mass.kdl_scale_factor},
-                        Vector(${l_foreforearm.Xcbar - l_wrist_yaw.X}, ${l_foreforearm.Ycbar - l_wrist_yaw.Y}, ${l_foreforearm.Zcbar - l_wrist_yaw.Z}),
-                        RotationalInertia(${l_foreforearm.Ixc}, ${l_foreforearm.Iyc}, ${l_foreforearm.Izc},
-                                          ${l_foreforearm.Ixyc}, ${l_foreforearm.Ixzc}, ${l_foreforearm.Iyzc})
-                      );
-  l_hand_inertia = RigidBodyInertia(
-                     ${l_hand.Mass * mass.kdl_scale_factor},
-                     Vector(${l_hand.Xcbar - l_hand_frame.X}, ${l_hand.Ycbar - l_hand_frame.Y}, ${l_hand.Zcbar - l_hand_frame.Z}),
-                     RotationalInertia(${l_hand.Ixc}, ${l_hand.Iyc}, ${l_hand.Izc},
-                                       ${l_hand.Ixyc}, ${l_hand.Ixzc}, ${l_hand.Iyzc})
-                   );
-
-  // r_arm
-  r_shoulder_inertia = RigidBodyInertia(
-                         ${r_shoulder.Mass * mass.kdl_scale_factor},
-                         Vector(${r_shoulder.Xcbar - r_shoulder.X}, ${r_shoulder.Ycbar - r_shoulder.Y}, ${r_shoulder.Zcbar - r_shoulder.Z}),
-                         RotationalInertia(${r_shoulder.Ixc}, ${r_shoulder.Iyc}, ${r_shoulder.Izc},
-                                           ${r_shoulder.Ixyc}, ${r_shoulder.Ixzc}, ${r_shoulder.Iyzc})
-                       );
-  r_shoulder_roll_link_inertia = RigidBodyInertia(
-                         ${r_shoulder_roll_link.Mass * mass.kdl_scale_factor},
-                         Vector(${r_shoulder_roll_link.Xcbar - r_shoulder.X}, ${r_shoulder_roll_link.Ycbar - r_shoulder.Y}, ${r_shoulder_roll_link.Zcbar - r_shoulder.Z}),
-                         RotationalInertia(${r_shoulder_roll_link.Ixc}, ${r_shoulder_roll_link.Iyc}, ${r_shoulder_roll_link.Izc},
-                                           ${r_shoulder_roll_link.Ixyc}, ${r_shoulder_roll_link.Ixzc}, ${r_shoulder_roll_link.Iyzc})
-                       );
-  r_arm_inertia = RigidBodyInertia(
-                    ${r_arm.Mass * mass.kdl_scale_factor},
-                    Vector(${r_arm.Xcbar - r_elbow.X}, ${r_arm.Ycbar - r_elbow.Y}, ${r_arm.Zcbar - r_elbow.Z}),
-                    RotationalInertia(${r_arm.Ixc}, ${r_arm.Iyc}, ${r_arm.Izc},
-                                      ${r_arm.Ixyc}, ${r_arm.Ixzc}, ${r_arm.Iyzc})
-                  );
-  r_elbow_link_inertia = RigidBodyInertia(
-                    ${r_elbow_link.Mass * mass.kdl_scale_factor},
-                    Vector(${r_elbow_link.Xcbar - r_elbow.X}, ${r_elbow_link.Ycbar - r_elbow.Y}, ${r_elbow_link.Zcbar - r_elbow.Z}),
-                    RotationalInertia(${r_elbow_link.Ixc}, ${r_elbow_link.Iyc}, ${r_elbow_link.Izc},
-                                      ${r_elbow_link.Ixyc}, ${r_elbow_link.Ixzc}, ${r_elbow_link.Iyzc})
-                  );
-  r_forearm_inertia = RigidBodyInertia(
-                        ${r_forearm.Mass * mass.kdl_scale_factor},
-                        Vector(${r_forearm.Xcbar - r_wrist_pitch.X}, ${r_forearm.Ycbar - r_wrist_pitch.Y}, ${r_forearm.Zcbar - r_wrist_pitch.Z}),
-                        RotationalInertia(${r_forearm.Ixc}, ${r_forearm.Iyc}, ${r_forearm.Izc},
-                                          ${r_forearm.Ixyc}, ${r_forearm.Ixzc}, ${r_forearm.Iyzc})
-                      );
-  r_foreforearm_inertia = RigidBodyInertia(
-                        ${r_foreforearm.Mass * mass.kdl_scale_factor},
-                        Vector(${r_foreforearm.Xcbar - r_wrist_yaw.X}, ${r_foreforearm.Ycbar - r_wrist_yaw.Y}, ${r_foreforearm.Zcbar - r_wrist_yaw.Z}),
-                        RotationalInertia(${r_foreforearm.Ixc}, ${r_foreforearm.Iyc}, ${r_foreforearm.Izc},
-                                          ${r_foreforearm.Ixyc}, ${r_foreforearm.Ixzc}, ${r_foreforearm.Iyzc})
-                      );
-  r_hand_inertia = RigidBodyInertia(
-                     ${r_hand.Mass * mass.kdl_scale_factor},
-                     Vector(${r_hand.Xcbar - r_hand_frame.X}, ${r_hand.Ycbar - r_hand_frame.Y}, ${r_hand.Zcbar - r_hand_frame.Z}),
-                     RotationalInertia(${r_hand.Ixc}, ${r_hand.Iyc}, ${r_hand.Izc},
-                                       ${r_hand.Ixyc}, ${r_hand.Ixzc}, ${r_hand.Iyzc})
-                   );
-
   // waist
   torso_inertia = RigidBodyInertia(
                     ${torso.Mass * mass.kdl_scale_factor},
                     Vector(${torso.Xcbar - torso_frame.X}, ${torso.Ycbar - torso_frame.Y}, ${torso.Zcbar - torso_frame.Z}),
                     RotationalInertia(${torso.Ixc}, ${torso.Iyc}, ${torso.Izc},
                                       ${torso.Ixyc}, ${torso.Ixzc}, ${torso.Iyzc})
-                  );
-  chest_inertia = RigidBodyInertia(
-                    ${chest.Mass * mass.kdl_scale_factor},
-                    Vector(${chest.Xcbar - chest_frame.X},${chest.Ycbar - chest_frame.Y}, ${chest.Zcbar - chest_frame.Z}),
-                    RotationalInertia(${chest.Ixc}, ${chest.Iyc}, ${chest.Izc},
-                                      ${chest.Ixyc}, ${chest.Ixzc}, ${chest.Iyzc})
                   );
 
   // l_leg
@@ -215,86 +73,26 @@ GazeboEscherMechanics::GazeboEscherMechanics()
   // kinematic chains
   /////////////////////////////////////////////////////////////////////////
 
-  // head
-  head = Chain();
-  head.addSegment(Segment("clavicle", Joint(Joint::None),
-                          clavicle_transform));
-  head.addSegment(Segment("neck", Joint(Joint::RotZ),
-                          neck_transform, neck_inertia));
-  head.addSegment(Segment("head", Joint(Joint::RotY),
-                          head_transform, head_inertia));
-
-  // l_arm
-  l_arm = Chain();
-  l_arm.addSegment(Segment("l_shoulder", Joint(Joint::None),
-                           l_shoulder_transform));
-  l_arm.addSegment(Segment("l_shoulder_pitch", Joint(Joint::RotY),
-                           l_shoulder_roll_transform, l_shoulder_inertia));
-  l_arm.addSegment(Segment("l_shoulder_roll", Joint(Joint::RotX),
-                           Frame::Identity(), l_shoulder_roll_link_inertia));
-  l_arm.addSegment(Segment("l_arm", Joint(Joint::RotZ),
-                           l_arm_transform, l_arm_inertia));
-  l_arm.addSegment(Segment("l_elbow", Joint(Joint::RotY),
-                           Frame::Identity(), l_elbow_link_inertia));
-  l_arm.addSegment(Segment("l_forearm", Joint(Joint::RotX),
-                           l_forearm_transform, l_forearm_inertia));
-  l_arm.addSegment(Segment("l_foreforearm", Joint(Joint::RotY),
-                           l_foreforearm_transform, l_foreforearm_inertia));
-  l_arm.addSegment(Segment("l_hand", Joint(Joint::RotZ),
-                           l_hand_transform, l_hand_inertia));
-
-  // r_arm
-  r_arm = Chain();
-  r_arm.addSegment(Segment("r_shoulder", Joint(Joint::None),
-                           r_shoulder_transform));
-  r_arm.addSegment(Segment("r_shoulder_pitch", Joint(Joint::RotY),
-                           r_shoulder_roll_transform, r_shoulder_inertia));
-  r_arm.addSegment(Segment("r_shoulder_roll", Joint(Joint::RotX),
-                           Frame::Identity(), r_shoulder_roll_link_inertia));
-  r_arm.addSegment(Segment("r_arm", Joint(Joint::RotZ),
-                           r_arm_transform, r_arm_inertia));
-  r_arm.addSegment(Segment("r_elbow", Joint(Joint::RotY),
-                           Frame::Identity(), r_elbow_link_inertia));
-  r_arm.addSegment(Segment("r_forearm", Joint(Joint::RotX),
-                           r_forearm_transform, r_forearm_inertia));
-  r_arm.addSegment(Segment("r_foreforearm", Joint(Joint::RotY),
-                           r_foreforearm_transform, r_foreforearm_inertia));
-  r_arm.addSegment(Segment("r_hand", Joint(Joint::RotZ),
-                           r_hand_transform, r_hand_inertia));
-
-  // waist
-  waist = Chain();
-  waist.addSegment(Segment("waist", Joint(Joint::RotZ),
-                           torso_waist_transform));
-  waist.addSegment(Segment("chest", Joint(Joint::None),
-                           waist_chest_transform, chest_inertia));
-
   // l_leg
   l_leg = Chain();
   l_leg.addSegment(Segment("l_hip", Joint(Joint::None),
                            l_hip_transform));
-  l_leg.addSegment(Segment("l_hip_yaw", Joint(Joint::RotZ)));
-  l_leg.addSegment(Segment("l_hip_roll", Joint(Joint::RotX)));
   l_leg.addSegment(Segment("l_thigh", Joint(Joint::RotY),
                            l_thigh_transform, l_thigh_inertia));
   l_leg.addSegment(Segment("l_shin", Joint(Joint::RotY),
                            l_shin_transform, l_shin_inertia));
-  l_leg.addSegment(Segment("l_ankle_pitch", Joint(Joint::RotY)));
-  l_leg.addSegment(Segment("l_foot", Joint(Joint::RotX),
+  l_leg.addSegment(Segment("l_foot", Joint(Joint::RotY),
                            l_foot_transform, l_foot_inertia));
 
   // r_leg
   r_leg = Chain();
   r_leg.addSegment(Segment("r_hip", Joint(Joint::None),
                            r_hip_transform));
-  r_leg.addSegment(Segment("r_hip_yaw", Joint(Joint::RotZ)));
-  r_leg.addSegment(Segment("r_hip_roll", Joint(Joint::RotX)));
   r_leg.addSegment(Segment("r_thigh", Joint(Joint::RotY),
                            r_thigh_transform, r_thigh_inertia));
   r_leg.addSegment(Segment("r_shin", Joint(Joint::RotY),
                            r_shin_transform, r_shin_inertia));
-  r_leg.addSegment(Segment("r_ankle_pitch", Joint(Joint::RotY)));
-  r_leg.addSegment(Segment("r_foot", Joint(Joint::RotX),
+  r_leg.addSegment(Segment("r_foot", Joint(Joint::RotY),
                            r_foot_transform, r_foot_inertia));
 
   // kinematic trees
@@ -304,51 +102,15 @@ GazeboEscherMechanics::GazeboEscherMechanics()
                           Frame::Identity(), torso_inertia), "root");
   body.addChain(l_leg, "torso");
   body.addChain(r_leg, "torso");
-  body.addChain(waist, "torso");
-  body.addChain(l_arm, "chest");
-  body.addChain(r_arm, "chest");
-  body.addChain(head, "chest");
 
   // tree segment indices
   /////////////////////////////////////////////////////////////////////////
   body_torso_index = 0;
   body_l_foot_index = body_torso_index + l_leg.getNrOfSegments();
   body_r_foot_index = body_l_foot_index + r_leg.getNrOfSegments();
-  body_chest_index = body_r_foot_index + waist.getNrOfSegments();
-  body_l_hand_index = body_chest_index + l_arm.getNrOfSegments();
-  body_r_hand_index = body_l_hand_index + r_arm.getNrOfSegments();
-  body_head_index = body_r_hand_index + head.getNrOfSegments();
 
   // kinematic and dynamic solvers
   /////////////////////////////////////////////////////////////////////////
-
-  // head
-  head_fk_pos_solver = new ChainFkSolverPos_recursive(head);
-  head_fk_vel_solver = new ChainFkSolverVel_recursive(head);
-  head_jnt_to_jac_solver = new ChainJntToJacSolver(head);
-  head_id_solver = new ChainIdSolver_RNE(head, Mechanics::Gravity);
-
-  // l_arm
-  l_arm_fk_pos_solver = new ChainFkSolverPos_recursive(l_arm);
-  l_arm_fk_vel_solver = new ChainFkSolverVel_recursive(l_arm);
-  l_arm_ik_pos_solver = new ChainIkSolverPos_6dof_arm(l_arm);
-  l_arm_ik_vel_solver = new ChainIkSolverVel_pinv(l_arm);
-  l_arm_jnt_to_jac_solver = new ChainJntToJacSolver(l_arm);
-  l_arm_id_solver = new ChainIdSolver_RNE(l_arm, Mechanics::Gravity);
-
-  // r_arm
-  r_arm_fk_pos_solver = new ChainFkSolverPos_recursive(r_arm);
-  r_arm_fk_vel_solver = new ChainFkSolverVel_recursive(r_arm);
-  r_arm_ik_pos_solver = new ChainIkSolverPos_6dof_arm(r_arm);
-  r_arm_ik_vel_solver = new ChainIkSolverVel_pinv(r_arm);
-  r_arm_jnt_to_jac_solver = new ChainJntToJacSolver(r_arm);
-  r_arm_id_solver = new ChainIdSolver_RNE(r_arm, Mechanics::Gravity);
-
-  // waist
-  waist_fk_pos_solver = new ChainFkSolverPos_recursive(waist);
-  waist_fk_vel_solver = new ChainFkSolverVel_recursive(waist);
-  waist_jnt_to_jac_solver = new ChainJntToJacSolver(waist);
-  waist_id_solver = new ChainIdSolver_RNE(waist, Mechanics::Gravity);
 
   // l_leg
   l_leg_fk_pos_solver = new ChainFkSolverPos_recursive(l_leg);
@@ -375,4 +137,4 @@ GazeboEscherMechanics::GazeboEscherMechanics()
   body_dyn_param = new TreeDynParamFb(body, Mechanics::Gravity);
 }
 
-REGISTER_PLUGIN(gazebo_escher, Mechanics, GazeboEscherMechanics);
+REGISTER_PLUGIN(v2exoskeleton, Mechanics, V2ExoskeletonMechanics);

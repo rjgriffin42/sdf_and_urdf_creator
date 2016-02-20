@@ -1,7 +1,5 @@
 <?xml version="1.0" ?>
 <robot name="ExoSimple">
-
-  
   <link name="hiptube">
     <visual>
       <origin xyz="0 0 0"/>

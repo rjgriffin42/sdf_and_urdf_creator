@@ -1,0 +1,11 @@
+**model
+name=thor_leg
+height=0.5
+
+**base_joint
+type=revolute
+axis_x=1
+axis_y=0
+axis_z=0
+upper_limit=0
+lower_limit=0

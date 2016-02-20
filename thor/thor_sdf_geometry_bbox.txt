@@ -1,0 +1,103 @@
+**torso
+geometry=<box>\n					<size>${torso.Xbb} ${torso.Ybb} ${torso.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**l_thigh
+geometry=<box>\n					<size>${l_thigh.Xbb} ${l_thigh.Ybb} ${l_thigh.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**r_thigh
+geometry=<box>\n					<size>${r_thigh.Xbb} ${r_thigh.Ybb} ${r_thigh.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**l_shin
+geometry=<box>\n					<size>${l_shin.Xbb} ${l_shin.Ybb} ${l_shin.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**r_shin
+geometry=<box>\n					<size>${r_shin.Xbb} ${r_shin.Ybb} ${r_shin.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**l_foot
+geometry=<box>\n					<size>${l_foot.Xbb} ${l_foot.Ybb} ${l_foot.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**r_foot
+geometry=<box>\n					<size>${r_foot.Xbb} ${r_foot.Ybb} ${r_foot.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**chest
+geometry=<box>\n					<size>${chest.Xbb} ${chest.Ybb} ${chest.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**chest_lidar
+geometry=<box>\n					<size>${chest_lidar.Xbb} ${chest_lidar.Ybb} ${chest_lidar.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**neck
+geometry=<box>\n					<size>${neck.Xbb} ${neck.Ybb} ${neck.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**head
+geometry=<box>\n					<size>${head.Xbb} ${head.Ybb} ${head.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**head_lidar
+geometry=<box>\n					<size>${head_lidar.Xbb} ${head_lidar.Ybb} ${head_lidar.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**l_arm
+geometry=<box>\n					<size>${l_arm.Xbb} ${l_arm.Ybb} ${l_arm.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**r_arm
+geometry=<box>\n					<size>${r_arm.Xbb} ${r_arm.Ybb} ${r_arm.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**l_forearm
+geometry=<box>\n					<size>${l_forearm.Xbb} ${l_forearm.Ybb} ${l_forearm.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**r_forearm
+geometry=<box>\n					<size>${r_forearm.Xbb} ${r_forearm.Ybb} ${r_forearm.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**l_foreforearm
+geometry=<box>\n					<size>${l_foreforearm.Xbb} ${l_foreforearm.Ybb} ${l_foreforearm.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**r_foreforearm
+geometry=<box>\n					<size>${r_foreforearm.Xbb} ${r_foreforearm.Ybb} ${r_foreforearm.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**l_palm
+geometry=<box>\n					<size>${l_palm.Xbb} ${l_palm.Ybb} ${l_palm.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**r_palm
+geometry=<box>\n					<size>${r_palm.Xbb} ${r_palm.Ybb} ${r_palm.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**l_finger_link
+geometry=<box>\n					<size>${l_finger_link.Xbb} ${l_finger_link.Ybb} ${l_finger_link.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**r_finger_link
+geometry=<box>\n					<size>${r_finger_link.Xbb} ${r_finger_link.Ybb} ${r_finger_link.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**l_gripper_link
+geometry=<box>\n					<size>${l_gripper_link.Xbb} ${l_gripper_link.Ybb} ${l_gripper_link.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**r_gripper_link
+geometry=<box>\n					<size>${r_gripper_link.Xbb} ${r_gripper_link.Ybb} ${r_gripper_link.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**l_thumb_link
+geometry=<box>\n					<size>${l_thumb_link.Xbb} ${l_thumb_link.Ybb} ${l_thumb_link.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**r_thumb_link
+geometry=<box>\n					<size>${r_thumb_link.Xbb} ${r_thumb_link.Ybb} ${r_thumb_link.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
