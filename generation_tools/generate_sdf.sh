@@ -43,16 +43,16 @@ data_dir=$script_dir/$robot_dir
 target_dir=$script_dir/../model_directory/$robot_dir
 
 #for KDL
-echo -e "*with \nlidar=1  \nfixed_torso=0" > kdl_temp
+echo -e "*with \nlidar=1" > kdl_temp
 
-#for URDF (Ros)
-echo -e "*with \nlidar=0  \nfixed_torso=0" > urdf_temp
+#for URDF
+echo -e "*with \nlidar=0" > urdf_temp
 
-#for SDF (Gazebo)
-echo -e "*with \nlidar=0  \nfixed_torso=0" > sdf_temp
+#for SDF
+echo -e "*with \nlidar=0" > sdf_temp
 
 for i in kdl_temp urdf_temp sdf_temp sdf_temp; do
-  cat $script_dir/$robot_dir/${robot}_cad_data.txt >> $i
+  cat $script_dir/$robot_dir/${robot_lower_case}_cad_data.txt >> $i
 
   # reduce_template creates a file named something like "nx_data84". Rename it to something better.
   mv $(./reduce_template.sh $i) $i
@@ -89,5 +89,5 @@ fi
 echo "Generating $robot KDL Mechanics"
 lua $script_dir/format_model.lua kdl_temp $data_dir/${robot_lower_case}_kdl_template.txt > $target_dir/${robot_lower_case}.cpp
 
-rm -f nx_data*
+rm -f data_container*
 rm -f *temp

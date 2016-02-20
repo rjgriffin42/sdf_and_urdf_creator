@@ -2,7 +2,9 @@
 These scale factors are used in the corresponding template files.
 sdf = 77.98
 measured = 77.48
+kdl = 77.48
 sdf_scale_factor = ${mass.measured / mass.sdf}
+kdl_scale_factor = ${mass.measured / mass.kdl}
 
 All transforms from global
 Global: Defined as on floor, centered on robot in Y-axis, in plane with ankles, knees, hips in X-axis
@@ -33,6 +35,7 @@ Iyzc, Ixzc, Ixyc      =   -0.000398792,    0.007328075,   -0.000053750
 
 Xcog, Ycog, Zcog = 0.0190724,	0.1021182,	0.2811108
 Xbb, Ybb, Zbb    = 0.10,	0.130,	0.4512008
+roll, pitch, yaw = 0, 0, 0
 
 ************************l_thigh
 Mass                  =    7.195307390
@@ -42,6 +45,7 @@ Iyzc, Ixzc, Ixyc      =   -0.001798911,   -0.016761334,   -0.004359838
 
 Xcog, Ycog, Zcog = -0.002281,	0.117675,	0.6903315
 Xbb, Ybb, Zbb    = 0.10,	0.18965,	0.4496629
+roll, pitch, yaw = 0, 0, 0
 
 ************************torso
 Mass                  =   12.432352263
@@ -69,6 +73,7 @@ Iyzc, Ixzc, Ixyc      =    0.000388378,    0.007328046,    0.000077546
 
 Xcog, Ycog, Zcog = 0.0190724,	-0.1021182,	0.2811108
 Xbb, Ybb, Zbb    = 0.10,	0.130,	0.4512008
+roll, pitch, yaw = 0, 0, 0
 
 ************************r_thigh
 Mass                  =    6.782729230
@@ -78,6 +83,7 @@ Iyzc, Ixzc, Ixyc      =    0.003245855,   -0.014283399,   -0.005800059
 
 Xcog, Ycog, Zcog = -0.002281,	-0.117675,	0.6903315
 Xbb, Ybb, Zbb    = 0.10,	0.18965,	0.4496629
+roll, pitch, yaw = 0, 0, 0
 
 ************************trunnion
 Mass                            =    0.05
@@ -100,41 +106,29 @@ Iyzc, Ixzc, Ixyc      =   0, 0, 0
 
 --------------------------------------------------------
 
-Updated 2/9/2015
 *****l_ankle
 X, Y, Z =        0,        0.1,      0.08
 pitch_lower_limit, pitch_upper_limit = ${math.pi/180 * -55}, ${math.pi/180 * 35}
-roll_lower_limit, roll_upper_limit   = ${math.pi/180 * -30}, ${math.pi/180 * 30}
 
-Updated 2/9/2015
 *****r_ankle
 X, Y, Z =        0,        -0.1,     0.08
 pitch_lower_limit, pitch_upper_limit = ${math.pi/180 * -55}, ${math.pi/180 * 35}
-roll_lower_limit, roll_upper_limit   = ${math.pi/180 * -30}, ${math.pi/180 * 30}
 
-Updated 2/9/2015
 *****l_knee
 X, Y, Z =        0,        0.1,      0.49
 pitch_lower_limit, pitch_upper_limit = ${math.pi/180 * 0}, ${math.pi/180 * 135}
 
-Updated 2/9/2015
 *****r_knee
 X, Y, Z =        0,        -0.1,     0.49  
 pitch_lower_limit, pitch_upper_limit = ${math.pi/180 * 0}, ${math.pi/180 * 135}
 
-Updated 2/9/2015
 *****l_hip
 X, Y, Z =        0,        0.1,      0.90  
-yaw_lower_limit, yaw_upper_limit     = ${math.pi/180 * -20}, ${math.pi/180 * 45}
-roll_lower_limit, roll_upper_limit   = ${math.pi/180 * -30}, ${math.pi/180 * 45}
-pitch_lower_limit, pitch_upper_limit = ${math.pi/180 * -120}, ${math.pi/180 * 30}
+pitch_lower_limit, pitch_upper_limit     = ${math.pi/180 * -20}, ${math.pi/180 * 45}
 
-Updated 2/9/2015
 *****r_hip
 X, Y, Z =        0,        -0.1,     0.90  
-yaw_lower_limit, yaw_upper_limit     = ${math.pi/180 * -45}, ${math.pi/180 * 20}
-roll_lower_limit, roll_upper_limit   = ${math.pi/180 * -45}, ${math.pi/180 * 30}
-pitch_lower_limit, pitch_upper_limit = ${math.pi/180 * -120}, ${math.pi/180 * 30}
+pitch_lower_limit, pitch_upper_limit     = ${math.pi/180 * -45}, ${math.pi/180 * 20}
 
 *****microstrain_joint
 X, Y, Z = -0.0085,      0,      1.0180015
