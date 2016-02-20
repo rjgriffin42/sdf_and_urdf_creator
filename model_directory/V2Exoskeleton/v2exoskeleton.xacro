@@ -1,0 +1,216 @@
+<?xml version="1.0"?>
+<robot name="V2Exoskeleton">
+
+  <link name="torso">
+    <origin xyz="0 0 0.9" />
+    <collision name="torso_collision">
+      <origin xyz="-0.0085 0 0.1180015" />
+      <geometry>
+        <box size="0.25 0.3 0.3299971" />
+      </geometry>
+    </collision>
+    <visual name="torso_visual">
+      <origin xyz="-0 -0 -0.9" />
+      <geometry>
+        <mesh filename="package://escher_description/meshes/torso.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="$silver"/>
+    </visual>
+    <inertial>
+      <origin xyz="-0.011453866 -2.8926e-05 0.132504541" />
+      <mass value="12.352637257467" />
+      <inertia ixx="0.192434317" iyy="0.138750791" izz="0.152566986" iyz="6.1397e-05" ixz="0.005354688" ixy="0.000154048" />
+    </inertial>
+  </link>
+
+  <link name="microstrain_link" />
+
+  <joint name="microstrain_joint" type="fixed">
+    <origin xyz="-0.0085 0 0.1180015" rpy="0 0 1.5707963267949" />
+    <axis xyz="0 0 1" />
+    <parent link="torso" />
+    <child link="microstrain_link" />
+  </joint>
+
+  <link name="l_thigh">
+    <collision name="l_thigh_collision">
+      <origin xyz="-0.002281 0.017675 -0.2096685" rpy="0 0 0" />
+      <geometry>
+        <box size="0.1 0.18965 0.4496629" />
+      </geometry>
+    </collision>
+    <visual name="l_thigh_visual">
+      <origin xyz="-0 -0.1 -0.9" />
+      <geometry>
+        <mesh filename="package://escher_description/meshes/l_thigh.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="$silver"/>
+    </visual>
+    <inertial>
+      <origin xyz="-0.009556145 0.018857411 -0.211995444" />
+      <mass value="7.1491717950398" />
+      <inertia ixx="0.084250058" iyy="0.096381201" izz="0.045852856" iyz="-0.001798911" ixz="-0.016761334" ixy="-0.004359838" />
+    </inertial>
+  </link>
+
+  <link name="r_thigh">
+    <collision name="r_thigh_collision">
+      <origin xyz="-0.002281 -0.017675 -0.2096685" rpy="0 0 0" />
+      <geometry>
+        <box size="0.1 0.18965 0.4496629" />
+      </geometry>
+    </collision>
+    <visual name="r_thigh_visual">
+      <origin xyz="-0 0.1 -0.9" />
+      <geometry>
+        <mesh filename="package://escher_description/meshes/r_thigh.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="$silver"/>
+    </visual>
+    <inertial>
+      <origin xyz="-0.014241341 -0.020689569 -0.20698467" />
+      <mass value="6.7392390451449" />
+      <inertia ixx="0.079240154" iyy="0.089456087" izz="0.043072055" iyz="0.003245855" ixz="-0.014283399" ixy="-0.005800059" />
+    </inertial>
+  </link>
+
+  <link name="l_shin">
+    <collision name="l_shin_collision">
+      <origin xyz="0.0190724 0.0021182 -0.2088892" rpy="0 0 0" />
+      <geometry>
+        <box size="0.1 0.13 0.4512008" />
+      </geometry>
+    </collision>
+    <visual name="l_shin_visual">
+      <origin xyz="-0 -0.1 -0.49" />
+      <geometry>
+        <mesh filename="package://escher_description/meshes/l_shin.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="$silver"/>
+    </visual>
+    <inertial>
+      <origin xyz="0.039081423 0.00039793299999999 -0.155135772" />
+      <mass value="4.5253558007679" />
+      <inertia ixx="0.046092742" iyy="0.047576074" izz="0.017089465" iyz="-0.000398792" ixz="0.007328075" ixy="-5.375e-05" />
+    </inertial>
+  </link>
+
+  <link name="r_shin">
+    <collision name="r_shin_collision">
+      <origin xyz="0.0190724 -0.0021182 -0.2088892" rpy="0 0 0" />
+      <geometry>
+        <box size="0.1 0.13 0.4512008" />
+      </geometry>
+    </collision>
+    <visual name="r_shin_visual">
+      <origin xyz="-0 0.1 -0.49" />
+      <geometry>
+        <mesh filename="package://escher_description/meshes/r_shin.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="$silver"/>
+    </visual>
+    <inertial>
+      <origin xyz="0.039081302 -0.000317208 -0.155136167" />
+      <mass value="4.5253557242616" />
+      <inertia ixx="0.046093172" iyy="0.047576244" izz="0.017089664" iyz="0.000388378" ixz="0.007328046" ixy="7.7546e-05" />
+    </inertial>
+  </link>
+
+  <link name="l_foot">
+    <collision name="l_foot_collision">
+      <origin xyz="0.025 0 -0.0533276" />
+      <geometry>
+        <box size="0.25 0.1485 0.05493235" />
+      </geometry>
+    </collision>
+    <visual name="l_foot_visual">
+      <origin xyz="-0 -0.1 -0.08" />
+      <geometry>
+        <mesh filename="package://escher_description/meshes/l_foot.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="$silver"/>
+    </visual>
+    <inertial>
+      <origin xyz="-0.003605608 0.000378564 -0.043143949" />
+      <mass value="1.7554505521062" />
+      <inertia ixx="0.003706824" iyy="0.007284474" izz="0.007592302" iyz="2.331e-05" ixz="-0.001373646" ixy="1.3207e-05" />
+    </inertial>
+  </link>
+
+  <link name="r_foot">
+    <collision name="r_foot_collision">
+      <origin xyz="0.025 0 -0.0533276" />
+      <geometry>
+        <box size="0.25 0.1485 0.05493235" />
+      </geometry>
+    </collision>
+    <visual name="r_foot_visual">
+      <origin xyz="-0 0.1 -0.08" />
+      <geometry>
+        <mesh filename="package://escher_description/meshes/r_foot.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="$silver"/>
+    </visual>
+    <inertial>
+      <origin xyz="-0.003322076 -0.000365984 -0.043139839" />
+      <mass value="1.7588867652665" />
+      <inertia ixx="0.003363358" iyy="0.006961913" izz="0.007424205" iyz="-2.3263e-05" ixz="-0.001368115" ixy="-8.734e-06" />
+    </inertial>
+  </link>
+
+  <joint name="l_hip_pitch" type="revolute">
+    <origin xyz="0 0 0" />
+    <parent link="torso" />
+    <child link="l_thigh" />
+    <axis xyz="0 1 0" />
+    <limit lower="-0.34906585039887" upper="0.78539816339745" effort="500" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_hip_pitch" type="revolute">
+    <origin xyz="0 0 0" />
+    <parent link="torso" />
+    <child link="r_thigh" />
+    <axis xyz="0 1 0" />
+    <limit lower="-0.78539816339745" upper="0.34906585039887" effort="500" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="l_knee_pitch" type="revolute">
+    <origin xyz="0 0 -0.41" />
+    <parent link="l_thigh" />
+    <child link="l_shin" />
+    <axis xyz="0 1 0" />
+    <limit lower="0" upper="2.3561944901923" effort="500" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_knee_pitch" type="revolute">
+    <origin xyz="0 0 -0.41" />
+    <parent link="r_thigh" />
+    <child link="r_shin" />
+    <axis xyz="0 1 0" />
+    <limit lower="0" upper="2.3561944901923" effort="500" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="l_ankle_pitch" type="revolute">
+    <origin xyz="0 0 -0.41" />
+    <parent link="l_shin" />
+    <child link="l_foot" />
+    <axis xyz="0 1 0" />
+    <limit lower="-0.95993108859688" upper="0.61086523819802" effort="500" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_ankle_pitch" type="revolute">
+    <origin xyz="0 0 -0.41" />
+    <parent link="r_shin" />
+    <child link="r_foot" />
+    <axis xyz="0 1 0" />
+    <limit lower="-0.95993108859688" upper="0.61086523819802" effort="500" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+</robot>
+
+

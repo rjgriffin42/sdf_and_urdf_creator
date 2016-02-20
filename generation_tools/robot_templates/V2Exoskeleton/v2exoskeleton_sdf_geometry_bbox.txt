@@ -1,0 +1,27 @@
+**torso
+geometry=<box>\n					<size>${torso.Xbb} ${torso.Ybb} ${torso.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**l_thigh
+geometry=<box>\n					<size>${l_thigh.Xbb} ${l_thigh.Ybb} ${l_thigh.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**r_thigh
+geometry=<box>\n					<size>${r_thigh.Xbb} ${r_thigh.Ybb} ${r_thigh.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**l_shin
+geometry=<box>\n					<size>${l_shin.Xbb} ${l_shin.Ybb} ${l_shin.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**r_shin
+geometry=<box>\n					<size>${r_shin.Xbb} ${r_shin.Ybb} ${r_shin.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**l_foot
+geometry=<box>\n					<size>${l_foot.Xbb} ${l_foot.Ybb} ${l_foot.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0
+
+**r_foot
+geometry=<box>\n					<size>${r_foot.Xbb} ${r_foot.Ybb} ${r_foot.Zbb}</size>\n				</box>
+pose=0 0 0 0 0 0

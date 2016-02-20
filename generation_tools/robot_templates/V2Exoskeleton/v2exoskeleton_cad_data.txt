@@ -1,0 +1,160 @@
+****mass
+These scale factors are used in the corresponding template files.
+sdf = 77.98
+measured = 77.48
+kdl = 77.48
+sdf_scale_factor = ${mass.measured / mass.sdf}
+kdl_scale_factor = ${mass.measured / mass.kdl}
+
+All transforms from global
+Global: Defined as on floor, centered on robot in Y-axis, in plane with ankles, knees, hips in X-axis
+All units kg-m
+
+
+  _      _         _
+ | |    (_) _ __  | | __ ___
+ | |    | || '_ \ | |/ // __|
+ | |___ | || | | ||   < \__ \
+ |_____||_||_| |_||_|\_\|___/
+
+
+************************l_foot
+Mass                  =    1.766778963
+Xcbar, Ycbar, Zcbar   =   -0.003605608,    0.100378564,    0.036856051
+Ixc, Iyc, Izc         =    0.003706824,    0.007284474,    0.007592302
+Iyzc, Ixzc, Ixyc      =    0.000023310,   -0.001373646,    0.000013207
+
+Xcog, Ycog, Zcog = 0.025,	0.1,	0.0266724
+Xbb, Ybb, Zbb    = 0.25,	0.1485,	0.05493235
+
+************************l_shin
+Mass                  =    4.554559181
+Xcbar, Ycbar, Zcbar   =    0.039081423,    0.100397933,    0.334864228
+Ixc, Iyc, Izc         =    0.046092742,    0.047576074,    0.017089465
+Iyzc, Ixzc, Ixyc      =   -0.000398792,    0.007328075,   -0.000053750
+
+Xcog, Ycog, Zcog = 0.0190724,	0.1021182,	0.2811108
+Xbb, Ybb, Zbb    = 0.10,	0.130,	0.4512008
+roll, pitch, yaw = 0, 0, 0
+
+************************l_thigh
+Mass                  =    7.195307390
+Xcbar, Ycbar, Zcbar   =   -0.009556145,    0.118857411,    0.688004556
+Ixc, Iyc, Izc         =    0.084250058,    0.096381201,    0.045852856
+Iyzc, Ixzc, Ixyc      =   -0.001798911,   -0.016761334,   -0.004359838
+
+Xcog, Ycog, Zcog = -0.002281,	0.117675,	0.6903315
+Xbb, Ybb, Zbb    = 0.10,	0.18965,	0.4496629
+roll, pitch, yaw = 0, 0, 0
+
+************************torso
+Mass                  =   12.432352263
+Xcbar, Ycbar, Zcbar   =   -0.011453866,   -0.000028926,    1.032504541
+Ixc, Iyc, Izc         =    0.192434317,    0.138750791,    0.152566986
+Iyzc, Ixzc, Ixyc      =    0.000061397,    0.005354688,    0.000154048
+
+Xcog, Ycog, Zcog = -0.0085,	0,	1.0180015
+Xbb, Ybb, Zbb    = 0.250,	0.30,	0.3299971
+
+************************r_foot
+Mass                  =    1.770237351
+Xcbar, Ycbar, Zcbar   =   -0.003322076,   -0.100365984,    0.036860161
+Ixc, Iyc, Izc         =    0.003363358,    0.006961913,    0.007424205
+Iyzc, Ixzc, Ixyc      =   -0.000023263,   -0.001368115,   -0.000008734
+
+Xcog, Ycog, Zcog = 0.025,	-0.1,   0.0266724
+Xbb, Ybb, Zbb    = 0.25,	0.1485,	0.05493235
+
+************************r_shin
+Mass                  =    4.554559104
+Xcbar, Ycbar, Zcbar   =    0.039081302,   -0.100317208,    0.334863833
+Ixc, Iyc, Izc         =    0.046093172,    0.047576244,    0.017089664
+Iyzc, Ixzc, Ixyc      =    0.000388378,    0.007328046,    0.000077546
+
+Xcog, Ycog, Zcog = 0.0190724,	-0.1021182,	0.2811108
+Xbb, Ybb, Zbb    = 0.10,	0.130,	0.4512008
+roll, pitch, yaw = 0, 0, 0
+
+************************r_thigh
+Mass                  =    6.782729230
+Xcbar, Ycbar, Zcbar   =   -0.014241341,   -0.120689569,    0.693015330
+Ixc, Iyc, Izc         =    0.079240154,    0.089456087,    0.043072055
+Iyzc, Ixzc, Ixyc      =    0.003245855,   -0.014283399,   -0.005800059
+
+Xcog, Ycog, Zcog = -0.002281,	-0.117675,	0.6903315
+Xbb, Ybb, Zbb    = 0.10,	0.18965,	0.4496629
+roll, pitch, yaw = 0, 0, 0
+
+************************trunnion
+Mass                            =    0.05
+Radius                          =    0.01
+Length                          =    0.1
+
+Moments of Inertia (Centroidal)
+Ixc, Iyc, Izc         =    8.5833333333333e-03, 8.5833333333333e-03, 7.5e-04
+
+Products of Inertia (Centroidal)
+Iyzc, Ixzc, Ixyc      =   0, 0, 0
+
+
+--------------------------------------------------------
+          _         _         _
+         | |  ___  (_) _ __  | |_  ___
+      _  | | / _ \ | || '_ \ | __|/ __|
+     | |_| || (_) || || | | || |_ \__ \
+      \___/  \___/ |_||_| |_| \__||___/
+
+--------------------------------------------------------
+
+*****l_ankle
+X, Y, Z =        0,        0.1,      0.08
+pitch_lower_limit, pitch_upper_limit = ${math.pi/180 * -55}, ${math.pi/180 * 35}
+
+*****r_ankle
+X, Y, Z =        0,        -0.1,     0.08
+pitch_lower_limit, pitch_upper_limit = ${math.pi/180 * -55}, ${math.pi/180 * 35}
+
+*****l_knee
+X, Y, Z =        0,        0.1,      0.49
+pitch_lower_limit, pitch_upper_limit = ${math.pi/180 * 0}, ${math.pi/180 * 135}
+
+*****r_knee
+X, Y, Z =        0,        -0.1,     0.49  
+pitch_lower_limit, pitch_upper_limit = ${math.pi/180 * 0}, ${math.pi/180 * 135}
+
+*****l_hip
+X, Y, Z =        0,        0.1,      0.90  
+pitch_lower_limit, pitch_upper_limit     = ${math.pi/180 * -20}, ${math.pi/180 * 45}
+
+*****r_hip
+X, Y, Z =        0,        -0.1,     0.90  
+pitch_lower_limit, pitch_upper_limit     = ${math.pi/180 * -45}, ${math.pi/180 * 20}
+
+*****microstrain_joint
+X, Y, Z = -0.0085,      0,      1.0180015
+roll, pitch, yaw = 0, 0, ${math.pi/2}
+
+*****kvh_joint
+X, Y, Z = -0.0085,      0,      1.0180015
+roll, pitch, yaw = 0, ${-math.pi/2}, 0
+
+--------------------------------------------------------
+  _____
+ |  ___| __ __ _ _ __ ___   ___  ___
+ | |_ | '__/ _` | '_ ` _ \ / _ \/ __|
+ |  _|| | | (_| | | | | | |  __/\__ \
+ |_|  |_|  \__,_|_| |_| |_|\___||___/
+
+--------------------------------------------------------
+
+************************l_foot_frame
+Center of the sole
+X, Y, Z = 0.025,  0.1, -0.0015875
+
+************************r_foot_frame
+Center of the sole
+X, Y, Z = 0.025, -0.1, -0.0015875
+
+************************torso_frame
+Directly between hips
+X, Y, Z = ${(l_hip.X + r_hip.X)/2}, ${(l_hip.Y + r_hip.Y)/2}, ${(l_hip.Z + r_hip.Z)/2}

@@ -1,0 +1,27 @@
+**torso
+geometry=<mesh filename="package://escher_description/meshes/torso.stl" scale=".001 .001 .001" />
+origin=${-torso_frame.X} ${-torso_frame.Y} ${-torso_frame.Z}
+
+**l_thigh
+geometry=<mesh filename="package://escher_description/meshes/l_thigh.stl" scale=".001 .001 .001" />
+origin=${-l_hip.X} ${-l_hip.Y} ${-l_hip.Z}
+
+**r_thigh
+geometry=<mesh filename="package://escher_description/meshes/r_thigh.stl" scale=".001 .001 .001" />
+origin=${-r_hip.X} ${-r_hip.Y} ${-r_hip.Z}
+
+**l_shin
+geometry=<mesh filename="package://escher_description/meshes/l_shin.stl" scale=".001 .001 .001" />
+origin=${-l_knee.X} ${-l_knee.Y} ${-l_knee.Z}
+
+**r_shin
+geometry=<mesh filename="package://escher_description/meshes/r_shin.stl" scale=".001 .001 .001" />
+origin=${-r_knee.X} ${-r_knee.Y} ${-r_knee.Z}
+
+**l_foot
+geometry=<mesh filename="package://escher_description/meshes/l_foot.stl" scale=".001 .001 .001" />
+origin=${-l_ankle.X} ${-l_ankle.Y} ${-l_ankle.Z}
+
+**r_foot
+geometry=<mesh filename="package://escher_description/meshes/r_foot.stl" scale=".001 .001 .001" />
+origin=${-r_ankle.X} ${-r_ankle.Y} ${-r_ankle.Z}

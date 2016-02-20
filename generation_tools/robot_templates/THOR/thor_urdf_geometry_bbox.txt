@@ -1,0 +1,99 @@
+**torso
+geometry=<box size="${torso.Xbb} ${torso.Ybb} ${torso.Zbb}" />
+origin=${torso.Xcog - torso_frame.X} ${torso.Ycog - torso_frame.Y} ${torso.Zcog - torso_frame.Z}
+
+**l_thigh
+geometry=<box size="${l_thigh.Xbb} ${l_thigh.Ybb} ${l_thigh.Zbb}" />
+origin=${l_thigh.Xcog - l_hip.X} ${l_thigh.Ycog - l_hip.Y} ${l_thigh.Zcog - l_hip.Z}
+
+**r_thigh
+geometry=<box size="${r_thigh.Xbb} ${r_thigh.Ybb} ${r_thigh.Zbb}" />
+origin=${r_thigh.Xcog - r_hip.X} ${r_thigh.Ycog - r_hip.Y} ${r_thigh.Zcog - r_hip.Z}
+
+**l_shin
+geometry=<box size="${l_shin.Xbb} ${l_shin.Ybb} ${l_shin.Zbb}" />
+origin=${l_shin.Xcog - l_knee.X} ${l_shin.Ycog - l_knee.Y} ${l_shin.Zcog - l_knee.Z}
+
+**r_shin
+geometry=<box size="${r_shin.Xbb} ${r_shin.Ybb} ${r_shin.Zbb}" />
+origin=${r_shin.Xcog - r_knee.X} ${r_shin.Ycog - r_knee.Y} ${r_shin.Zcog - r_knee.Z}
+
+**l_foot
+geometry=<box size="${l_foot.Xbb} ${l_foot.Ybb} ${l_foot.Zbb}" />
+origin=${l_foot.Xcog - l_ankle.X} ${l_foot.Ycog - l_ankle.Y} ${l_foot.Zcog - l_ankle.Z}
+
+**r_foot
+geometry=<box size="${r_foot.Xbb} ${r_foot.Ybb} ${r_foot.Zbb}" />
+origin=${r_foot.Xcog - r_ankle.X} ${r_foot.Ycog - r_ankle.Y} ${r_foot.Zcog - r_ankle.Z}
+
+**chest
+geometry=<box size="${chest.Xbb} ${chest.Ybb} ${chest.Zbb}" />
+origin=${chest.Xcog - waist.X} ${chest.Ycog - waist.Y} ${chest.Zcog - waist.Z}
+
+**neck
+geometry=<box size="${neck.Xbb} ${neck.Ybb} ${neck.Zbb}" />
+origin=${neck.Xcog - head_yaw.X} ${neck.Ycog - head_yaw.Y} ${neck.Zcog - head_yaw.Z}
+
+**head
+geometry=<box size="${head.Xbb} ${head.Ybb} ${head.Zbb}" />
+origin=${head.Xcog - head_pitch.X} ${head.Ycog - head_pitch.Y} ${head.Zcog - head_pitch.Z}
+
+**head_lidar
+geometry=<box size="${head_lidar.Xbb} ${head_lidar.Ybb} ${head_lidar.Zbb}" />
+origin=${head_lidar.Xcog - head_lidar_roll.X} ${head_lidar.Ycog - head_lidar_roll.Y} ${head_lidar.Zcog - head_lidar_roll.Z}
+
+**l_arm
+geometry=<box size="${l_arm.Xbb} ${l_arm.Ybb} ${l_arm.Zbb}" />
+origin=${l_arm.Xcog - l_shoulder.X} ${l_arm.Ycog - l_shoulder.Y} ${l_arm.Zcog - l_shoulder.Z}
+
+**r_arm
+geometry=<box size="${r_arm.Xbb} ${r_arm.Ybb} ${r_arm.Zbb}" />
+origin=${r_arm.Xcog - r_shoulder.X} ${r_arm.Ycog - r_shoulder.Y} ${r_arm.Zcog - r_shoulder.Z}
+
+**l_forearm
+geometry=<box size="${l_forearm.Xbb} ${l_forearm.Ybb} ${l_forearm.Zbb}" />
+origin=${l_forearm.Xcog - l_elbow.X} ${l_forearm.Ycog - l_elbow.Y} ${l_forearm.Zcog - l_elbow.Z}
+
+**r_forearm
+geometry=<box size="${r_forearm.Xbb} ${r_forearm.Ybb} ${r_forearm.Zbb}" />
+origin=${r_forearm.Xcog - r_elbow.X} ${r_forearm.Ycog - r_elbow.Y} ${r_forearm.Zcog - r_elbow.Z}
+
+**l_foreforearm
+geometry=<box size="${l_foreforearm.Xbb} ${l_foreforearm.Ybb} ${l_foreforearm.Zbb}" />
+origin=${l_foreforearm.Xcog - l_wrist_upper.X} ${l_foreforearm.Ycog - l_wrist_upper.Y} ${l_foreforearm.Zcog - l_wrist_upper.Z}
+
+**r_foreforearm
+geometry=<box size="${r_foreforearm.Xbb} ${r_foreforearm.Ybb} ${r_foreforearm.Zbb}" />
+origin=${r_foreforearm.Xcog - r_wrist_upper.X} ${r_foreforearm.Ycog - r_wrist_upper.Y} ${r_foreforearm.Zcog - r_wrist_upper.Z}
+
+**l_palm
+geometry=<box size="${l_palm.Xbb} ${l_palm.Ybb} ${l_palm.Zbb}" />
+origin=${l_palm.Xcog - l_wrist_lower.X} ${l_palm.Ycog - l_wrist_lower.Y} ${l_palm.Zcog - l_wrist_lower.Z}
+
+**r_palm
+geometry=<box size="${r_palm.Xbb} ${r_palm.Ybb} ${r_palm.Zbb}" />
+origin=${r_palm.Xcog - r_wrist_lower.X} ${r_palm.Ycog - r_wrist_lower.Y} ${r_palm.Zcog - r_wrist_lower.Z}
+
+**l_finger_link
+geometry=<box size="${l_finger_link.Xbb} ${l_finger_link.Ybb} ${l_finger_link.Zbb}" />
+origin=${l_finger_link.Xcog - l_finger.X} ${l_finger_link.Ycog - l_finger.Y} ${l_finger_link.Zcog - l_finger.Z}
+
+**r_finger_link
+geometry=<box size="${r_finger_link.Xbb} ${r_finger_link.Ybb} ${r_finger_link.Zbb}" />
+origin=${r_finger_link.Xcog - r_finger.X} ${r_finger_link.Ycog - r_finger.Y} ${r_finger_link.Zcog - r_finger.Z}
+
+**l_gripper_link
+geometry=<box size="${l_gripper_link.Xbb} ${l_gripper_link.Ybb} ${l_gripper_link.Zbb}" />
+origin=${l_gripper_link.Xcog - l_gripper.X} ${l_gripper_link.Ycog - l_gripper.Y} ${l_gripper_link.Zcog - l_gripper.Z}
+
+**r_gripper_link
+geometry=<box size="${r_gripper_link.Xbb} ${r_gripper_link.Ybb} ${r_gripper_link.Zbb}" />
+origin=${r_gripper_link.Xcog - r_gripper.X} ${r_gripper_link.Ycog - r_gripper.Y} ${r_gripper_link.Zcog - r_gripper.Z}
+
+**l_thumb_link
+geometry=<box size="${l_thumb_link.Xbb} ${l_thumb_link.Ybb} ${l_thumb_link.Zbb}" />
+origin=${l_thumb_link.Xcog - l_thumb.X} ${l_thumb_link.Ycog - l_thumb.Y} ${l_thumb_link.Zcog - l_thumb.Z}
+
+**r_thumb_link
+geometry=<box size="${r_thumb_link.Xbb} ${r_thumb_link.Ybb} ${r_thumb_link.Zbb}" />
+origin=${r_thumb_link.Xcog - r_thumb.X} ${r_thumb_link.Ycog - r_thumb.Y} ${r_thumb_link.Zcog - r_thumb.Z}

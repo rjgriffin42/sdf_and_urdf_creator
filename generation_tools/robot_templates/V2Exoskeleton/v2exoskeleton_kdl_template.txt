@@ -1,0 +1,140 @@
+#include <stdio.h>
+
+using namespace KDL;
+
+V2ExoskeletonMechanics::V2ExoskeletonMechanics()
+{
+  // coordinate transforms
+  /////////////////////////////////////////////////////////////////////////
+
+  // l_leg
+  l_hip_transform = Frame(Vector(${0}, ${l_hip.Y}, ${0}));
+  l_thigh_transform = Frame(Vector(${l_knee.X - l_hip.X}, ${l_knee.Y - l_hip.Y}, ${l_knee.Z - l_hip.Z}));
+  l_shin_transform = Frame(Vector(${l_ankle.X - l_knee.X}, ${l_ankle.Y - l_knee.Y}, ${l_ankle.Z - l_knee.Z}));
+  l_foot_transform = Frame(Vector(${l_foot_frame.X - l_ankle.X}, ${l_foot_frame.Y - l_ankle.Y}, ${l_foot_frame.Z - l_ankle.Z}));
+
+  // r_leg
+  r_hip_transform = Frame(Vector(${0}, ${r_hip.Y}, ${0}));
+  r_thigh_transform = Frame(Vector(${r_knee.X - r_hip.X}, ${r_knee.Y - r_hip.Y}, ${r_knee.Z - r_hip.Z}));
+  r_shin_transform = Frame(Vector(${r_ankle.X - r_knee.X}, ${r_ankle.Y - r_knee.Y}, ${r_ankle.Z - r_knee.Z}));
+  r_foot_transform = Frame(Vector(${r_foot_frame.X - r_ankle.X}, ${r_foot_frame.Y - r_ankle.Y}, ${r_foot_frame.Z - r_ankle.Z}));
+
+  // link inertias
+  /////////////////////////////////////////////////////////////////////////
+
+  // waist
+  torso_inertia = RigidBodyInertia(
+                    ${torso.Mass * mass.kdl_scale_factor},
+                    Vector(${torso.Xcbar - torso_frame.X}, ${torso.Ycbar - torso_frame.Y}, ${torso.Zcbar - torso_frame.Z}),
+                    RotationalInertia(${torso.Ixc}, ${torso.Iyc}, ${torso.Izc},
+                                      ${torso.Ixyc}, ${torso.Ixzc}, ${torso.Iyzc})
+                  );
+
+  // l_leg
+  l_thigh_inertia = RigidBodyInertia(
+                      ${l_thigh.Mass * mass.kdl_scale_factor},
+                      Vector(${l_thigh.Xcbar - l_knee.X}, ${l_thigh.Ycbar - l_knee.Y}, ${l_thigh.Zcbar - l_knee.Z}),
+                      RotationalInertia(${l_thigh.Ixc}, ${l_thigh.Iyc}, ${l_thigh.Izc},
+                                        ${l_thigh.Ixyc}, ${l_thigh.Ixzc}, ${l_thigh.Iyzc})
+                    );
+  l_shin_inertia = RigidBodyInertia(
+                     ${l_shin.Mass * mass.kdl_scale_factor},
+                     Vector(${l_shin.Xcbar - l_ankle.X}, ${l_shin.Ycbar - l_ankle.Y}, ${l_shin.Zcbar - l_ankle.Z}),
+                     RotationalInertia(${l_shin.Ixc}, ${l_shin.Iyc}, ${l_shin.Izc},
+                                       ${l_shin.Ixyc}, ${l_shin.Ixzc}, ${l_shin.Iyzc})
+                   );
+  l_foot_inertia = RigidBodyInertia(
+                     ${l_foot.Mass * mass.kdl_scale_factor},
+                     Vector(${l_foot.Xcbar - l_foot_frame.X}, ${l_foot.Ycbar - l_foot_frame.Y}, ${l_foot.Zcbar - l_foot_frame.Z}),
+                     RotationalInertia(${l_foot.Ixc}, ${l_foot.Iyc}, ${l_foot.Izc},
+                                       ${l_foot.Ixyc}, ${l_foot.Ixzc}, ${l_foot.Iyzc})
+                   );
+
+  // r_leg
+  r_thigh_inertia = RigidBodyInertia(
+                      ${r_thigh.Mass * mass.kdl_scale_factor},
+                      Vector(${r_thigh.Xcbar - r_knee.X}, ${r_thigh.Ycbar - r_knee.Y}, ${r_thigh.Zcbar - r_knee.Z}),
+                      RotationalInertia(${r_thigh.Ixc}, ${r_thigh.Iyc}, ${r_thigh.Izc},
+                                        ${r_thigh.Ixyc}, ${r_thigh.Ixzc}, ${r_thigh.Iyzc})
+                    );
+  r_shin_inertia = RigidBodyInertia(
+                     ${r_shin.Mass * mass.kdl_scale_factor},
+                     Vector(${r_shin.Xcbar - r_ankle.X}, ${r_shin.Ycbar - r_ankle.Y}, ${r_shin.Zcbar - r_ankle.Z}),
+                     RotationalInertia(${r_shin.Ixc}, ${r_shin.Iyc}, ${r_shin.Izc},
+                                       ${r_shin.Ixyc}, ${r_shin.Ixzc}, ${r_shin.Iyzc})
+                   );
+  r_foot_inertia = RigidBodyInertia(
+                     ${r_foot.Mass * mass.kdl_scale_factor},
+                     Vector(${r_foot.Xcbar - r_foot_frame.X}, ${r_foot.Ycbar - r_foot_frame.Y}, ${r_foot.Zcbar - r_foot_frame.Z}),
+                     RotationalInertia(${r_foot.Ixc}, ${r_foot.Iyc}, ${r_foot.Izc},
+                                       ${r_foot.Ixyc}, ${r_foot.Ixzc}, ${r_foot.Iyzc})
+                   );
+
+  // kinematic chains
+  /////////////////////////////////////////////////////////////////////////
+
+  // l_leg
+  l_leg = Chain();
+  l_leg.addSegment(Segment("l_hip", Joint(Joint::None),
+                           l_hip_transform));
+  l_leg.addSegment(Segment("l_thigh", Joint(Joint::RotY),
+                           l_thigh_transform, l_thigh_inertia));
+  l_leg.addSegment(Segment("l_shin", Joint(Joint::RotY),
+                           l_shin_transform, l_shin_inertia));
+  l_leg.addSegment(Segment("l_foot", Joint(Joint::RotY),
+                           l_foot_transform, l_foot_inertia));
+
+  // r_leg
+  r_leg = Chain();
+  r_leg.addSegment(Segment("r_hip", Joint(Joint::None),
+                           r_hip_transform));
+  r_leg.addSegment(Segment("r_thigh", Joint(Joint::RotY),
+                           r_thigh_transform, r_thigh_inertia));
+  r_leg.addSegment(Segment("r_shin", Joint(Joint::RotY),
+                           r_shin_transform, r_shin_inertia));
+  r_leg.addSegment(Segment("r_foot", Joint(Joint::RotY),
+                           r_foot_transform, r_foot_inertia));
+
+  // kinematic trees
+  /////////////////////////////////////////////////////////////////////////
+  body = Tree();
+  body.addSegment(Segment("torso", Joint(Joint::None),
+                          Frame::Identity(), torso_inertia), "root");
+  body.addChain(l_leg, "torso");
+  body.addChain(r_leg, "torso");
+
+  // tree segment indices
+  /////////////////////////////////////////////////////////////////////////
+  body_torso_index = 0;
+  body_l_foot_index = body_torso_index + l_leg.getNrOfSegments();
+  body_r_foot_index = body_l_foot_index + r_leg.getNrOfSegments();
+
+  // kinematic and dynamic solvers
+  /////////////////////////////////////////////////////////////////////////
+
+  // l_leg
+  l_leg_fk_pos_solver = new ChainFkSolverPos_recursive(l_leg);
+  l_leg_fk_vel_solver = new ChainFkSolverVel_recursive(l_leg);
+  l_leg_ik_pos_solver = new ChainIkSolverPos_6dof_leg(l_leg);
+  l_leg_ik_vel_solver = new ChainIkSolverVel_pinv(l_leg);
+  l_leg_jnt_to_jac_solver = new ChainJntToJacSolver(l_leg);
+  l_leg_id_solver = new ChainIdSolver_RNE(l_leg, Mechanics::Gravity);
+
+  // r_leg
+  r_leg_fk_pos_solver = new ChainFkSolverPos_recursive(r_leg);
+  r_leg_fk_vel_solver = new ChainFkSolverVel_recursive(r_leg);
+  r_leg_ik_pos_solver = new ChainIkSolverPos_6dof_leg(r_leg);
+  r_leg_ik_vel_solver = new ChainIkSolverVel_pinv(r_leg);
+  r_leg_jnt_to_jac_solver = new ChainJntToJacSolver(r_leg);
+  r_leg_id_solver = new ChainIdSolver_RNE(r_leg, Mechanics::Gravity);
+
+  // body
+  body_fk_solver = new TreeFkFbSolverPos_recursive(body);
+  body_id_solver = new TreeIdFbSolver_RNE(body, Mechanics::Gravity);
+  body_fixed_base_id_solver = new TreeIdSolver_RNE(body, Mechanics::Gravity);
+  body_jnt_to_cmm_solver = new TreeJntToCMMFbSolver_recursive(body);
+  body_jnt_to_jac_solver = new TreeJntToJacFbSolver(body);
+  body_dyn_param = new TreeDynParamFb(body, Mechanics::Gravity);
+}
+
+REGISTER_PLUGIN(v2exoskeleton, Mechanics, V2ExoskeletonMechanics);

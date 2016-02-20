@@ -1,0 +1,584 @@
+****mass
+These scale factors are used in the corresponding template files.
+kdl = 70.24
+sdf = 70.74
+measured = 73.30
+sdf_scale_factor = ${mass.measured / mass.sdf}
+kdl_scale_factor = ${mass.measured / mass.kdl}
+
+All transforms from global
+Global: Defined as on floor, centered on robot in Y-axis, in plane with ankles, knees, hips in X-axis
+All units kg-m
+
+
+  _      _         _
+ | |    (_) _ __  | | __ ___
+ | |    | || '_ \ | |/ // __|
+ | |___ | || | | ||   < \__ \
+ |_____||_||_| |_||_|\_\|___/
+
+
+************************default_inertia
+Mass                  =    0.01
+Ixc, Iyc, Izc         =    0.0005,  0.0005,  0.0005
+Iyzc, Ixzc, Ixyc      =    0.0, 0.0, 0.0
+
+************************l_foot
+Mass                  =    1.737946093
+Xcbar, Ycbar, Zcbar   =   -0.003540497,    0.100371030,    0.036306518
+Ixc, Iyc, Izc         =    0.003629189,    0.007181627,    0.007515445
+Iyzc, Ixzc, Ixyc      =    0.000023132,   -0.001366256,    0.000013079
+
+Xcog, Ycog, Zcog = 0.025,	0.1,	0.026724
+Xbb, Ybb, Zbb    = 0.25,	0.1485,	0.05493235
+
+************************l_shin
+Mass                  =    4.728073286
+Xcbar, Ycbar, Zcbar   =    0.039203201,    0.100387055,    0.335835621
+Ixc, Iyc, Izc         =    0.049926224,    0.051902624,    0.017996958
+Iyzc, Ixzc, Ixyc      =   -0.000412746,    0.008459786,   -0.000061882
+
+Xcog, Ycog, Zcog = 0.0190724,	0.1021182,	0.2811108
+Xbb, Ybb, Zbb    = 0.13,	0.160,	0.4512008
+roll, pitch, yaw = 0, 0.28, 0
+
+************************l_thigh
+Mass                  =    6.868916315
+Xcbar, Ycbar, Zcbar   =   -0.012893801,    0.121195329,    0.692905819
+Ixc, Iyc, Izc         =    0.079832533,    0.090497961,    0.043972750
+Iyzc, Ixzc, Ixyc      =   -0.003214845,   -0.014464827,    0.005608169
+
+Xcog, Ycog, Zcog = -0.0169442,	0.132,	0.67
+Xbb, Ybb, Zbb    = 0.28,	0.21,	0.45
+roll, pitch, yaw = 0, -0.15, 0
+
+************************torso
+Mass                  =   12.239354093
+Xcbar, Ycbar, Zcbar   =   -0.027546522,   -0.000081528,    1.033351888
+Ixc, Iyc, Izc         =    0.189594996,    0.165226373,    0.191129536
+Iyzc, Ixzc, Ixyc      =    0.000024910,   -0.000843630,    0.000243698
+
+Xcog, Ycog, Zcog = -0.03035,	0,	1.055
+Xbb, Ybb, Zbb    = 0.307,	0.41,	0.26
+
+optional_fixed_pose = ${with.fixed_torso == 0 and '' or '<pose>0 0 0.3 0 0 0</pose>'}
+optional_fixed_link = ${with.fixed_torso == 0 and '' or '<joint name="base" type="prismatic"><pose>0 0 0 0 0 0</pose><parent>world</parent><child>torso</child><axis><xyz>0 0 1</xyz><limit><upper>0</upper><lower>0</lower></limit></axis></joint>'}
+
+************************r_foot
+Mass                  =    1.741691924
+Xcbar, Ycbar, Zcbar   =   -0.003252817,   -0.100358251,    0.036307553
+Ixc, Iyc, Izc         =    0.003638673,    0.007191304,    0.007526564
+Iyzc, Ixzc, Ixyc      =   -0.000023098,   -0.001360529,    0.000008912
+
+Xcog, Ycog, Zcog = 0.025,	-0.1,   0.0266724
+Xbb, Ybb, Zbb    = 0.25,	0.1485,	0.05493235
+
+************************r_shin
+Mass                  =    4.728073208
+Xcbar, Ycbar, Zcbar   =    0.039203093,   -0.100281832,    0.335835280
+Ixc, Iyc, Izc         =    0.049926754,    0.051902784,    0.017997240
+Iyzc, Ixzc, Ixyc      =    0.000377725,    0.008459765,    0.000080717
+
+Xcog, Ycog, Zcog = 0.0190724,	-0.1021182,	0.2811108
+Xbb, Ybb, Zbb    = 0.13,	0.160,	0.4512008
+roll, pitch, yaw = 0, 0.28, 0
+
+************************r_thigh
+Mass                  =    6.861897271
+Xcbar, Ycbar, Zcbar   =   -0.013034539,   -0.120824424,    0.692998937
+Ixc, Iyc, Izc         =    0.079523937,    0.090222577,    0.044391657
+Iyzc, Ixzc, Ixyc      =    0.003378144,   -0.014386485,   -0.005865006
+
+Xcog, Ycog, Zcog = -0.0169442,	-0.132,	0.67
+Xbb, Ybb, Zbb    = 0.28,	0.21,	0.45
+roll, pitch, yaw = 0, -0.18, 0
+
+************************chest
+Mass                  =   15.433903536
+Xcbar, Ycbar, Zcbar   =   -0.024651386,   -0.000572102,    1.346570520
+Ixc, Iyc, Izc         =    0.320061097,    0.258881187,    0.192634580
+Iyzc, Ixzc, Ixyc      =    0.005595512,   -0.006857708,   -0.001679142
+
+Xcog_1, Ycog_1, Zcog_1 =-0.02515,	0,	1.3455
+Xbb_1, Ybb_1, Zbb_1    = 0.24 ,	0.430,	0.325
+Xcog_2, Ycog_2, Zcog_2 = 0, 0.139, 1.658 
+Xbb_2, Ybb_2, Zbb_2    = 0.10,  0.08, 0.33
+Xcog_3, Ycog_3, Zcog_3 = 0, -0.139, 1.658
+Xbb_3, Ybb_3, Zbb_3    = 0.10,  0.08, 0.33
+Xcog_4, Ycog_4, Zcog_4 = 0.0, 0.0, 1.825
+Xbb_4, Ybb_4, Zbb_4    = 0.05, 0.22, 0.045
+
+************************l_shoulder
+Mass                  =  1.344398311
+Xcbar, Ycbar, Zcbar   =  0.000688524,    0.209997455,    1.453289247
+Ixc, Iyc, Izc         =  0.002733115,    0.001266362,    0.002795471
+Iyzc, Ixzc, Ixyc      = -0.000001541,    0.000000154,    0.000073154
+
+Xcog, Ycog, Zcog = 0,		0.2295, 1.4534375
+Lbb, Rbb         = 0.2,   0.05
+roll, pitch, yaw = ${math.pi/2}, 0, 0
+
+************************r_shoulder
+Mass                  =  1.344398311
+Xcbar, Ycbar, Zcbar   =  0.000693283,   -0.209997455,    1.453289252
+Ixc, Iyc, Izc         =  0.002733115,    0.001266353,    0.002795463
+Iyzc, Ixzc, Ixyc      =  0.000001541,    0.000000121,   -0.000072667
+
+Xcog, Ycog, Zcog = 0,		-0.2295, 1.4534375
+Lbb, Rbb         = 0.2,   0.05
+roll, pitch, yaw = ${math.pi/2}, 0, 0
+
+************************l_shoulder_roll_link
+Mass                  =  0.709190454
+Xcbar, Ycbar, Zcbar   = -0.000157497,    0.290433712,    1.438381098
+Ixc, Iyc, Izc         =  0.000940092,    0.000866608,    0.000365724
+Iyzc, Ixzc, Ixyc      =  0.000002817,   -0.000001865,   -0.000000007
+
+Xcog, Ycog, Zcog = 0,           0.2905, 1.43479815
+Xbb, Ybb, Zbb    = 0.073,       0.0798, 0.1169213
+
+************************r_shoulder_roll_link
+Mass                  =  0.709190454
+Xcbar, Ycbar, Zcbar   =  0.000157497,   -0.290433712,    1.438381098
+Ixc, Iyc, Izc         =  0.000940092,    0.000866608,    0.000365724
+Iyzc, Ixzc, Ixyc      = -0.000002817,    0.000001865,   -0.000000007
+
+Xcog, Ycog, Zcog = 0,           -0.2905, 1.43479815
+Xbb, Ybb, Zbb    = 0.073,       0.0798, 0.1169213
+
+************************l_arm
+Mass                  =    1.291829307
+Xcbar, Ycbar, Zcbar   =    0.000000004,    0.291441705,    1.244284526
+Ixc, Iyc, Izc         =    0.007190942,    0.007116565,    0.000965322
+Iyzc, Ixzc, Ixyc      =   -0.000130703,   -0.000000000,   -0.000000001
+
+Xcog, Ycog, Zcog = 0,   0.2905, 1.23510625
+Lbb, Rbb         = 0.32,    0.05
+roll, pitch, yaw = 0, 0, 0
+
+************************r_arm
+Mass                  =    1.291829307
+Xcbar, Ycbar, Zcbar   =   -0.000000004,   -0.291441705,    1.244284526
+Ixc, Iyc, Izc         =    0.007190942,    0.007116565,    0.000965322
+Iyzc, Ixzc, Ixyc      =    0.000130703,    0.000000000,   -0.000000001
+
+Xcog, Ycog, Zcog = 0,   -0.2905, 1.23510625
+Lbb, Rbb         = 0.32,    0.05
+roll, pitch, yaw = 0, 0, 0
+
+************************l_elbow_link
+Mass                  =    0.923870693
+Xcbar, Ycbar, Zcbar   =    0.014760471,    0.290658229,    1.134761656
+Ixc, Iyc, Izc         =    0.000477001,    0.001214959,    0.001118907
+Iyzc, Ixzc, Ixyc      =    0.000000011,   -0.000004205,   -0.000002405
+
+Xcog, Ycog, Zcog = 0.01863935,  0.2905, 1.1348375
+Xbb, Ybb, Zbb    = 0.1169213,   0.073,  0.0798
+
+************************r_elbow_link
+Mass                  =    0.923870693
+Xcbar, Ycbar, Zcbar   =    0.014760471,   -0.290341771,    1.134761656
+Ixc, Iyc, Izc         =    0.000477001,    0.001214959,    0.001118907
+Iyzc, Ixzc, Ixyc      =    0.000000011,   -0.000004205,   -0.000002405
+
+Xcog, Ycog, Zcog = 0.01863935, -0.2905, 1.1348375
+Xbb, Ybb, Zbb    = 0.1169213,   0.073,  0.0798
+
+************************l_forearm
+Mass                  =    0.988541571
+Xcbar, Ycbar, Zcbar   =    0.145307207,    0.289742673,    1.134851296
+Ixc, Iyc, Izc         =    0.000942831,    0.001534454,    0.001587995
+Iyzc, Ixzc, Ixyc      =    0.000000430,    0.000000235,   -0.000034005
+
+Xcog, Ycog, Zcog = 0.1126,      0.2905, 1.1348375
+Lbb, Rbb         = 0.1,   0.05
+roll, pitch, yaw = 0, ${math.pi/2}, 0
+
+************************r_forearm
+Mass                  =    0.988541571
+Xcbar, Ycbar, Zcbar   =    0.145307207,   -0.289772183,    1.134740770
+Ixc, Iyc, Izc         =    0.000942865,    0.001532968,    0.001589516
+Iyzc, Ixzc, Ixyc      =    0.000002168,   -0.000000548,    0.000033796
+
+Xcog, Ycog, Zcog = 0.1126,     -0.2905, 1.1348375
+Lbb, Rbb         = 0.1,   0.05
+roll, pitch, yaw = 0, ${math.pi/2}, 0
+
+************************l_foreforearm
+Mass                  =    1.121564951
+Xcbar, Ycbar, Zcbar   =    0.244149556,    0.290438932,    1.134898301
+Ixc, Iyc, Izc         =    0.000543674,    0.002086265,    0.002086264
+Iyzc, Ixzc, Ixyc      =   -0.000000036,    0.000004323,    0.000004334
+
+Xcog_1, Ycog_1, Zcog_1 = 0.20915,     0.2905,    1.13483745
+Lbb_1, Rbb_1           = 0.08,    0.05
+roll_1, pitch_1, yaw_1 = ${math.pi/2}, 0, 0
+Xcog_2, Ycog_2, Zcog_2 = 0.28415,     0.2905,    1.13483745
+Lbb_2, Rbb_2           = 0.08,    0.05
+roll_2, pitch_2, yaw_2 = 0, 0, 0
+
+************************r_foreforearm
+Mass                  =    1.121564951
+Xcbar, Ycbar, Zcbar   =    0.244149556,   -0.290438932,    1.134776699
+Ixc, Iyc, Izc         =    0.000543674,    0.002086265,    0.002086264
+Iyzc, Ixzc, Ixyc      =   -0.000000036,   -0.000004323,   -0.000004334
+
+Xcog_1, Ycog_1, Zcog_1 = 0.20915,    -0.2905,    1.13483745
+Lbb_1, Rbb_1           = 0.08,    0.05
+roll_1, pitch_1, yaw_1 = ${math.pi/2}, 0, 0
+Xcog_2, Ycog_2, Zcog_2 = 0.28415,    -0.2905,    1.13483745
+Lbb_2, Rbb_2           = 0.08,    0.05
+roll_2, pitch_2, yaw_2 = 0, 0, 0
+
+************************l_hand
+Mass                  =    0.275293478
+Xcbar, Ycbar, Zcbar   =    0.305468090,    0.290100389,    1.136945442
+Ixc, Iyc, Izc         =    0.000286377,    0.000387459,    0.000332968
+Iyzc, Ixzc, Ixyc      =    0.000000206,   -0.000011537,   -0.000003162
+
+Xcog, Ycog, Zcog = 0.046608,    0.2905,       1.19364825
+Xbb, Ybb, Zbb    = 0.259765,    0.0713602,    0.2244788
+
+************************r_hand
+Mass                  =    0.275293478
+Xcbar, Ycbar, Zcbar   =    0.305468090,   -0.290100389,    1.132729558
+Ixc, Iyc, Izc         =    0.000286377,    0.000387459,    0.000332968
+Iyzc, Ixzc, Ixyc      =    0.000000206,    0.000011537,    0.000003162
+
+Xcog, Ycog, Zcog = 0.466083,   -0.2905,       1.19364825
+Xbb, Ybb, Zbb    = 0.259765,    0.0713602,    0.2244788
+
+************************l_palm
+Mass                  =    0.275293478
+Xcbar, Ycbar, Zcbar   =    0.305468090,    0.290100389,    1.136945442
+Ixc, Iyc, Izc         =    0.000286377,    0.000387459,    0.000332968
+Iyzc, Ixzc, Ixyc      =    0.000000206,   -0.000011537,   -0.000003162
+
+Xcog, Ycog, Zcog = 0.405949,    0.2905,       1.1398
+Xbb, Ybb, Zbb    = 0.18,    0.071,    0.105
+
+************************r_palm
+Mass                  =    0.275293478
+Xcbar, Ycbar, Zcbar   =    0.305468090,   -0.290100389,    1.132729558
+Ixc, Iyc, Izc         =    0.000286377,    0.000387459,    0.000332968
+Iyzc, Ixzc, Ixyc      =    0.000000206,    0.000011537,    0.000003162
+
+Xcog, Ycog, Zcog = 0.405949,   -0.2905,       1.1398
+Xbb, Ybb, Zbb    = 0.18,    0.071,    0.105
+
+************************l_thumb_base
+Mass                  =    0.0
+Xcbar, Ycbar, Zcbar   =    0.415623874,    0.290455535,    1.172191136
+Ixc, Iyc, Izc         =    0.0,    0.0,    0.0
+Iyzc, Ixzc, Ixyc      =   -0.0,    0.0,   -0.0
+
+Xcog, Ycog, Zcog = 0.42154,     0.2905,     1.17912155
+Xbb, Ybb, Zbb    = 0.05,      0.05,     0.07
+
+************************r_thumb_base
+Mass                  =    0.0
+Xcbar, Ycbar, Zcbar   =    0.415623874,   -0.290455535,    1.172191136
+Ixc, Iyc, Izc         =    0.0,    0.0,    0.0
+Iyzc, Ixzc, Ixyc      =    0.0,    0.0,    0.0
+
+Xcog, Ycog, Zcog = 0.42154,    -0.2905,     1.17912155
+Xbb, Ybb, Zbb    = 0.05,      0.05,     0.07
+
+************************l_index_link
+Mass                  =    0.0
+Xcbar, Ycbar, Zcbar   =    0.540788919,    0.291119397,    1.161859686
+Ixc, Iyc, Izc         =    0.0,    0.0,    0.0
+Iyzc, Ixzc, Ixyc      =   -0.0,    0.0,   -0.0
+
+Xcog, Ycog, Zcog = 0.54411985,  0.28895955, 1.1618428
+Lbb, Rbb         = 0.10,    0.025
+roll, pitch, yaw = 0, ${-math.pi/2}, 0
+
+************************r_index_link
+Mass                  =    0.0
+Xcbar, Ycbar, Zcbar   =    0.540788919,   -0.291119397,    1.161825814
+Ixc, Iyc, Izc         =    0.0,    0.0,    0.0
+Iyzc, Ixzc, Ixyc      =   -0.0,   -0.0,    0.0
+
+Xcog, Ycog, Zcog = 0.54411985, -0.28895955, 1.1618428
+Lbb, Rbb         = 0.10,    0.025
+roll, pitch, yaw = 0, ${-math.pi/2}, 0
+
+************************l_ring_link
+Mass                  =    0.0
+Xcbar, Ycbar, Zcbar   =    0.540788919,    0.291119397,    1.107849186
+Ixc, Iyc, Izc         =    0.0,    0.0,    0.0
+Iyzc, Ixzc, Ixyc      =   -0.0,    0.0,   -0.0
+
+Xcog, Ycog, Zcog = 0.54411985,  0.28895955, 1.1078323
+Lbb, Rbb         = 0.10,    0.025
+roll, pitch, yaw = 0, ${-math.pi/2}, 0
+
+************************r_ring_link
+Mass                  =    0.0
+Xcbar, Ycbar, Zcbar   =    0.540788919,   -0.291119397,    1.107815314
+Ixc, Iyc, Izc         =    0.0,    0.0,    0.0
+Iyzc, Ixzc, Ixyc      =   -0.0,   -0.0,    0.0
+
+Xcog, Ycog, Zcog = 0.54411985, -0.28895955, 1.1078323
+Lbb, Rbb         = 0.10,    0.025
+roll, pitch, yaw = 0, ${-math.pi/2}, 0
+
+************************l_thumb_link
+Mass                  =    0.0
+Xcbar, Ycbar, Zcbar   =    0.416063603,    0.288340564,    1.248211419
+Ixc, Iyc, Izc         =    0.0,    0.0,    0.0
+Iyzc, Ixzc, Ixyc      =   -0.0,    0.0,   -0.0
+
+Xcog, Ycog, Zcog = 0.41822345,   0.2883575,    1.26154235
+Lbb, Rbb         = 0.10,    0.025
+
+************************r_thumb_link
+Mass                  =    0.0
+Xcbar, Ycbar, Zcbar   =    0.416063603,   -0.288374436,    1.248211419
+Ixc, Iyc, Izc         =    0.0,    0.0,    0.0
+Iyzc, Ixzc, Ixyc      =   -0.0,    0.0,   -0.0
+
+Xcog, Ycog, Zcog = 0.41822345,   -0.2883575,    1.26154235
+Lbb, Rbb         = 0.10,    0.025
+
+************************neck
+Mass                  =    0.428213366
+Xcbar, Ycbar, Zcbar   =   -0.000000010,    0.000288781,    1.563711325
+Ixc, Iyc, Izc         =    0.000347468,    0.000151286,    0.000333572
+Iyzc, Ixzc, Ixyc      =   -0.000008157,   -0.000000000,    0.000000000
+
+Xcog, Ycog, Zcog = 0,	0.003,	1.559525
+Xbb, Ybb, Zbb    = 0.0541,	0.096,	0.05405
+
+************************head
+Lidar
+Mass_lidar            =    2.160036459
+Xcbar_lidar, Ycbar_lidar, Zcbar_lidar   =    -0.010119341, 0.000008991, 1.693639300
+Ixc_lidar, Iyc_lidar, Izc_lidar         =     0.011491873, 0.012981774, 0.005290433
+Iyzc_lidar, Ixzc_lidar, Ixyc_lidar      =    -0.000008284, 0.001304200, 0.000003329
+
+No Lidar
+Mass_no_lidar                  =   1.725946687 
+Xcbar_no_lidar, Ycbar_no_lidar, Zcbar_no_lidar   =  -0.019043518, 0.000011808, 1.705125812
+Ixc_no_lidar, Iyc_no_lidar, Izc_no_lidar         =   0.009989911, 0.010295295, 0.003904584
+Iyzc_no_lidar, Ixzc_no_lidar, Ixyc_no_lidar      =  -0.000008541, 0.002192988, 0.000003490 
+
+Xcog, Ycog, Zcog = -0.0142568,	0,	1.64105
+Xbb, Ybb, Zbb    = 0.155386,	0.122,	0.2991
+
+Mass  = ${head['Mass_'.. (with.lidar == 1 and '' or 'no_')..'lidar']}
+Xcbar = ${head['Xcbar_'..(with.lidar == 1 and '' or 'no_')..'lidar']}
+Ycbar = ${head['Ycbar_'..(with.lidar == 1 and '' or 'no_')..'lidar']}
+Zcbar = ${head['Zcbar_'..(with.lidar == 1 and '' or 'no_')..'lidar']}
+Ixc   = ${head['Ixc_'..  (with.lidar == 1 and '' or 'no_')..'lidar']}
+Iyc   = ${head['Iyc_'..  (with.lidar == 1 and '' or 'no_')..'lidar']}
+Izc   = ${head['Izc_'..  (with.lidar == 1 and '' or 'no_')..'lidar']}
+Iyzc  = ${head['Iyzc_'.. (with.lidar == 1 and '' or 'no_')..'lidar']}
+Ixzc  = ${head['Ixzc_'.. (with.lidar == 1 and '' or 'no_')..'lidar']}
+Ixyc  = ${head['Ixyc_'.. (with.lidar == 1 and '' or 'no_')..'lidar']}
+
+CameraX, CameraY, CameraZ = ${head_pitch.X + 0.0043}, 0, ${head_pitch.Z + 0.089 + 0.0875}
+
+
+************************head_lidar
+Mass                  =    0.434089772
+Xcbar, Ycbar, Zcbar   =    0.025363303,   -0.000002210,    1.647968776
+Ixc, Iyc, Izc         =    0.000368817,    0.000869352,    0.000701866
+Iyzc, Ixzc, Ixyc      =   -0.000000021,   -0.000008417,    0.000000055
+
+Xcog, Ycog, Zcog = 0.0098,	0,	1.6556
+Xbb, Ybb, Zbb = 0.1395,	0.06,	0.093
+EmitterX, EmitterY, EmitterZ = 0.0495, 0, 0.02
+ReceiverX, ReceiverY, ReceiverZ = 0.0495, 0, 0.0115
+EmpiricalX, EmpiricalY, EmpiricalZ = 0, -0.0075, 0.0065
+
+************************trunnion
+Mass                            =    0.05
+Radius                          =    0.01
+Length                          =    0.1
+
+Moments of Inertia (Centroidal)
+Ixc, Iyc, Izc         =    8.5833333333333e-03, 8.5833333333333e-03, 7.5e-04
+
+Products of Inertia (Centroidal)
+Iyzc, Ixzc, Ixyc      =   0, 0, 0
+
+
+--------------------------------------------------------
+          _         _         _
+         | |  ___  (_) _ __  | |_  ___
+      _  | | / _ \ | || '_ \ | __|/ __|
+     | |_| || (_) || || | | || |_ \__ \
+      \___/  \___/ |_||_| |_| \__||___/
+
+--------------------------------------------------------
+
+*****l_ankle
+X, Y, Z =        0,        0.1,      0.08
+pitch_lower_limit, pitch_upper_limit = ${math.pi/180 * -55}, ${math.pi/180 * 35}
+roll_lower_limit, roll_upper_limit   = ${math.pi/180 * -30}, ${math.pi/180 * 30}
+
+*****r_ankle
+X, Y, Z =        0,        -0.1,     0.08
+pitch_lower_limit, pitch_upper_limit = ${math.pi/180 * -55}, ${math.pi/180 * 35}
+roll_lower_limit, roll_upper_limit   = ${math.pi/180 * -30}, ${math.pi/180 * 30}
+
+*****l_knee
+X, Y, Z =        0,        0.1,      0.49
+pitch_lower_limit, pitch_upper_limit = ${math.pi/180 * 0}, ${math.pi/180 * 135}
+
+*****r_knee
+X, Y, Z =        0,        -0.1,     0.49  
+pitch_lower_limit, pitch_upper_limit = ${math.pi/180 * 0}, ${math.pi/180 * 135}
+
+*****l_hip
+X, Y, Z =        0,        0.1,      0.90  
+yaw_lower_limit, yaw_upper_limit     = ${math.pi/180 * -20}, ${math.pi/180 * 45}
+roll_lower_limit, roll_upper_limit   = ${math.pi/180 * -30}, ${math.pi/180 * 45}
+pitch_lower_limit, pitch_upper_limit = ${math.pi/180 * -120}, ${math.pi/180 * 30}
+
+*****r_hip
+X, Y, Z =        0,        -0.1,     0.90  
+yaw_lower_limit, yaw_upper_limit     = ${math.pi/180 * -45}, ${math.pi/180 * 20}
+roll_lower_limit, roll_upper_limit   = ${math.pi/180 * -45}, ${math.pi/180 * 30}
+pitch_lower_limit, pitch_upper_limit = ${math.pi/180 * -120}, ${math.pi/180 * 30}
+
+*****microstrain_joint
+X, Y, Z = -0.206541689,	0.0,	0.999894166
+roll, pitch, yaw = 0, 0, 0
+
+4/8/2015
+*****kvh_joint
+X, Y, Z = -0.184,	0,	1.009355
+roll, pitch, yaw = 0, 0, ${math.pi/2}
+
+*****multisense_joint
+X, Y, Z =     -0.000435,        0,        1.75287
+roll, pitch, yaw = 0, 0, 0
+
+*****waist
+X, Y, Z =        0,        0,        1.1730
+yaw_lower_limit, yaw_upper_limit     = ${math.pi/180 * -45}, ${math.pi/180 * 45}
+
+*****l_shoulder_pitch
+X, Y, Z =        0,        0.1275,   1.4534
+pitch_lower_limit, pitch_upper_limit = -${math.pi}, ${math.pi/3}
+
+*****r_shoulder_pitch
+X, Y, Z =        0,       -0.1275,   1.4534
+pitch_lower_limit, pitch_upper_limit = -${math.pi}, ${math.pi/3}
+
+*****l_shoulder
+X, Y, Z =        0,        0.29050,   1.4534
+roll_lower_limit, roll_upper_limit = -${math.pi/6}, ${math.pi}
+yaw_lower_limit, yaw_upper_limit = ${-2*math.pi/3}, ${2*math.pi/3}
+
+*****r_shoulder
+X, Y, Z =        0,       -0.29050,   1.4534
+roll_lower_limit, roll_upper_limit = ${-math.pi}, ${math.pi/6}
+yaw_lower_limit, yaw_upper_limit = ${-2*math.pi/3}, ${2*math.pi/3}
+
+*****l_elbow
+X, Y, Z =        0,     0.29050,   1.1348
+pitch_lower_limit, pitch_upper_limit = ${-math.pi/6}, ${7*math.pi/6}
+roll_lower_limit, roll_upper_limit = ${-2*math.pi/3}, ${2*math.pi/3}
+
+*****r_elbow
+X, Y, Z =        0,    -0.29050,   1.1348
+pitch_lower_limit, pitch_upper_limit = ${-math.pi/6}, ${7*math.pi/6}
+roll_lower_limit, roll_upper_limit = ${-2*math.pi/3}, ${2*math.pi/3}
+
+*****l_wrist_pitch
+X, Y, Z =        0.2071,    0.29050,  1.1348
+pitch_lower_limit, pitch_upper_limit = ${-math.pi/2}, ${math.pi/2}
+
+*****l_wrist_yaw
+X, Y, Z =        0.2812,    0.29050,  1.1348
+yaw_lower_limit, yaw_upper_limit = ${-math.pi/2}, ${math.pi/2}
+
+*****r_wrist_pitch
+X, Y, Z =        0.2071,   -0.29050,  1.1348
+pitch_lower_limit, pitch_upper_limit = ${-math.pi/2}, ${math.pi/2}
+
+*****r_wrist_yaw
+X, Y, Z =        0.2812,   -0.29050,  1.1348
+yaw_lower_limit, yaw_upper_limit = ${-math.pi/2}, ${math.pi/2}
+
+*****l_thumb_roll
+X, Y, Z =    0.38659,  0.29050,  1.15009
+roll_lower_limit, roll_upper_limit = ${-math.pi/2}, ${math.pi/2}
+
+*****r_thumb_roll
+X, Y, Z =    0.38659, -0.29050,  1.15009
+roll_lower_limit, roll_upper_limit = ${-math.pi/2}, ${math.pi/2}
+
+*****l_thumb_pitch
+X, Y, Z =    0.416683,  0.288357,  1.2074
+pitch_lower_limit, pitch_upper_limit = ${-math.pi/4}, ${math.pi/2}
+
+*****r_thumb_pitch
+X, Y, Z =    0.416683, -0.288357,  1.2074
+pitch_lower_limit, pitch_upper_limit = ${-math.pi/4}, ${math.pi/2}
+
+*****l_index_yaw
+X, Y, Z =   0.499698,   0.29050,  1.1618
+yaw_lower_limit, yaw_upper_limit = ${-math.pi/2}, ${math.pi/4}
+
+*****l_ring_yaw
+X, Y, Z =   0.499698,   0.29050,  1.1078
+yaw_lower_limit, yaw_upper_limit = ${-math.pi/2}, ${math.pi/4}
+
+*****r_index_yaw
+X, Y, Z =   0.499698,  -0.29050,  1.1618
+yaw_lower_limit, yaw_upper_limit = ${-math.pi/4}, ${math.pi/2}
+
+*****r_ring_yaw
+X, Y, Z =   0.499698,  -0.29050,  1.1618
+yaw_lower_limit, yaw_upper_limit = ${-math.pi/4}, ${math.pi/2}
+
+*****head_lidar_roll
+X, Y, Z =        0,        0,        1.6556
+
+****head_yaw
+X, Y, Z =     0,    0,    1.5380
+yaw_lower_limit, yaw_upper_limit = ${math.pi/180 * -90}, ${math.pi/180 * 90}
+
+****head_pitch
+X, Y, Z =     0,    0,    1.5666
+pitch_lower_limit, pitch_upper_limit = ${math.pi/180 * -30}, ${math.pi/180 * 60}
+
+--------------------------------------------------------
+  _____
+ |  ___| __ __ _ _ __ ___   ___  ___
+ | |_ | '__/ _` | '_ ` _ \ / _ \/ __|
+ |  _|| | | (_| | | | | | |  __/\__ \
+ |_|  |_|  \__,_|_| |_| |_|\___||___/
+
+--------------------------------------------------------
+
+************************l_foot_frame
+Center of the sole
+X, Y, Z = 0.025,  0.1, 0.0
+
+************************r_foot_frame
+Center of the sole
+X, Y, Z = 0.025, -0.1, 0.0
+
+************************torso_frame
+Directly between hips
+X, Y, Z = ${(l_hip.X + r_hip.X)/2}, ${(l_hip.Y + r_hip.Y)/2}, ${(l_hip.Z + r_hip.Z)/2}
+
+************************chest_frame
+Directly between shoulders
+X, Y, Z = ${(l_shoulder.X + r_shoulder.X)/2}, ${(l_shoulder.Y + r_shoulder.Y)/2}, ${(l_shoulder.Z + r_shoulder.Z)/2}
+
+************************l_hand_frame
+X, Y, Z = 0.4112, 0.29050, 1.1348
+
+************************r_hand_frame
+X, Y, Z = 0.4112, -0.29050, 1.1348
+
+************************head_frame
+Center of head pitch joint
+X, Y, Z = ${head_pitch.X}, ${head_pitch.Y}, ${head_pitch.Z}

@@ -1,0 +1,2520 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+<model name="escher">
+  <static>false</static>
+
+  ${torso.optional_fixed_pose}
+  ${torso.optional_fixed_link}
+
+  <link name="torso">
+    <pose>${torso.Xcog} ${torso.Ycog} ${torso.Zcog} 0 0 0</pose>
+    <collision name="torso_collision">
+      <geometry>
+        <box>
+          <size>${torso.Xbb} ${torso.Ybb} ${torso.Zbb}</size>
+        </box>
+      </geometry>
+    </collision>
+    <visual name="torso_visual">
+      <pose>${torso.pose}</pose>
+      <geometry>
+        ${torso.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <pose>${torso.Xcbar - torso.Xcog} ${torso.Ycbar - torso.Ycog} ${torso.Zcbar - torso.Zcog} 0 0 0</pose>
+      <mass>${torso.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${torso.Ixc}</ixx>
+        <iyy>${torso.Iyc}</iyy>
+        <izz>${torso.Izc}</izz>
+        <iyz>${torso.Iyzc}</iyz>
+        <ixz>${torso.Ixzc}</ixz>
+        <ixy>${torso.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+    <sensor name="imu_sensor" type="imu">
+      <pose>${microstrain_joint.X - torso.Xcog} ${microstrain_joint.Y - torso.Ycog} ${microstrain_joint.Z - torso.Zcog} ${microstrain_joint.roll} ${microstrain_joint.pitch} ${microstrain_joint.yaw}</pose>
+      <always_on>1</always_on>
+      <visualize>1</visualize>
+      <topic>imu_sensor</topic>
+    </sensor>
+    <sensor name="kvh_sensor" type="imu">
+      <pose>${kvh_joint.X - torso.Xcog} ${kvh_joint.Y - torso.Ycog} ${kvh_joint.Z - torso.Zcog} ${kvh_joint.roll} ${kvh_joint.pitch} ${kvh_joint.yaw}</pose>
+      <always_on>1</always_on>
+      <visualize>1</visualize>
+      <update_rate>100.0</update_rate>
+      <imu>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise parameters from Boston Dynamics
+               (http://gazebosim.org/wiki/Sensor_noise):
+                 rates (rad/s): mean=0, stddev=2e-4
+                 accels (m/s/s): mean=0, stddev=1.7e-2
+                 rate bias (rad/s): 5e-6 - 1e-5
+                 accel bias (m/s/s): 1e-1
+               Experimentally, simulation provide rates with noise of
+               about 1e-3 rad/s and accels with noise of about 1e-1 m/s/s.
+               So we don't expect to see the noise unless number of inner iterations
+               are increased.
+
+               We will add bias.  In this model, bias is sampled once for rates
+               and once for accels at startup; the sign (negative or positive)
+               of each bias is then switched with equal probability.  Thereafter,
+               the biases are fixed additive offsets.  We choose
+               bias means and stddevs to produce biases close to the provided
+               data. -->
+          <rate>
+            <mean>0.0</mean>
+            <stddev>2e-4</stddev>
+            <bias_mean>0.0000075</bias_mean>
+            <bias_stddev>0.0000008</bias_stddev>
+          </rate>
+          <accel>
+            <mean>0.0</mean>
+            <stddev>1.7e-2</stddev>
+            <bias_mean>0.1</bias_mean>
+            <bias_stddev>0.001</bias_stddev>
+          </accel>
+        </noise>
+      </imu>
+      <topic>kvh_sensor</topic>
+    </sensor>
+  </link>
+
+  <link name="l_thigh">
+    <pose>${l_thigh.Xcog} ${l_thigh.Ycog} ${l_thigh.Zcog} 0 0 0</pose>
+    <collision name="l_thigh_collision">
+      <pose>0 0 0 ${l_thigh.roll} ${l_thigh.pitch} ${l_thigh.yaw}</pose>
+      <geometry>
+        <box>
+          <size>${l_thigh.Xbb} ${l_thigh.Ybb} ${l_thigh.Zbb}</size>
+        </box>
+      </geometry>
+    </collision>
+    <visual name="l_thigh_visual">
+      <pose>${l_thigh.pose}</pose>
+      <geometry>
+        ${l_thigh.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <pose>${l_thigh.Xcbar - l_thigh.Xcog} ${l_thigh.Ycbar - l_thigh.Ycog} ${l_thigh.Zcbar - l_thigh.Zcog} 0 0 0</pose>
+      <mass>${l_thigh.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${l_thigh.Ixc}</ixx>
+        <iyy>${l_thigh.Iyc}</iyy>
+        <izz>${l_thigh.Izc}</izz>
+        <iyz>${l_thigh.Iyzc}</iyz>
+        <ixz>${l_thigh.Ixzc}</ixz>
+        <ixy>${l_thigh.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+  </link>
+
+  <link name="r_thigh">
+    <pose>${r_thigh.Xcog} ${r_thigh.Ycog} ${r_thigh.Zcog} 0 0 0</pose>
+    <collision name="r_thigh_collision">
+      <pose>0 0 0 ${r_thigh.roll} ${r_thigh.pitch} ${r_thigh.yaw}</pose>
+      <geometry>
+        <box>
+          <size>${r_thigh.Xbb} ${r_thigh.Ybb} ${r_thigh.Zbb}</size>
+        </box>
+      </geometry>
+    </collision>
+    <visual name="r_thigh_visual">
+      <pose>${r_thigh.pose}</pose>
+      <geometry>
+        ${r_thigh.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <pose>${r_thigh.Xcbar - r_thigh.Xcog} ${r_thigh.Ycbar - r_thigh.Ycog} ${r_thigh.Zcbar - r_thigh.Zcog} 0 0 0</pose>
+      <mass>${r_thigh.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${r_thigh.Ixc}</ixx>
+        <iyy>${r_thigh.Iyc}</iyy>
+        <izz>${r_thigh.Izc}</izz>
+        <iyz>${r_thigh.Iyzc}</iyz>
+        <ixz>${r_thigh.Ixzc}</ixz>
+        <ixy>${r_thigh.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+  </link>
+
+  <link name="l_shin">
+    <pose>${l_shin.Xcog} ${l_shin.Ycog} ${l_shin.Zcog} 0 0 0</pose>
+    <collision name="l_shin_collision">
+      <pose>0 0 0 ${l_shin.roll} ${l_shin.pitch} ${l_shin.yaw}</pose>
+      <geometry>
+        <box>
+          <size>${l_shin.Xbb} ${l_shin.Ybb} ${l_shin.Zbb}</size>
+        </box>
+      </geometry>
+    </collision>
+    <visual name="l_shin_visual">
+      <pose>${l_shin.pose}</pose>
+      <geometry>
+        ${l_shin.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <pose>${l_shin.Xcbar - l_shin.Xcog} ${l_shin.Ycbar - l_shin.Ycog} ${l_shin.Zcbar - l_shin.Zcog} 0 0 0</pose>
+      <mass>${l_shin.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${l_shin.Ixc}</ixx>
+        <iyy>${l_shin.Iyc}</iyy>
+        <izz>${l_shin.Izc}</izz>
+        <iyz>${l_shin.Iyzc}</iyz>
+        <ixz>${l_shin.Ixzc}</ixz>
+        <ixy>${l_shin.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+  </link>
+
+  <link name="r_shin">
+    <pose>${r_shin.Xcog} ${r_shin.Ycog} ${r_shin.Zcog} 0 0 0</pose>
+    <collision name="r_shin_collision">
+      <pose>0 0 0 ${r_shin.roll} ${r_shin.pitch} ${r_shin.yaw}</pose>
+      <geometry>
+        <box>
+          <size>${r_shin.Xbb} ${r_shin.Ybb} ${r_shin.Zbb}</size>
+        </box>
+      </geometry>
+    </collision>
+    <visual name="r_shin_visual">
+      <pose>${r_shin.pose}</pose>
+      <geometry>
+        ${r_shin.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <pose>${r_shin.Xcbar - r_shin.Xcog} ${r_shin.Ycbar - r_shin.Ycog} ${r_shin.Zcbar - r_shin.Zcog} 0 0 0</pose>
+      <mass>${r_shin.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${r_shin.Ixc}</ixx>
+        <iyy>${r_shin.Iyc}</iyy>
+        <izz>${r_shin.Izc}</izz>
+        <iyz>${r_shin.Iyzc}</iyz>
+        <ixz>${r_shin.Ixzc}</ixz>
+        <ixy>${r_shin.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+  </link>
+
+  <link name="l_foot">
+    <pose>${l_foot.Xcog} ${l_foot.Ycog} ${l_foot.Zcog} 0 0 0</pose>
+    <collision name="l_foot_collision">
+      <geometry>
+        <box>
+          <size>${l_foot.Xbb} ${l_foot.Ybb} ${l_foot.Zbb}</size>
+        </box>
+      </geometry>
+      <!-- From atlas model -->
+      <surface>
+        <friction>
+          <ode>
+            <mu>0.9</mu>
+            <mu2>0.9</mu2>
+            <fdir1>1 0 0</fdir1>
+          </ode>
+        </friction>
+        <contact>
+          <ode>
+            <max_vel>1.0</max_vel>
+            <min_depth>0.003</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+    <visual name="l_foot_visual">
+      <pose>${l_foot.pose}</pose>
+      <geometry>
+        ${l_foot.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <pose>${l_foot.Xcbar - l_foot.Xcog} ${l_foot.Ycbar - l_foot.Ycog} ${l_foot.Zcbar - l_foot.Zcog} 0 0 0</pose>
+      <mass>${l_foot.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${l_foot.Ixc}</ixx>
+        <iyy>${l_foot.Iyc}</iyy>
+        <izz>${l_foot.Izc}</izz>
+        <iyz>${l_foot.Iyzc}</iyz>
+        <ixz>${l_foot.Ixzc}</ixz>
+        <ixy>${l_foot.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+    <sensor name="l_foot_contact_sensor" type="contact">
+      <always_on>1</always_on>
+      <contact>
+        <collision>l_foot_collision</collision>
+      </contact>
+    </sensor>
+  </link>
+
+  <link name="r_foot">
+    <pose>${r_foot.Xcog} ${r_foot.Ycog} ${r_foot.Zcog} 0 0 0</pose>
+    <collision name="r_foot_collision">
+      <geometry>
+        <box>
+          <size>${r_foot.Xbb} ${r_foot.Ybb} ${r_foot.Zbb}</size>
+        </box>
+      </geometry>
+      <!-- From atlas model -->
+      <surface>
+        <friction>
+          <ode>
+            <mu>0.9</mu>
+            <mu2>0.9</mu2>
+            <fdir1>1 0 0</fdir1>
+          </ode>
+        </friction>
+        <contact>
+          <ode>
+            <max_vel>1.0</max_vel>
+            <min_depth>0.003</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+    <visual name="r_foot_visual">
+      <pose>${r_foot.pose}</pose>
+      <geometry>
+        ${r_foot.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <pose>${r_foot.Xcbar - r_foot.Xcog} ${r_foot.Ycbar - r_foot.Ycog} ${r_foot.Zcbar - r_foot.Zcog} 0 0 0</pose>
+      <mass>${r_foot.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${r_foot.Ixc}</ixx>
+        <iyy>${r_foot.Iyc}</iyy>
+        <izz>${r_foot.Izc}</izz>
+        <iyz>${r_foot.Iyzc}</iyz>
+        <ixz>${r_foot.Ixzc}</ixz>
+        <ixy>${r_foot.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+    <sensor name="r_foot_contact_sensor" type="contact">
+      <always_on>1</always_on>
+      <contact>
+        <collision>r_foot_collision</collision>
+      </contact>
+    </sensor>
+  </link>
+
+  <link name="l_hip_yaw_trunnion">
+    <pose>${l_hip.X} ${l_hip.Y} ${l_hip.Z} 0 0 0</pose>
+    <!-- Axis = "z", -->
+    <inertial>
+      <mass>${trunnion.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${trunnion.Ixc}</ixx>
+        <iyy>${trunnion.Iyc}</iyy>
+        <izz>${trunnion.Izc}</izz>
+        <ixy>${trunnion.Ixyc}</ixy>
+        <ixz>${trunnion.Ixzc}</ixz>
+        <iyz>${trunnion.Iyzc}</iyz>
+      </inertia>
+    </inertial>
+  </link>
+
+  <link name="r_hip_yaw_trunnion">
+    <pose>${r_hip.X} ${r_hip.Y} ${r_hip.Z} 0 0 0</pose>
+    <!-- Axis = "z", -->
+    <inertial>
+      <mass>${trunnion.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${trunnion.Ixc}</ixx>
+        <iyy>${trunnion.Iyc}</iyy>
+        <izz>${trunnion.Izc}</izz>
+        <ixy>${trunnion.Ixyc}</ixy>
+        <ixz>${trunnion.Ixzc}</ixz>
+        <iyz>${trunnion.Iyzc}</iyz>
+      </inertia>
+    </inertial>
+  </link>
+
+  <link name="l_hip_pitch_trunnion">
+    <pose>${l_hip.X} ${l_hip.Y} ${l_hip.Z} 0 0 0</pose>
+    <!-- Axis = "y", -->
+    <inertial>
+      <pose>0 0 0 ${math.pi/2} 0 0</pose>
+      <mass>${trunnion.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${trunnion.Ixc}</ixx>
+        <iyy>${trunnion.Iyc}</iyy>
+        <izz>${trunnion.Izc}</izz>
+        <ixy>${trunnion.Ixyc}</ixy>
+        <ixz>${trunnion.Ixzc}</ixz>
+        <iyz>${trunnion.Iyzc}</iyz>
+      </inertia>
+    </inertial>
+  </link>
+
+  <link name="r_hip_pitch_trunnion">
+    <pose>${r_hip.X} ${r_hip.Y} ${r_hip.Z} 0 0 0</pose>
+    <!-- Axis = "y", -->
+    <inertial>
+      <pose>0 0 0 ${math.pi/2} 0 0</pose>
+      <mass>${trunnion.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${trunnion.Ixc}</ixx>
+        <iyy>${trunnion.Iyc}</iyy>
+        <izz>${trunnion.Izc}</izz>
+        <ixy>${trunnion.Ixyc}</ixy>
+        <ixz>${trunnion.Ixzc}</ixz>
+        <iyz>${trunnion.Iyzc}</iyz>
+      </inertia>
+    </inertial>
+  </link>
+
+
+  <link name="l_ankle_pitch_trunnion">
+    <pose>${l_ankle.X} ${l_ankle.Y} ${l_ankle.Z} 0 0 0</pose>
+    <!-- Axis = "y", -->
+    <inertial>
+      <pose>0 0 0 ${math.pi/2} 0 0</pose>
+      <mass>${trunnion.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${trunnion.Ixc}</ixx>
+        <iyy>${trunnion.Iyc}</iyy>
+        <izz>${trunnion.Izc}</izz>
+        <ixy>${trunnion.Ixyc}</ixy>
+        <ixz>${trunnion.Ixzc}</ixz>
+        <iyz>${trunnion.Iyzc}</iyz>
+      </inertia>
+    </inertial>
+  </link>
+
+  <link name="r_ankle_pitch_trunnion">
+    <pose>${r_ankle.X} ${r_ankle.Y} ${r_ankle.Z} 0 0 0</pose>
+    <!-- Axis = "y", -->
+    <inertial>
+      <pose>0 0 0 ${math.pi/2} 0 0</pose>
+      <mass>${trunnion.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${trunnion.Ixc}</ixx>
+        <iyy>${trunnion.Iyc}</iyy>
+        <izz>${trunnion.Izc}</izz>
+        <ixy>${trunnion.Ixyc}</ixy>
+        <ixz>${trunnion.Ixzc}</ixz>
+        <iyz>${trunnion.Iyzc}</iyz>
+      </inertia>
+    </inertial>
+  </link>
+
+  <joint name="l_hip_yaw" type="revolute">
+    <parent>
+      torso
+    </parent>
+    <child>
+      l_hip_yaw_trunnion
+    </child>
+    <axis>
+      <xyz>0 0 1</xyz>
+      <limit>
+        <lower>${l_hip.yaw_lower_limit}</lower>
+        <upper>${l_hip.yaw_upper_limit}</upper>
+        <effort>150</effort>
+        <velocity>12</velocity>
+      </limit>
+      <dynamics>
+        <damping>1.0</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <joint name="r_hip_yaw" type="revolute">
+    <parent>
+      torso
+    </parent>
+    <child>
+      r_hip_yaw_trunnion
+    </child>
+    <axis>
+      <xyz>0 0 1</xyz>
+      <limit>
+        <lower>${r_hip.yaw_lower_limit}</lower>
+        <upper>${r_hip.yaw_upper_limit}</upper>
+        <effort>150</effort>
+        <velocity>12</velocity>
+      </limit>
+      <dynamics>
+        <damping>1.0</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <joint name="l_hip_roll" type="revolute">
+    <parent>
+      l_hip_yaw_trunnion
+    </parent>
+    <child>
+      l_hip_pitch_trunnion
+    </child>
+    <axis>
+      <xyz>1 0 0</xyz>
+      <limit>
+        <lower>${l_hip.roll_lower_limit}</lower>
+        <upper>${l_hip.roll_upper_limit}</upper>
+        <effort>150</effort>
+        <velocity>12</velocity>
+      </limit>
+      <dynamics>
+        <damping>1.0</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <joint name="r_hip_roll" type="revolute">
+    <parent>
+      r_hip_yaw_trunnion
+    </parent>
+    <child>
+      r_hip_pitch_trunnion
+    </child>
+    <axis>
+      <xyz>1 0 0</xyz>
+      <limit>
+        <lower>${r_hip.roll_lower_limit}</lower>
+        <upper>${r_hip.roll_upper_limit}</upper>
+        <effort>150</effort>
+        <velocity>12</velocity>
+      </limit>
+      <dynamics>
+        <damping>1.0</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <joint name="l_hip_pitch" type="revolute">
+    <pose>${l_hip.X - l_thigh.Xcog} ${l_hip.Y - l_thigh.Ycog} ${l_hip.Z - l_thigh.Zcog} 0 0 0</pose>
+    <parent>
+      l_hip_pitch_trunnion
+    </parent>
+    <child>
+      l_thigh
+    </child>
+    <axis>
+      <xyz>0 1 0</xyz>
+      <limit>
+        <lower>${l_hip.pitch_lower_limit}</lower>
+        <upper>${l_hip.pitch_upper_limit}</upper>
+        <effort>200</effort>
+        <velocity>12</velocity>
+      </limit>
+      <dynamics>
+        <damping>1.0</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <joint name="r_hip_pitch" type="revolute">
+    <pose>${r_hip.X - r_thigh.Xcog} ${r_hip.Y - r_thigh.Ycog} ${r_hip.Z - r_thigh.Zcog} 0 0 0</pose>
+    <parent>
+      r_hip_pitch_trunnion
+    </parent>
+    <child>
+      r_thigh
+    </child>
+    <axis>
+      <xyz>0 1 0</xyz>
+      <limit>
+        <lower>${r_hip.pitch_lower_limit}</lower>
+        <upper>${r_hip.pitch_upper_limit}</upper>
+        <effort>200</effort>
+        <velocity>12</velocity>
+      </limit>
+      <dynamics>
+        <damping>1.0</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <joint name="l_knee_pitch" type="revolute">
+    <pose>${l_knee.X - l_shin.Xcog} ${l_knee.Y - l_shin.Ycog} ${l_knee.Z - l_shin.Zcog} 0 0 0</pose>
+    <parent>
+      l_thigh
+    </parent>
+    <child>
+      l_shin
+    </child>
+    <axis>
+      <xyz>0 1 0</xyz>
+      <limit>
+        <lower>${l_knee.pitch_lower_limit}</lower>
+        <upper>${l_knee.pitch_upper_limit}</upper>
+        <effort>300</effort>
+        <velocity>12</velocity>
+      </limit>
+      <dynamics>
+        <damping>1.0</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <joint name="r_knee_pitch" type="revolute">
+    <pose>${r_knee.X - r_shin.Xcog} ${r_knee.Y - r_shin.Ycog} ${r_knee.Z - r_shin.Zcog} 0 0 0</pose>
+    <parent>
+      r_thigh
+    </parent>
+    <child>
+      r_shin
+    </child>
+    <axis>
+      <xyz>0 1 0</xyz>
+      <limit>
+        <lower>${r_knee.pitch_lower_limit}</lower>
+        <upper>${r_knee.pitch_upper_limit}</upper>
+        <effort>300</effort>
+        <velocity>12</velocity>
+      </limit>
+      <dynamics>
+        <damping>1.0</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <joint name="l_ankle_pitch" type="revolute">
+    <parent>
+      l_shin
+    </parent>
+    <child>
+      l_ankle_pitch_trunnion
+    </child>
+    <axis>
+      <xyz>0 1 0</xyz>
+      <limit>
+        <lower>${l_ankle.pitch_lower_limit}</lower>
+        <upper>${l_ankle.pitch_upper_limit}</upper>
+        <effort>150</effort>
+        <velocity>12</velocity>
+      </limit>
+      <dynamics>
+        <damping>1.0</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <joint name="r_ankle_pitch" type="revolute">
+    <parent>
+      r_shin
+    </parent>
+    <child>
+      r_ankle_pitch_trunnion
+    </child>
+    <axis>
+      <xyz>0 1 0</xyz>
+      <limit>
+        <lower>${r_ankle.pitch_lower_limit}</lower>
+        <upper>${r_ankle.pitch_upper_limit}</upper>
+        <effort>150</effort>
+        <velocity>12</velocity>
+      </limit>
+      <dynamics>
+        <damping>1.0</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <joint name="l_ankle_roll" type="revolute">
+    <pose>${l_ankle.X - l_foot.Xcog} ${l_ankle.Y - l_foot.Ycog} ${l_ankle.Z - l_foot.Zcog} 0 0 0</pose>
+    <parent>
+      l_ankle_pitch_trunnion
+    </parent>
+    <child>
+      l_foot
+    </child>
+    <axis>
+      <xyz>1 0 0</xyz>
+      <limit>
+        <lower>${l_ankle.roll_lower_limit}</lower>
+        <upper>${l_ankle.roll_upper_limit}</upper>
+        <effort>150</effort>
+        <velocity>12</velocity>
+      </limit>
+      <dynamics>
+        <damping>1.0</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <provide_feedback>1</provide_feedback>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <joint name="r_ankle_roll" type="revolute">
+    <pose>${r_ankle.X - r_foot.Xcog} ${r_ankle.Y - r_foot.Ycog} ${r_ankle.Z - r_foot.Zcog} 0 0 0</pose>
+    <parent>
+      r_ankle_pitch_trunnion
+    </parent>
+    <child>
+      r_foot
+    </child>
+    <axis>
+      <xyz>1 0 0</xyz>
+      <limit>
+        <lower>${r_ankle.roll_lower_limit}</lower>
+        <upper>${r_ankle.roll_upper_limit}</upper>
+        <effort>150</effort>
+        <velocity>12</velocity>
+      </limit>
+      <dynamics>
+        <damping>1.0</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <provide_feedback>1</provide_feedback>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+
+  <joint name="waist_yaw" type="revolute">
+    <parent>
+      torso
+    </parent>
+    <child>
+      chest
+    </child>
+    <axis>
+      <xyz>0 0 1</xyz>
+      <limit>
+        <lower>${waist.yaw_lower_limit}</lower>
+        <upper>${waist.yaw_upper_limit}</upper>
+        <effort>150</effort>
+        <velocity>12</velocity>
+      </limit>
+      <dynamics>
+        <damping>1.0</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <link name="chest">
+    <pose>${chest.Xcog_1} ${chest.Ycog_1} ${chest.Zcog_1} 0 0 0</pose>
+    <collision name="chest_collision">
+      <geometry>
+        <box>
+          <size>${chest.Xbb_1} ${chest.Ybb_1} ${chest.Zbb_1}</size>
+        </box>
+      </geometry>
+    </collision>
+    <collision name="chest_collision_2">
+      <pose>${chest.Xcog_2 - chest.Xcog_1} ${chest.Ycog_2 - chest.Ycog_1} ${chest.Zcog_2 - chest.Zcog_1} 0 0 0</pose>
+      <geometry>
+        <box>
+          <size>${chest.Xbb_2} ${chest.Ybb_2} ${chest.Zbb_2}</size>
+        </box>
+      </geometry>
+    </collision>
+    <collision name="chest_collision_3">
+      <pose>${chest.Xcog_3 - chest.Xcog_1} ${chest.Ycog_3 - chest.Ycog_1} ${chest.Zcog_3 - chest.Zcog_1} 0 0 0</pose>
+      <geometry>
+        <box>
+          <size>${chest.Xbb_3} ${chest.Ybb_3} ${chest.Zbb_3}</size>
+        </box>
+      </geometry>
+    </collision>
+    <collision name="chest_collision_4">
+      <pose>${chest.Xcog_4 - chest.Xcog_1} ${chest.Ycog_4 - chest.Ycog_1} ${chest.Zcog_4 - chest.Zcog_1} 0 0 0</pose>
+      <geometry>
+        <box>
+          <size>${chest.Xbb_4} ${chest.Ybb_4} ${chest.Zbb_4}</size>
+        </box>
+      </geometry>
+    </collision>
+    <visual name="chest_visual">
+      <pose>${chest.pose}</pose>
+      <geometry>
+        ${chest.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <pose>${chest.Xcbar - chest.Xcog_1} ${chest.Ycbar - chest.Ycog_1} ${chest.Zcbar - chest.Zcog_1} 0 0 0</pose>
+      <mass>${chest.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${chest.Ixc}</ixx>
+        <iyy>${chest.Iyc}</iyy>
+        <izz>${chest.Izc}</izz>
+        <iyz>${chest.Iyzc}</iyz>
+        <ixz>${chest.Ixzc}</ixz>
+        <ixy>${chest.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+    <sensor name="camera.ptgrey" type="camera">
+      <pose>0.1323009 -0.0675 0.2217387 0 0.611 0</pose>
+      <camera>
+        <horizontal_fov>1.75</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.5</near>
+          <far>30</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise is sampled independently per pixel on each frame.
+               That pixel's noise value is added to each of its color
+               channels, which at that point lie in the range [0,1]. -->
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>30.0</updateRate>
+        <cameraName>chest/camera</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>camera.ptgrey</frameName>
+        <hackBaseline>0.0</hackBaseline>
+        <distortionK1>-0.293600</distortionK1>
+        <distortionK2>0.212124</distortionK2>
+        <distortionK3>-0.138326</distortionK3>
+        <distortionT1>0.000764</distortionT1>
+        <distortionT2>-0.000452</distortionT2>
+      </plugin>
+    </sensor>
+  </link>
+
+  <joint name="head_yaw" type="revolute">
+    <pose>${head_yaw.X - neck.Xcog} ${head_yaw.Y - neck.Ycog} ${head_yaw.Z - neck.Zcog} 0 0 0</pose>
+    <parent>
+      chest
+    </parent>
+    <child>
+      neck
+    </child>
+    <axis>
+      <xyz>0 0 1</xyz>
+      <limit>
+        <lower>${head_yaw.yaw_lower_limit}</lower>
+        <upper>${head_yaw.yaw_upper_limit}</upper>
+        <effort>150</effort>
+        <velocity>12</velocity>
+      </limit>
+      <dynamics>
+        <damping>1.0</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <link name="neck">
+    <pose>${neck.Xcog} ${neck.Ycog} ${neck.Zcog} 0 0 0</pose>
+    <collision name="neck_collision">
+      <geometry>
+        <box>
+          <size>${neck.Xbb} ${neck.Ybb} ${neck.Zbb}</size>
+        </box>
+      </geometry>
+    </collision>
+    <visual name="neck_visual">
+      <pose>${neck.pose}</pose>
+      <geometry>
+        ${neck.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <pose>${neck.Xcbar - neck.Xcog} ${neck.Ycbar - neck.Ycog} ${neck.Zcbar - neck.Zcog} 0 0 0</pose>
+      <mass>${neck.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${neck.Ixc}</ixx>
+        <iyy>${neck.Iyc}</iyy>
+        <izz>${neck.Izc}</izz>
+        <iyz>${neck.Iyzc}</iyz>
+        <ixz>${neck.Ixzc}</ixz>
+        <ixy>${neck.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+  </link>
+
+  <joint name="head_pitch" type="revolute">
+    <pose>${head_pitch.X - head.Xcog} ${head_pitch.Y - head.Ycog} ${head_pitch.Z - head.Zcog} 0 0 0</pose>
+    <parent>
+      neck
+    </parent>
+    <child>
+      head
+    </child>
+    <axis>
+      <xyz>0 1 0</xyz>
+      <limit>
+        <lower>${head_pitch.pitch_lower_limit}</lower>
+        <upper>${head_pitch.pitch_upper_limit}</upper>
+        <effort>150</effort>
+        <velocity>12</velocity>
+      </limit>
+      <dynamics>
+        <damping>1.0</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <link name="head">
+    <pose>${head.Xcog} ${head.Ycog} ${head.Zcog} 0 0 0</pose>
+    <collision name="head_collision">
+      <geometry>
+        <box>
+          <size>${head.Xbb} ${head.Ybb} ${head.Zbb}</size>
+        </box>
+      </geometry>
+    </collision>
+    <visual name="head_visual">
+      <pose>${head.pose}</pose>
+      <geometry>
+        ${head.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <pose>${head.Xcbar - head.Xcog} ${head.Ycbar - head.Ycog} ${head.Zcbar - head.Zcog} 0 0 0</pose>
+      <mass>${head.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${head.Ixc}</ixx>
+        <iyy>${head.Iyc}</iyy>
+        <izz>${head.Izc}</izz>
+        <iyz>${head.Iyzc}</iyz>
+        <ixz>${head.Ixzc}</ixz>
+        <ixy>${head.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+</link>
+
+  <!-- MultiSense S7 -->
+  <joint name="left_camera_frame_joint" type="revolute">
+    <parent>head</parent>
+    <child>left_camera_frame</child>
+    <axis>
+      <xyz>0 1 0</xyz>
+      <limit>
+        <lower>0.0</lower>
+        <upper>0.0</upper>
+      </limit>
+    </axis>
+  </joint>
+
+  <!-- link for left frame -->
+  <link name="left_camera_frame">
+  <!-- Fix left frame pose-->
+    <pose>${multisense_joint.X + 0.052} ${multisense_joint.Y + 0.035} ${multisense_joint.Z} 0 0 0</pose>
+    <sensor type="multicamera" name="camera_multisense">
+      <update_rate>10.0</update_rate>
+      <camera name="left">
+        <pose>0 0 0 0 0 0</pose>
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>800</width>
+          <height>800</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <camera name="right">
+        <pose>0 -0.07 0 0 0 0</pose>
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>800</width>
+          <height>800</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin name="stereo_camera_controller" filename="libgazebo_ros_multicamera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>multisense</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>/multisense/left_camera_optical_frame</frameName>
+        <!--<rightFrameName>/multisense/right_camera_optical_frame</rightFrameName>-->
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+    <inertial>
+      <mass>${default_inertia.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${default_inertia.Ixc}</ixx>
+        <iyy>${default_inertia.Iyc}</iyy>
+        <izz>${default_inertia.Izc}</izz>
+        <iyz>${default_inertia.Iyzc}</iyz>
+        <ixz>${default_inertia.Ixzc}</ixz>
+        <ixy>${default_inertia.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+  </link>
+
+  <joint name="head_lidar_roll" type="revolute">
+    <pose>${head_lidar_roll.X - head_lidar.Xcog} ${head_lidar_roll.Y - head_lidar.Ycog} ${head_lidar_roll.Z - head_lidar.Zcog} 0 0 0</pose>
+    <parent>
+      head
+    </parent>
+    <child>
+      head_lidar
+    </child>
+    <axis>
+      <xyz>1 0 0</xyz>
+      <limit>
+        <effort>150</effort>
+        <velocity>12</velocity>
+      </limit>
+      <dynamics>
+        <damping>1.0</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <link name="head_lidar">
+    <pose>${head_lidar.Xcog} ${head_lidar.Ycog} ${head_lidar.Zcog} 0 0 0</pose>
+    <collision name="head_lidar_collision">
+      <geometry>
+        <box>
+          <size>${head_lidar.Xbb} ${head_lidar.Ybb} ${head_lidar.Zbb}</size>
+        </box>
+      </geometry>
+    </collision>
+    <visual name="head_lidar_visual">
+      <pose>${head_lidar.pose}</pose>
+      <geometry>
+        ${head_lidar.geometry}
+      </geometry>
+      <material>
+        <script>
+          <uri>file://media/materials/scripts/gazebo.material</uri>
+          <name>Gazebo/FlatBlack</name>
+        </script>
+      </material>
+    </visual>
+    <inertial>
+      <pose>${head_lidar.Xcbar - head_lidar.Xcog} ${head_lidar.Ycbar - head_lidar.Ycog} ${head_lidar.Zcbar - head_lidar.Zcog} 0 0 0</pose>
+      <mass>${head_lidar.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${head_lidar.Ixc}</ixx>
+        <iyy>${head_lidar.Iyc}</iyy>
+        <izz>${head_lidar.Izc}</izz>
+        <iyz>${head_lidar.Iyzc}</iyz>
+        <ixz>${head_lidar.Ixzc}</ixz>
+        <ixy>${head_lidar.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+    <sensor name="lidar.head_hokuyo" type="ray">
+      <!-- Hokuyo UTM-30LX-EW -->
+      <always_on>1</always_on>
+      <update_rate>40</update_rate>
+      <pose>${head_lidar.ReceiverX + head_lidar_roll.X - head_lidar.Xcog} ${head_lidar.ReceiverY + head_lidar_roll.Y - head_lidar.Ycog} ${head_lidar.ReceiverZ + head_lidar_roll.Z - head_lidar.Zcog} 0 0 0</pose>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>1081</samples>
+            <resolution>1</resolution>
+            <min_angle>-2.35619449</min_angle>
+            <max_angle>2.35619449</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>.1</min>
+          <max>30</max>
+          <resolution>.05</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+      <plugin name="gazebo_ros_head_hokuyo" filename="libgazebo_ros_laser.so">
+        <topicName>/laser/scan/</topicName>
+        <frameName>head_lidar_receiver</frameName>
+      </plugin>
+    </sensor>
+  </link>
+
+  <joint name="l_shoulder_pitch" type="revolute">
+    <parent>
+      chest
+    </parent>
+    <child>
+      l_shoulder
+    </child>
+    <axis>
+      <xyz>0 1 0</xyz>
+      <limit>
+        <lower>${l_shoulder_pitch.pitch_lower_limit}</lower>
+        <upper>${l_shoulder_pitch.pitch_upper_limit}</upper>
+        <effort>60</effort>
+        <velocity>2.0944</velocity>
+      </limit>
+      <dynamics>
+        <damping>0.7</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <joint name="r_shoulder_pitch" type="revolute">
+    <parent>
+      chest
+    </parent>
+    <child>
+      r_shoulder
+    </child>
+    <axis>
+      <xyz>0 1 0</xyz>
+      <limit>
+        <lower>${r_shoulder_pitch.pitch_lower_limit}</lower>
+        <upper>${r_shoulder_pitch.pitch_upper_limit}</upper>
+        <effort>60</effort>
+        <velocity>2.0944</velocity>
+      </limit>
+      <dynamics>
+        <damping>0.7</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <link name="l_shoulder">
+    <pose>${l_shoulder_pitch.X} ${l_shoulder_pitch.Y} ${l_shoulder_pitch.Z} 0 0 0</pose>
+    <collision name="l_shoulder_collision">
+      <pose>${-l_shoulder_pitch.X + l_shoulder.Xcog} ${-l_shoulder_pitch.Y + l_shoulder.Ycog} ${-l_shoulder_pitch.Z + l_shoulder.Zcog} ${l_shoulder.roll} ${l_shoulder.pitch} ${l_shoulder.yaw}</pose>
+      <geometry>
+        <cylinder>
+          <radius>${l_shoulder.Rbb}</radius>
+          <length>${l_shoulder.Lbb}</length>
+        </cylinder>
+      </geometry>
+    </collision>
+    <visual name="l_shoulder_visual">
+      <pose>${l_shoulder.pose}</pose>
+      <geometry>
+        ${l_shoulder.geometry}
+      </geometry>
+      <material>
+        <script>
+          <uri>__default__</uri>
+          <name>Gazebo/Green</name>
+        </script>
+      </material>
+    </visual>
+    <inertial>
+      <pose>${l_shoulder.Xcbar - l_shoulder_pitch.X} ${l_shoulder.Ycbar - l_shoulder_pitch.Y} ${l_shoulder.Zcbar - l_shoulder_pitch.Z} 0 0 0</pose>
+      <mass>${l_shoulder.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${l_shoulder.Ixc}</ixx>
+        <iyy>${l_shoulder.Iyc}</iyy>
+        <izz>${l_shoulder.Izc}</izz>
+        <iyz>${l_shoulder.Iyzc}</iyz>
+        <ixz>${l_shoulder.Ixzc}</ixz>
+        <ixy>${l_shoulder.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+  </link>
+
+  <link name="r_shoulder">
+    <pose>${r_shoulder_pitch.X} ${r_shoulder_pitch.Y} ${r_shoulder_pitch.Z} 0 0 0</pose>
+    <collision name="r_shoulder_collision">
+      <pose>${-r_shoulder_pitch.X + r_shoulder.Xcog} ${-r_shoulder_pitch.Y + r_shoulder.Ycog} ${-r_shoulder_pitch.Z + r_shoulder.Zcog} ${r_shoulder.roll} ${r_shoulder.pitch} ${r_shoulder.yaw}</pose>
+      <geometry>
+        <cylinder>
+          <radius>${r_shoulder.Rbb}</radius>
+          <length>${r_shoulder.Lbb}</length>
+        </cylinder>
+      </geometry>
+    </collision>
+    <visual name="r_shoulder_visual">
+      <pose>${r_shoulder.pose}</pose>
+      <geometry>
+        ${r_shoulder.geometry}
+      </geometry>
+      <material>
+        <script>
+          <uri>__default__</uri>
+          <name>Gazebo/Green</name>
+        </script>
+      </material>
+    </visual>
+    <inertial>
+      <pose>${r_shoulder.Xcbar - r_shoulder_pitch.X} ${r_shoulder.Ycbar - r_shoulder_pitch.Y} ${r_shoulder.Zcbar - r_shoulder_pitch.Z} 0 0 0</pose>
+      <mass>${r_shoulder.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${r_shoulder.Ixc}</ixx>
+        <iyy>${r_shoulder.Iyc}</iyy>
+        <izz>${r_shoulder.Izc}</izz>
+        <iyz>${r_shoulder.Iyzc}</iyz>
+        <ixz>${r_shoulder.Ixzc}</ixz>
+        <ixy>${r_shoulder.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+  </link>
+
+  <joint name="l_shoulder_roll" type="revolute">
+    <parent>
+      l_shoulder
+    </parent>
+    <child>
+      l_shoulder_roll_link
+    </child>
+    <axis>
+      <xyz>1 0 0</xyz>
+      <limit>
+        <lower>${l_shoulder.roll_lower_limit}</lower>
+        <upper>${l_shoulder.roll_upper_limit}</upper>
+        <effort>60</effort>
+        <velocity>2.0944</velocity>
+      </limit>
+      <dynamics>
+        <damping>0.7</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <joint name="r_shoulder_roll" type="revolute">
+    <parent>
+      r_shoulder
+    </parent>
+    <child>
+      r_shoulder_roll_link
+    </child>
+    <axis>
+      <xyz>1 0 0</xyz>
+      <limit>
+        <lower>${r_shoulder.roll_lower_limit}</lower>
+        <upper>${r_shoulder.roll_upper_limit}</upper>
+        <effort>60</effort>
+        <velocity>2.0944</velocity>
+      </limit>
+      <dynamics>
+        <damping>0.7</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <link name="l_shoulder_roll_link">
+    <pose>${l_shoulder.X} ${l_shoulder.Y} ${l_shoulder.Z} 0 0 0</pose>
+    <visual name="l_shoulder_roll_link_visual">
+      <pose>${l_shoulder_roll.pose}</pose>
+      <geometry>
+        ${l_shoulder_roll.geometry}
+      </geometry>
+      <material>
+        <script>
+          <uri>__default__</uri>
+          <name>Gazebo/Grey</name>
+        </script>
+      </material>
+    </visual>
+    <inertial>
+      <pose>${l_shoulder_roll_link.Xcbar - l_shoulder.X} ${l_shoulder_roll_link.Ycbar - l_shoulder.Y} ${l_shoulder_roll_link.Zcbar - l_shoulder.Z} 0 0 0</pose>
+      <mass>${l_shoulder_roll_link.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${l_shoulder_roll_link.Ixc}</ixx>
+        <iyy>${l_shoulder_roll_link.Iyc}</iyy>
+        <izz>${l_shoulder_roll_link.Izc}</izz>
+        <iyz>${l_shoulder_roll_link.Iyzc}</iyz>
+        <ixz>${l_shoulder_roll_link.Ixzc}</ixz>
+        <ixy>${l_shoulder_roll_link.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+  </link>
+
+  <link name="r_shoulder_roll_link">
+    <pose>${r_shoulder.X} ${r_shoulder.Y} ${r_shoulder.Z} 0 0 0</pose>
+    <visual name="r_shoulder_roll_link_visual">
+      <pose>${r_shoulder_roll.pose}</pose>
+      <geometry>
+        ${r_shoulder_roll.geometry}
+      </geometry>
+      <material>
+        <script>
+          <uri>__default__</uri>
+          <name>Gazebo/Grey</name>
+        </script>
+      </material>
+    </visual>
+    <inertial>
+      <pose>${r_shoulder_roll_link.Xcbar - r_shoulder.X} ${r_shoulder_roll_link.Ycbar - r_shoulder.Y} ${r_shoulder_roll_link.Zcbar - r_shoulder.Z} 0 0 0</pose>
+      <mass>${r_shoulder_roll_link.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${r_shoulder_roll_link.Ixc}</ixx>
+        <iyy>${r_shoulder_roll_link.Iyc}</iyy>
+        <izz>${r_shoulder_roll_link.Izc}</izz>
+        <iyz>${r_shoulder_roll_link.Iyzc}</iyz>
+        <ixz>${r_shoulder_roll_link.Ixzc}</ixz>
+        <ixy>${r_shoulder_roll_link.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+  </link>
+
+  <joint name="l_shoulder_yaw" type="revolute">
+    <parent>
+      l_shoulder_roll_link
+    </parent>
+    <child>
+      l_arm
+    </child>
+    <axis>
+      <xyz>0 0 1</xyz>
+      <limit>
+        <lower>${l_shoulder.yaw_lower_limit}</lower>
+        <upper>${l_shoulder.yaw_upper_limit}</upper>
+        <effort>60</effort>
+        <velocity>2.0944</velocity>
+      </limit>
+      <dynamics>
+        <damping>0.7</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <joint name="r_shoulder_yaw" type="revolute">
+    <parent>
+      r_shoulder_roll_link
+    </parent>
+    <child>
+      r_arm
+    </child>
+    <axis>
+      <xyz>0 0 1</xyz>
+      <limit>
+        <lower>${r_shoulder.yaw_lower_limit}</lower>
+        <upper>${r_shoulder.yaw_upper_limit}</upper>
+        <effort>60</effort>
+        <velocity>2.0944</velocity>
+      </limit>
+      <dynamics>
+        <damping>0.7</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <link name="l_arm">
+    <pose>${l_shoulder.X} ${l_shoulder.Y} ${l_shoulder.Z} 0 0 0</pose>
+    <collision name="l_arm_collision">
+      <pose>${-l_shoulder.X + l_arm.Xcog} ${-l_shoulder.Y + l_arm.Ycog} ${-l_shoulder.Z + l_arm.Zcog} ${l_arm.roll} ${l_arm.pitch} ${l_arm.yaw}</pose>
+      <geometry>
+        <cylinder>
+          <radius>${l_arm.Rbb}</radius>
+          <length>${l_arm.Lbb}</length>
+        </cylinder>
+      </geometry>
+    </collision>
+    <visual name="l_arm_visual">
+      <pose>${l_arm.pose}</pose>
+      <geometry>
+        ${l_arm.geometry}
+      </geometry>
+      <material>
+        <script>
+          <uri>__default__</uri>
+          <name>Gazebo/Green</name>
+        </script>
+      </material>
+    </visual>
+    <inertial>
+      <pose>${l_arm.Xcbar - l_shoulder.X} ${l_arm.Ycbar - l_shoulder.Y} ${l_arm.Zcbar - l_shoulder.Z} 0 0 0</pose>
+      <mass>${l_arm.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${l_arm.Ixc}</ixx>
+        <iyy>${l_arm.Iyc}</iyy>
+        <izz>${l_arm.Izc}</izz>
+        <iyz>${l_arm.Iyzc}</iyz>
+        <ixz>${l_arm.Ixzc}</ixz>
+        <ixy>${l_arm.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+  </link>
+
+  <link name="r_arm">
+    <pose>${r_shoulder.X} ${r_shoulder.Y} ${r_shoulder.Z} 0 0 0</pose>
+    <collision name="r_arm_collision">
+      <pose>${-r_shoulder.X + r_arm.Xcog} ${-r_shoulder.Y + r_arm.Ycog} ${-r_shoulder.Z + r_arm.Zcog} ${r_arm.roll} ${r_arm.pitch} ${r_arm.yaw}</pose>
+      <geometry>
+        <cylinder>
+          <radius>${r_arm.Rbb}</radius>
+          <length>${r_arm.Lbb}</length>
+        </cylinder>
+      </geometry>
+    </collision>
+    <visual name="r_arm_visual">
+      <pose>${r_arm.pose}</pose>
+      <geometry>
+        ${r_arm.geometry}
+      </geometry>
+      <material>
+        <script>
+          <uri>__default__</uri>
+          <name>Gazebo/Green</name>
+        </script>
+      </material>
+    </visual>
+    <inertial>
+      <pose>${r_arm.Xcbar - r_shoulder.X} ${r_arm.Ycbar - r_shoulder.Y} ${r_arm.Zcbar - r_shoulder.Z} 0 0 0</pose>
+      <mass>${r_arm.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${r_arm.Ixc}</ixx>
+        <iyy>${r_arm.Iyc}</iyy>
+        <izz>${r_arm.Izc}</izz>
+        <iyz>${r_arm.Iyzc}</iyz>
+        <ixz>${r_arm.Ixzc}</ixz>
+        <ixy>${r_arm.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+  </link>
+
+  <joint name="l_elbow_pitch" type="revolute">
+    <parent>
+      l_arm
+    </parent>
+    <child>
+      l_elbow_link
+    </child>
+    <axis>
+      <xyz>0 1 0</xyz>
+      <limit>
+        <lower>${l_elbow.pitch_lower_limit}</lower>
+        <upper>${l_elbow.pitch_upper_limit}</upper>
+        <effort>60</effort>
+        <velocity>2.0944</velocity>
+      </limit>
+      <dynamics>
+        <damping>0.7</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <joint name="r_elbow_pitch" type="revolute">
+    <parent>
+      r_arm
+    </parent>
+    <child>
+      r_elbow_link
+    </child>
+    <axis>
+      <xyz>0 1 0</xyz>
+      <limit>
+        <lower>${r_elbow.pitch_lower_limit}</lower>
+        <upper>${r_elbow.pitch_upper_limit}</upper>
+        <effort>60</effort>
+        <velocity>2.0944</velocity>
+      </limit>
+      <dynamics>
+        <damping>0.7</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <link name="l_elbow_link">
+    <pose>${l_elbow.X} ${l_elbow.Y} ${l_elbow.Z} 0 0 0</pose>
+    <visual name="l_elbow_link_visual">
+      <pose>${l_elbow_link.pose}</pose>
+      <geometry>
+        ${l_elbow_link.geometry}
+      </geometry>
+      <material>
+        <script>
+          <uri>file://media/materials/scripts/gazebo.material</uri>
+          <name>Gazebo/FlatBlack</name>
+        </script>
+      </material>
+    </visual>
+    <inertial>
+      <pose>${l_elbow_link.Xcbar - l_elbow.X} ${l_elbow_link.Ycbar - l_elbow.Y} ${l_elbow_link.Zcbar - l_elbow.Z} 0 0 0</pose>
+      <mass>${l_elbow_link.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${l_elbow_link.Ixc}</ixx>
+        <iyy>${l_elbow_link.Iyc}</iyy>
+        <izz>${l_elbow_link.Izc}</izz>
+        <iyz>${l_elbow_link.Iyzc}</iyz>
+        <ixz>${l_elbow_link.Ixzc}</ixz>
+        <ixy>${l_elbow_link.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+  </link>
+
+  <link name="r_elbow_link">
+    <pose>${r_elbow.X} ${r_elbow.Y} ${r_elbow.Z} 0 0 0</pose>
+    <visual name="r_elbow_link_visual">
+      <pose>${r_elbow_link.pose}</pose>
+      <geometry>
+        ${r_elbow_link.geometry}
+      </geometry>
+      <material>
+        <script>
+          <uri>file://media/materials/scripts/gazebo.material</uri>
+          <name>Gazebo/FlatBlack</name>
+        </script>
+      </material>
+    </visual>
+    <inertial>
+      <pose>${r_elbow_link.Xcbar - r_elbow.X} ${r_elbow_link.Ycbar - r_elbow.Y} ${r_elbow_link.Zcbar - r_elbow.Z} 0 0 0</pose>
+      <mass>${r_elbow_link.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${r_elbow_link.Ixc}</ixx>
+        <iyy>${r_elbow_link.Iyc}</iyy>
+        <izz>${r_elbow_link.Izc}</izz>
+        <iyz>${r_elbow_link.Iyzc}</iyz>
+        <ixz>${r_elbow_link.Ixzc}</ixz>
+        <ixy>${r_elbow_link.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+  </link>
+
+  <joint name="l_elbow_roll" type="revolute">
+    <parent>
+      l_elbow_link
+    </parent>
+    <child>
+      l_forearm
+    </child>
+    <axis>
+      <xyz>1 0 0</xyz>
+      <limit>
+        <lower>${l_elbow.roll_lower_limit}</lower>
+        <upper>${l_elbow.roll_upper_limit}</upper>
+        <effort>60</effort>
+        <velocity>2.0944</velocity>
+      </limit>
+      <dynamics>
+        <damping>0.7</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <joint name="r_elbow_roll" type="revolute">
+    <parent>
+      r_elbow_link
+    </parent>
+    <child>
+      r_forearm
+    </child>
+    <axis>
+      <xyz>1 0 0</xyz>
+      <limit>
+        <lower>${r_elbow.roll_lower_limit}</lower>
+        <upper>${r_elbow.roll_upper_limit}</upper>
+        <effort>60</effort>
+        <velocity>2.0944</velocity>
+      </limit>
+      <dynamics>
+        <damping>0.7</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <link name="l_forearm">
+    <pose>${l_elbow.X} ${l_elbow.Y} ${l_elbow.Z} 0 0 0</pose>
+    <collision name="l_forearm_collision">
+      <pose>${-l_elbow.X + l_forearm.Xcog} ${-l_elbow.Y + l_forearm.Ycog} ${-l_elbow.Z + l_forearm.Zcog} ${l_forearm.roll} ${l_forearm.pitch} ${l_forearm.yaw}</pose>
+      <geometry>
+        <cylinder>
+          <radius>${l_forearm.Rbb}</radius>
+          <length>${l_forearm.Lbb}</length>
+        </cylinder>
+      </geometry>
+    </collision>
+    <visual name="l_forearm_visual">
+      <pose>${l_forearm.pose}</pose>
+      <geometry>
+        ${l_forearm.geometry}
+      </geometry>
+      <material>
+        <script>
+          <uri>__default__</uri>
+          <name>Gazebo/Green</name>
+        </script>
+      </material>
+    </visual>
+    <inertial>
+      <pose>${l_forearm.Xcbar - l_elbow.X} ${l_forearm.Ycbar - l_elbow.Y} ${l_forearm.Zcbar - l_elbow.Z} 0 0 0</pose>
+      <mass>${l_forearm.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${l_forearm.Ixc}</ixx>
+        <iyy>${l_forearm.Iyc}</iyy>
+        <izz>${l_forearm.Izc}</izz>
+        <iyz>${l_forearm.Iyzc}</iyz>
+        <ixz>${l_forearm.Ixzc}</ixz>
+        <ixy>${l_forearm.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+  </link>
+
+  <link name="r_forearm">
+    <pose>${r_elbow.X} ${r_elbow.Y} ${r_elbow.Z} 0 0 0</pose>
+    <collision name="r_forearm_collision">
+      <pose>${-r_elbow.X + r_forearm.Xcog} ${-r_elbow.Y + r_forearm.Ycog} ${-r_elbow.Z + r_forearm.Zcog} ${r_forearm.roll} ${r_forearm.pitch} ${r_forearm.yaw}</pose>
+      <geometry>
+        <cylinder>
+          <radius>${r_forearm.Rbb}</radius>
+          <length>${r_forearm.Lbb}</length>
+        </cylinder>
+      </geometry>
+    </collision>
+    <visual name="r_forearm_visual">
+      <pose>${r_forearm.pose}</pose>
+      <geometry>
+        ${r_forearm.geometry}
+      </geometry>
+      <material>
+        <script>
+          <uri>__default__</uri>
+          <name>Gazebo/Green</name>
+        </script>
+      </material>
+    </visual>
+    <inertial>
+      <pose>${r_forearm.Xcbar - r_elbow.X} ${r_forearm.Ycbar - r_elbow.Y} ${r_forearm.Zcbar - r_elbow.Z} 0 0 0</pose>
+      <mass>${r_forearm.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${r_forearm.Ixc}</ixx>
+        <iyy>${r_forearm.Iyc}</iyy>
+        <izz>${r_forearm.Izc}</izz>
+        <iyz>${r_forearm.Iyzc}</iyz>
+        <ixz>${r_forearm.Ixzc}</ixz>
+        <ixy>${r_forearm.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+  </link>
+
+  <joint name="l_wrist_pitch" type="revolute">
+    <parent>
+      l_forearm
+    </parent>
+    <child>
+      l_foreforearm
+    </child>
+    <axis>
+      <xyz>0 1 0</xyz>
+      <limit>
+        <lower>${l_wrist_pitch.pitch_lower_limit}</lower>
+        <upper>${l_wrist_pitch.pitch_upper_limit}</upper>
+        <effort>60</effort>
+        <velocity>2.0944</velocity>
+      </limit>
+      <dynamics>
+        <damping>0.7</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <joint name="r_wrist_pitch" type="revolute">
+    <parent>
+      r_forearm
+    </parent>
+    <child>
+      r_foreforearm
+    </child>
+    <axis>
+      <xyz>0 1 0</xyz>
+      <limit>
+        <lower>${r_wrist_pitch.pitch_lower_limit}</lower>
+        <upper>${r_wrist_pitch.pitch_upper_limit}</upper>
+        <effort>60</effort>
+        <velocity>2.0944</velocity>
+      </limit>
+      <dynamics>
+        <damping>0.7</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <link name="l_foreforearm">
+    <pose>${l_wrist_pitch.X} ${l_wrist_pitch.Y} ${l_wrist_pitch.Z} 0 0 0</pose>
+    <collision name="l_foreforearm_collision">
+      <pose>${-l_wrist_pitch.X + l_foreforearm.Xcog_1} ${-l_wrist_pitch.Y + l_foreforearm.Ycog_1} ${-l_wrist_pitch.Z + l_foreforearm.Zcog_1} ${l_foreforearm.roll_1} ${l_foreforearm.pitch_1} ${l_foreforearm.yaw_1}</pose>
+      <geometry>
+        <cylinder>
+          <radius>${l_foreforearm.Rbb_1}</radius>
+          <length>${l_foreforearm.Lbb_1}</length>
+        </cylinder>
+      </geometry>
+    </collision>
+    <collision name="l_foreforearm_collision2">
+      <pose>${-l_wrist_pitch.X + l_foreforearm.Xcog_2} ${-l_wrist_pitch.Y + l_foreforearm.Ycog_2} ${-l_wrist_pitch.Z + l_foreforearm.Zcog_2} ${l_foreforearm.roll_2} ${l_foreforearm.pitch_2} ${l_foreforearm.yaw_2}</pose>
+      <geometry>
+        <cylinder>
+          <radius>${l_foreforearm.Rbb_2}</radius>
+          <length>${l_foreforearm.Lbb_2}</length>
+        </cylinder>
+      </geometry>
+    </collision>
+    <visual name="l_foreforearm_visual">
+      <pose>${l_foreforearm.pose}</pose>
+      <geometry>
+        ${l_foreforearm.geometry}
+      </geometry>
+      <material>
+        <script>
+          <uri>file://media/materials/scripts/gazebo.material</uri>
+          <name>Gazebo/FlatBlack</name>
+        </script>
+      </material>
+    </visual>
+    <inertial>
+      <pose>${l_foreforearm.Xcbar - l_wrist_pitch.X} ${l_foreforearm.Ycbar - l_wrist_pitch.Y} ${l_foreforearm.Zcbar - l_wrist_pitch.Z} 0 0 0</pose>
+      <mass>${l_foreforearm.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${l_foreforearm.Ixc}</ixx>
+        <iyy>${l_foreforearm.Iyc}</iyy>
+        <izz>${l_foreforearm.Izc}</izz>
+        <iyz>${l_foreforearm.Iyzc}</iyz>
+        <ixz>${l_foreforearm.Ixzc}</ixz>
+        <ixy>${l_foreforearm.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+  </link>
+
+  <link name="r_foreforearm">
+    <pose>${r_wrist_pitch.X} ${r_wrist_pitch.Y} ${r_wrist_pitch.Z} 0 0 0</pose>
+    <collision name="r_foreforearm_collision">
+      <pose>${-r_wrist_pitch.X + r_foreforearm.Xcog_1} ${-r_wrist_pitch.Y + r_foreforearm.Ycog_1} ${-r_wrist_pitch.Z + r_foreforearm.Zcog_1} ${r_foreforearm.roll_1} ${r_foreforearm.pitch_1} ${r_foreforearm.yaw_1}</pose>
+      <geometry>
+        <cylinder>
+          <radius>${r_foreforearm.Rbb_1}</radius>
+          <length>${r_foreforearm.Lbb_1}</length>
+        </cylinder>
+      </geometry>
+    </collision>
+    <collision name="r_foreforearm_collision2">
+      <pose>${-r_wrist_pitch.X + r_foreforearm.Xcog_2} ${-r_wrist_pitch.Y + r_foreforearm.Ycog_2} ${-r_wrist_pitch.Z + r_foreforearm.Zcog_2} ${r_foreforearm.roll_2} ${r_foreforearm.pitch_2} ${r_foreforearm.yaw_2}</pose>
+      <geometry>
+        <cylinder>
+          <radius>${r_foreforearm.Rbb_2}</radius>
+          <length>${r_foreforearm.Lbb_2}</length>
+        </cylinder>
+      </geometry>
+    </collision>
+    <visual name="r_foreforearm_visual">
+      <pose>${r_foreforearm.pose}</pose>
+      <geometry>
+        ${r_foreforearm.geometry}
+      </geometry>
+      <material>
+        <script>
+          <uri>file://media/materials/scripts/gazebo.material</uri>
+          <name>Gazebo/FlatBlack</name>
+        </script>
+      </material>
+    </visual>
+    <inertial>
+      <pose>${r_foreforearm.Xcbar - r_wrist_pitch.X} ${r_foreforearm.Ycbar - r_wrist_pitch.Y} ${r_foreforearm.Zcbar - r_wrist_pitch.Z} 0 0 0</pose>
+      <mass>${r_foreforearm.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${r_foreforearm.Ixc}</ixx>
+        <iyy>${r_foreforearm.Iyc}</iyy>
+        <izz>${r_foreforearm.Izc}</izz>
+        <iyz>${r_foreforearm.Iyzc}</iyz>
+        <ixz>${r_foreforearm.Ixzc}</ixz>
+        <ixy>${r_foreforearm.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+  </link>
+
+  <joint name="l_wrist_yaw" type="revolute">
+    <parent>
+      l_foreforearm
+    </parent>
+    <child>
+      l_palm
+    </child>
+    <axis>
+      <xyz>0 0 1</xyz>
+      <limit>
+        <lower>${l_wrist_yaw.yaw_lower_limit}</lower>
+        <upper>${l_wrist_yaw.yaw_upper_limit}</upper>
+        <effort>60</effort>
+        <velocity>2.0944</velocity>
+      </limit>
+      <dynamics>
+        <damping>0.7</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <joint name="r_wrist_yaw" type="revolute">
+    <parent>
+      r_foreforearm
+    </parent>
+    <child>
+      r_palm
+    </child>
+    <axis>
+      <xyz>0 0 1</xyz>
+      <limit>
+        <lower>${r_wrist_yaw.yaw_lower_limit}</lower>
+        <upper>${r_wrist_yaw.yaw_upper_limit}</upper>
+        <effort>60</effort>
+        <velocity>2.0944</velocity>
+      </limit>
+      <dynamics>
+        <damping>0.7</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <link name="l_palm">
+    <self_collide>1</self_collide>
+    <pose>${l_wrist_yaw.X} ${l_wrist_yaw.Y} ${l_wrist_yaw.Z} 0 0 0</pose>
+    <collision name="l_palm_collision">
+      <pose>${-l_wrist_yaw.X + l_palm.Xcog} ${-l_wrist_yaw.Y + l_palm.Ycog} ${-l_wrist_yaw.Z + l_palm.Zcog} 0 0 0</pose>
+      <geometry>
+        <box>
+          <size>${r_palm.Xbb} ${r_palm.Ybb} ${r_palm.Zbb}</size>
+        </box>
+      </geometry>
+    </collision>
+    <visual name="l_palm_visual">
+      <pose>${l_palm.pose}</pose>
+      <geometry>
+        ${l_palm.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <pose>${l_palm.Xcbar - l_wrist_yaw.X} ${l_palm.Ycbar - l_wrist_yaw.Y} ${l_palm.Zcbar - l_wrist_yaw.Z} 0 0 0</pose>
+      <mass>${l_palm.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${l_palm.Ixc}</ixx>
+        <iyy>${l_palm.Iyc}</iyy>
+        <izz>${l_palm.Izc}</izz>
+        <iyz>${l_palm.Iyzc}</iyz>
+        <ixz>${l_palm.Ixzc}</ixz>
+        <ixy>${l_palm.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+  </link>
+
+  <link name="r_palm">
+    <self_collide>1</self_collide>
+    <pose>${r_wrist_yaw.X} ${r_wrist_yaw.Y} ${r_wrist_yaw.Z} 0 0 0</pose>
+    <collision name="r_palm_collision">
+      <pose>${-r_wrist_yaw.X + r_palm.Xcog} ${-r_wrist_yaw.Y + r_palm.Ycog} ${-r_wrist_yaw.Z + r_palm.Zcog} 0 0 0</pose>
+      <geometry>
+        <box>
+          <size>${r_palm.Xbb} ${r_palm.Ybb} ${r_palm.Zbb}</size>
+        </box>
+      </geometry>
+    </collision>
+    <visual name="r_palm_visual">
+      <pose>${r_palm.pose}</pose>
+      <geometry>
+        ${r_palm.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <pose>${r_palm.Xcbar - r_wrist_yaw.X} ${r_palm.Ycbar - r_wrist_yaw.Y} ${r_palm.Zcbar - r_wrist_yaw.Z} 0 0 0</pose>
+      <mass>${r_palm.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${r_palm.Ixc}</ixx>
+        <iyy>${r_palm.Iyc}</iyy>
+        <izz>${r_palm.Izc}</izz>
+        <iyz>${r_palm.Iyzc}</iyz>
+        <ixz>${r_palm.Ixzc}</ixz>
+        <ixy>${r_palm.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+  </link>
+
+  <joint name="l_index_yaw" type="revolute">
+    <parent>
+      l_palm
+    </parent>
+    <child>
+      l_index_link
+    </child>
+    <axis>
+      <xyz>0 0 1</xyz>
+      <limit>
+        <lower>${l_index_yaw.yaw_lower_limit}</lower>
+        <upper>${l_index_yaw.yaw_upper_limit}</upper>
+        <effort>4</effort>
+        <velocity>4.1888</velocity>
+      </limit>
+      <dynamics>
+        <damping>0.7</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <joint name="r_index_yaw" type="revolute">
+    <parent>
+      r_palm
+    </parent>
+    <child>
+      r_index_link
+    </child>
+    <axis>
+      <xyz>0 0 1</xyz>
+      <limit>
+        <lower>${r_index_yaw.yaw_lower_limit}</lower>
+        <upper>${r_index_yaw.yaw_upper_limit}</upper>
+        <effort>4</effort>
+        <velocity>4.1888</velocity>
+      </limit>
+      <dynamics>
+        <damping>0.7</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <link name="l_index_link">
+    <pose>${l_index_yaw.X} ${l_index_yaw.Y} ${l_index_yaw.Z} 0 0 0</pose>
+    <self_collide>1</self_collide>
+    <collision name="l_index_link_collision">
+      <pose>${-l_index_yaw.X + l_index_link.Xcog} ${-l_index_yaw.Y + l_index_link.Ycog} ${-l_index_yaw.Z + l_index_link.Zcog} ${l_index_link.roll} ${l_index_link.pitch} ${l_index_link.yaw}</pose>
+      <geometry>
+        <cylinder>
+          <radius>${l_index_link.Rbb}</radius>
+          <length>${l_index_link.Lbb}</length>
+        </cylinder>
+      </geometry>
+    </collision>
+    <visual name="l_index_link_visual">
+      <pose>${l_index_link.pose}</pose>
+      <geometry>
+        ${l_index_link.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <pose>${l_index_link.Xcbar - l_index_yaw.X} ${l_index_link.Ycbar - l_index_yaw.Y} ${l_index_link.Zcbar - l_index_yaw.Z} 0 0 0</pose>
+      <!--
+      <mass>${l_index_link.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${l_index_link.Ixc}</ixx>
+        <iyy>${l_index_link.Iyc}</iyy>
+        <izz>${l_index_link.Izc}</izz>
+        <iyz>${l_index_link.Iyzc}</iyz>
+        <ixz>${l_index_link.Ixzc}</ixz>
+        <ixy>${l_index_link.Ixyc}</ixy>
+      </inertia>
+      -->
+      <mass>${default_inertia.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${default_inertia.Ixc}</ixx>
+        <iyy>${default_inertia.Iyc}</iyy>
+        <izz>${default_inertia.Izc}</izz>
+        <iyz>${default_inertia.Iyzc}</iyz>
+        <ixz>${default_inertia.Ixzc}</ixz>
+        <ixy>${default_inertia.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+  </link>
+
+  <link name="r_index_link">
+    <pose>${r_index_yaw.X} ${r_index_yaw.Y} ${r_index_yaw.Z} 0 0 0</pose>
+    <self_collide>1</self_collide>
+    <collision name="r_index_link_collision">
+      <pose>${-r_index_yaw.X + r_index_link.Xcog} ${-r_index_yaw.Y + r_index_link.Ycog} ${-r_index_yaw.Z + r_index_link.Zcog} ${r_index_link.roll} ${r_index_link.pitch} ${r_index_link.yaw}</pose>
+      <geometry>
+        <cylinder>
+          <radius>${l_index_link.Rbb}</radius>
+          <length>${l_index_link.Lbb}</length>
+        </cylinder>
+      </geometry>
+    </collision>
+    <visual name="r_index_link_visual">
+      <pose>${r_index_link.pose}</pose>
+      <geometry>
+        ${r_index_link.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <pose>${r_index_link.Xcbar - r_index_yaw.X} ${r_index_link.Ycbar - r_index_yaw.Y} ${r_index_link.Zcbar - r_index_yaw.Z} 0 0 0</pose>
+      <!--
+      <mass>${r_index_link.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${r_index_link.Ixc}</ixx>
+        <iyy>${r_index_link.Iyc}</iyy>
+        <izz>${r_index_link.Izc}</izz>
+        <iyz>${r_index_link.Iyzc}</iyz>
+        <ixz>${r_index_link.Ixzc}</ixz>
+        <ixy>${r_index_link.Ixyc}</ixy>
+      </inertia>
+      -->
+      <mass>${default_inertia.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${default_inertia.Ixc}</ixx>
+        <iyy>${default_inertia.Iyc}</iyy>
+        <izz>${default_inertia.Izc}</izz>
+        <iyz>${default_inertia.Iyzc}</iyz>
+        <ixz>${default_inertia.Ixzc}</ixz>
+        <ixy>${default_inertia.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+  </link>
+
+  <joint name="l_ring_yaw" type="revolute">
+    <parent>
+      l_palm
+    </parent>
+    <child>
+      l_ring_link
+    </child>
+    <axis>
+      <xyz>0 0 1</xyz>
+      <limit>
+        <lower>${l_ring_yaw.yaw_lower_limit}</lower>
+        <upper>${l_ring_yaw.yaw_upper_limit}</upper>
+        <effort>4</effort>
+        <velocity>4.1888</velocity>
+      </limit>
+      <dynamics>
+        <damping>0.7</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <joint name="r_ring_yaw" type="revolute">
+    <parent>
+      r_palm
+    </parent>
+    <child>
+      r_ring_link
+    </child>
+    <axis>
+      <xyz>0 0 1</xyz>
+      <limit>
+        <lower>${r_ring_yaw.yaw_lower_limit}</lower>
+        <upper>${r_ring_yaw.yaw_upper_limit}</upper>
+        <effort>4</effort>
+        <velocity>4.1888</velocity>
+      </limit>
+      <dynamics>
+        <damping>0.7</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <link name="l_ring_link">
+    <pose>${l_ring_yaw.X} ${l_ring_yaw.Y} ${l_ring_yaw.Z} 0 0 0</pose>
+    <self_collide>1</self_collide>
+    <collision name="l_ring_link_collision">
+      <pose>${-l_ring_yaw.X + l_ring_link.Xcog} ${-l_ring_yaw.Y + l_ring_link.Ycog} ${-l_ring_yaw.Z + l_ring_link.Zcog} ${l_ring_link.roll} ${l_ring_link.pitch} ${l_ring_link.yaw}</pose>
+      <geometry>
+        <cylinder>
+          <radius>${l_ring_link.Rbb}</radius>
+          <length>${l_ring_link.Lbb}</length>
+        </cylinder>
+      </geometry>
+    </collision>
+    <visual name="l_ring_link_visual">
+      <pose>${l_ring_link.pose}</pose>
+      <geometry>
+        ${l_ring_link.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <pose>${l_ring_link.Xcbar - l_ring_yaw.X} ${l_ring_link.Ycbar - l_ring_yaw.Y} ${l_ring_link.Zcbar - l_ring_yaw.Z} 0 0 0</pose>
+      <!--
+      <mass>${l_ring_link.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${l_ring_link.Ixc}</ixx>
+        <iyy>${l_ring_link.Iyc}</iyy>
+        <izz>${l_ring_link.Izc}</izz>
+        <iyz>${l_ring_link.Iyzc}</iyz>
+        <ixz>${l_ring_link.Ixzc}</ixz>
+        <ixy>${l_ring_link.Ixyc}</ixy>
+      </inertia>
+      -->
+      <mass>${default_inertia.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${default_inertia.Ixc}</ixx>
+        <iyy>${default_inertia.Iyc}</iyy>
+        <izz>${default_inertia.Izc}</izz>
+        <iyz>${default_inertia.Iyzc}</iyz>
+        <ixz>${default_inertia.Ixzc}</ixz>
+        <ixy>${default_inertia.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+  </link>
+
+  <link name="r_ring_link">
+    <pose>${r_ring_yaw.X} ${r_ring_yaw.Y} ${r_ring_yaw.Z} 0 0 0</pose>
+    <self_collide>1</self_collide>
+    <collision name="r_ring_link_collision">
+      <pose>${-r_ring_yaw.X + r_ring_link.Xcog} ${-r_ring_yaw.Y + r_ring_link.Ycog} ${-r_ring_yaw.Z + r_ring_link.Zcog} ${r_ring_link.roll} ${r_ring_link.pitch} ${r_ring_link.yaw}</pose>
+      <geometry>
+        <cylinder>
+          <radius>${r_ring_link.Rbb}</radius>
+          <length>${r_ring_link.Lbb}</length>
+        </cylinder>
+      </geometry>
+    </collision>
+    <visual name="r_ring_link_visual">
+      <pose>${r_ring_link.pose}</pose>
+      <geometry>
+        ${r_ring_link.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <pose>${r_ring_link.Xcbar - r_ring_yaw.X} ${r_ring_link.Ycbar - r_ring_yaw.Y} ${r_ring_link.Zcbar - r_ring_yaw.Z} 0 0 0</pose>
+      <!--
+      <mass>${r_ring_link.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${r_ring_link.Ixc}</ixx>
+        <iyy>${r_ring_link.Iyc}</iyy>
+        <izz>${r_ring_link.Izc}</izz>
+        <iyz>${r_ring_link.Iyzc}</iyz>
+        <ixz>${r_ring_link.Ixzc}</ixz>
+        <ixy>${r_ring_link.Ixyc}</ixy>
+      </inertia>
+      -->
+      <mass>${default_inertia.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${default_inertia.Ixc}</ixx>
+        <iyy>${default_inertia.Iyc}</iyy>
+        <izz>${default_inertia.Izc}</izz>
+        <iyz>${default_inertia.Iyzc}</iyz>
+        <ixz>${default_inertia.Ixzc}</ixz>
+        <ixy>${default_inertia.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+  </link>
+
+  <joint name="l_thumb_roll" type="revolute">
+    <parent>
+      l_palm
+    </parent>
+    <child>
+      l_thumb_base
+    </child>
+    <axis>
+      <xyz>1 0 0</xyz>
+      <limit>
+        <lower>${l_thumb_roll.roll_lower_limit}</lower>
+        <upper>${l_thumb_roll.roll_upper_limit}</upper>
+        <upper>0</upper>
+        <effort>4</effort>
+        <velocity>4.1888</velocity>
+      </limit>
+      <dynamics>
+        <damping>0.7</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <joint name="r_thumb_roll" type="revolute">
+    <parent>
+      r_palm
+    </parent>
+    <child>
+      r_thumb_base
+    </child>
+    <axis>
+      <xyz>1 0 0</xyz>
+      <limit>
+        <lower>${r_thumb_roll.roll_lower_limit}</lower>
+        <upper>${r_thumb_roll.roll_upper_limit}</upper>
+        <upper>0</upper>
+        <effort>4</effort>
+        <velocity>4.1888</velocity>
+      </limit>
+      <dynamics>
+        <damping>0.7</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+  </joint>
+
+  <link name="l_thumb_base">
+    <pose>${l_thumb_roll.X} ${l_thumb_roll.Y} ${l_thumb_roll.Z} 0 0 0</pose>
+    <visual name="l_thumb_base_visual">
+      <pose>${l_thumb_base.pose}</pose>
+      <geometry>
+        ${l_thumb_base.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <pose>${l_thumb_base.Xcbar - l_thumb_roll.X} ${l_thumb_base.Ycbar - l_thumb_roll.Y} ${l_thumb_base.Zcbar - l_thumb_roll.Z} 0 0 0</pose>
+      <mass>${default_inertia.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${default_inertia.Ixc}</ixx>
+        <iyy>${default_inertia.Iyc}</iyy>
+        <izz>${default_inertia.Izc}</izz>
+        <iyz>${default_inertia.Iyzc}</iyz>
+        <ixz>${default_inertia.Ixzc}</ixz>
+        <ixy>${default_inertia.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+  </link>
+
+  <link name="r_thumb_base">
+    <pose>${r_thumb_roll.X} ${r_thumb_roll.Y} ${r_thumb_roll.Z} 0 0 0</pose>
+    <visual name="r_thumb_base_visual">
+      <pose>${r_thumb_base.pose}</pose>
+      <geometry>
+        ${r_thumb_base.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <pose>${r_thumb_base.Xcbar - r_thumb_roll.X} ${r_thumb_base.Ycbar - r_thumb_roll.Y} ${r_thumb_base.Zcbar - r_thumb_roll.Z} 0 0 0</pose>
+      <mass>${default_inertia.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${default_inertia.Ixc}</ixx>
+        <iyy>${default_inertia.Iyc}</iyy>
+        <izz>${default_inertia.Izc}</izz>
+        <iyz>${default_inertia.Iyzc}</iyz>
+        <ixz>${default_inertia.Ixzc}</ixz>
+        <ixy>${default_inertia.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+  </link>
+
+  <joint name="l_thumb_pitch" type="revolute">
+    <parent>
+      l_thumb_base
+    </parent>
+    <child>
+      l_thumb_link
+    </child>
+    <axis>
+      <xyz>0 1 0</xyz>
+      <limit>
+        <lower>${r_thumb_pitch.pitch_lower_limit}</lower>
+        <upper>${r_thumb_pitch.pitch_upper_limit}</upper>
+        <upper>0</upper>
+        <effort>4</effort>
+        <velocity>4.1888</velocity>
+      </limit>
+      <dynamics>
+        <damping>0.7</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+  </joint>
+
+  <joint name="r_thumb_pitch" type="revolute">
+    <parent>
+      r_thumb_base
+    </parent>
+    <child>
+      r_thumb_link
+    </child>
+    <axis>
+      <xyz>0 1 0</xyz>
+      <limit>
+        <lower>${r_thumb_pitch.pitch_lower_limit}</lower>
+        <upper>${r_thumb_pitch.pitch_upper_limit}</upper>
+        <upper>0</upper>
+        <effort>4</effort>
+        <velocity>4.1888</velocity>
+      </limit>
+      <dynamics>
+        <damping>0.7</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+  </joint>
+
+  <link name="l_thumb_link">
+    <self_collide>1</self_collide>
+    <pose>${l_thumb_pitch.X} ${l_thumb_pitch.Y} ${l_thumb_pitch.Z} 0 0 0</pose>
+    <collision name="l_thumb_link_collision">
+      <pose>${-l_thumb_pitch.X + l_thumb_link.Xcog} ${-l_thumb_pitch.Y + l_thumb_link.Ycog} ${-l_thumb_pitch.Z + l_thumb_link.Zcog} 0 0 0</pose>
+      <geometry>
+        <cylinder>
+          <radius>${l_thumb_link.Rbb}</radius>
+          <length>${l_thumb_link.Lbb}</length>
+        </cylinder>
+      </geometry>
+    </collision>
+    <visual name="l_thumb_link_visual">
+      <pose>${l_thumb_link.pose}</pose>
+      <geometry>
+        ${l_thumb_link.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <pose>${l_thumb_link.Xcbar - l_thumb_pitch.X} ${l_thumb_link.Ycbar - l_thumb_pitch.Y} ${l_thumb_link.Zcbar - l_thumb_pitch.Z} 0 0 0</pose>
+      <!--
+      <mass>${l_thumb_link.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${l_thumb_link.Ixc}</ixx>
+        <iyy>${l_thumb_link.Iyc}</iyy>
+        <izz>${l_thumb_link.Izc}</izz>
+        <iyz>${l_thumb_link.Iyzc}</iyz>
+        <ixz>${l_thumb_link.Ixzc}</ixz>
+        <ixy>${l_thumb_link.Ixyc}</ixy>
+      </inertia>
+      -->
+      <mass>${default_inertia.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${default_inertia.Ixc}</ixx>
+        <iyy>${default_inertia.Iyc}</iyy>
+        <izz>${default_inertia.Izc}</izz>
+        <iyz>${default_inertia.Iyzc}</iyz>
+        <ixz>${default_inertia.Ixzc}</ixz>
+        <ixy>${default_inertia.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+  </link>
+
+  <link name="r_thumb_link">
+    <self_collide>1</self_collide>
+    <pose>${r_thumb_pitch.X} ${r_thumb_pitch.Y} ${r_thumb_pitch.Z} 0 0 0</pose>
+    <collision name="r_thumb_link_collision">
+      <pose>${-r_thumb_pitch.X + r_thumb_link.Xcog} ${-r_thumb_pitch.Y + r_thumb_link.Ycog} ${-r_thumb_pitch.Z + r_thumb_link.Zcog} 0 0 0</pose>
+      <geometry>
+        <cylinder>
+          <radius>${r_thumb_link.Rbb}</radius>
+          <length>${r_thumb_link.Lbb}</length>
+        </cylinder>
+      </geometry>
+    </collision>
+    <visual name="r_thumb_link_visual">
+      <pose>${r_thumb_link.pose}</pose>
+      <geometry>
+        ${r_thumb_link.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <pose>${r_thumb_link.Xcbar - r_thumb_pitch.X} ${r_thumb_link.Ycbar - r_thumb_pitch.Y} ${r_thumb_link.Zcbar - r_thumb_pitch.Z} 0 0 0</pose>
+      <!--
+      <mass>${r_thumb_link.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${r_thumb_link.Ixc}</ixx>
+        <iyy>${r_thumb_link.Iyc}</iyy>
+        <izz>${r_thumb_link.Izc}</izz>
+        <iyz>${r_thumb_link.Iyzc}</iyz>
+        <ixz>${r_thumb_link.Ixzc}</ixz>
+        <ixy>${r_thumb_link.Ixyc}</ixy>
+      </inertia>
+      -->
+      <mass>${default_inertia.Mass * mass.sdf_scale_factor}</mass>
+      <inertia>
+        <ixx>${default_inertia.Ixc}</ixx>
+        <iyy>${default_inertia.Iyc}</iyy>
+        <izz>${default_inertia.Izc}</izz>
+        <iyz>${default_inertia.Iyzc}</iyz>
+        <ixz>${default_inertia.Ixzc}</ixz>
+        <ixy>${default_inertia.Ixyc}</ixy>
+      </inertia>
+    </inertial>
+  </link>
+</model>
+</sdf>

@@ -1,0 +1,1207 @@
+<?xml version="1.0"?>
+
+<robot name="thor">
+
+  <link name="base_link">
+    <origin xyz="0 0 0.8925" />
+    <inertial>
+      <mass value="0" />
+      <inertia ixx="0" iyy="0" izz="0" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <link name="torso">
+    <origin xyz="0 0 0.8925" />
+    <collision name="torso_collision">
+       <origin xyz="-0.0085 0 0.1255015" />
+      <geometry>
+        <box size="0.25 0.3 0.3299971" />
+      </geometry>
+    </collision>
+    <visual name="torso_visual">
+      <origin xyz="-0.0085 0 0.1255015" />
+      <geometry>
+        <box size="0.25 0.3 0.3299971" />
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="-0.02884476 -0.000339931 0.139567304" />
+      <mass value="12.227102888619" />
+      <inertia ixx="0.168786051" iyy="0.151804339" izz="0.183945912" iyz="0.000299081" ixz="0.000191055" ixy="0.000230307" />
+    </inertial>
+  </link>
+
+  <link name="kvh_link" />
+
+  <joint name="kvh_joint" type="fixed">
+    <origin xyz="-0.184 0 0.116855" rpy="0 0 1.5707963267949" />
+    <axis xyz="0 0 1" />
+    <parent link="torso" />
+    <child link="kvh_link" />
+  </joint>
+  
+  <link name="microstrain_link" />
+
+  <joint name="microstrain_joint" type="fixed">
+    <origin xyz="-0.0085 0 0.1255015" rpy="0 0 1.5707963267949" />
+    <axis xyz="0 0 1" />
+    <parent link="torso" />
+    <child link="microstrain_link" />
+  </joint>
+
+  <link name="l_thigh">
+    <collision name="l_thigh_collision">
+      <origin xyz="-0.002281 0.017675 -0.2021685" />
+      <geometry>
+        <box size="0.1 0.18965 0.4496629" />
+      </geometry>
+    </collision>
+    <visual name="l_thigh_visual">
+      <origin xyz="-0.002281 0.017675 -0.2021685" />
+      <geometry>
+        <box size="0.1 0.18965 0.4496629" />
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="-0.02004484 0.027446943 -0.219706409" />
+      <mass value="5.13807864986" />
+      <inertia ixx="0.050251535" iyy="0.04823009" izz="0.01825638" iyz="0.000428731" ixz="-0.00485734" ixy="-0.000369726" />
+    </inertial>
+  </link>
+
+  <link name="r_thigh">
+    <collision name="r_thigh_collision">
+      <origin xyz="-0.002281 -0.017675 -0.2021685" />
+      <geometry>
+        <box size="0.1 0.18965 0.4496629" />
+      </geometry>
+    </collision>
+    <visual name="r_thigh_visual">
+      <origin xyz="-0.002281 -0.017675 -0.2021685" />
+      <geometry>
+        <box size="0.1 0.18965 0.4496629" />
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="-0.020031387 -0.027475579 -0.219745232" />
+      <mass value="5.1402729320628" />
+      <inertia ixx="0.050266937" iyy="0.048269843" izz="0.018232029" iyz="-0.000479151" ixz="-0.004868597" ixy="0.000400241" />
+    </inertial>
+  </link>
+
+
+  <link name="l_shin">
+    <collision name="l_shin_collision">
+      <origin xyz="0.0190724 0.0021182 -0.2013892" />
+      <geometry>
+        <box size="0.1 0.13 0.4512008" />
+      </geometry>
+    </collision>
+    <visual name="l_shin_visual">
+      <origin xyz="0.0190724 0.0021182 -0.2013892" />
+      <geometry>
+        <box size="0.1 0.13 0.4512008" />
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0.035524575 0.00050081099999999 -0.159844769" />
+      <mass value="4.2301928995278" />
+      <inertia ixx="0.042672286" iyy="0.043770804" izz="0.012910027" iyz="-0.000372327" ixz="0.005863435" ixy="-4.6942e-05" />
+    </inertial>
+  </link>
+
+  <link name="r_shin">
+    <collision name="r_shin_collision">
+      <origin xyz="0.0190724 -0.0021182 -0.2013892" />
+      <geometry>
+        <box size="0.1 0.13 0.4512008" />
+      </geometry>
+    </collision>
+    <visual name="r_shin_visual">
+      <origin xyz="0.0190724 -0.0021182 -0.2013892" />
+      <geometry>
+        <box size="0.1 0.13 0.4512008" />
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0.035524569 -0.000282961 -0.159844769" />
+      <mass value="4.2301928995278" />
+      <inertia ixx="0.042672987" iyy="0.043770806" izz="0.012910729" iyz="0.000406027" ixz="0.005863442" ixy="6.7751e-05" />
+    </inertial>
+  </link>
+
+
+  <link name="l_foot">
+    <collision name="l_foot_collision">
+      <origin xyz="0.025 0 -0.0458276" />
+      <geometry>
+        <box size="0.25 0.1485 0.05493235" />
+      </geometry>
+    </collision>
+    <visual name="l_foot_visual">
+      <origin xyz="0.025 0 -0.0458276" />
+      <geometry>
+        <box size="0.25 0.1485 0.05493235" />
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="-0.003042516 0.00096434599999999 -0.040483259" />
+      <mass value="1.7169625926048" />
+      <inertia ixx="0.00336244" iyy="0.006955959" izz="0.007417438" iyz="3.0838e-05" ixz="-0.001236319" ixy="5.764e-06" />
+    </inertial>
+  </link>
+
+  <link name="r_foot">
+    <collision name="r_foot_collision">
+      <origin xyz="0.025 -0.00075 -0.0458276" />
+      <geometry>
+        <box size="0.25 0.1485 0.05493235" />
+      </geometry>
+    </collision>
+    <visual name="r_foot_visual">
+      <origin xyz="0.025 -0.00075 -0.0458276" />
+      <geometry>
+        <box size="0.25 0.1485 0.05493235" />
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="-0.002942557 -0.00094983899999999 -0.040490458" />
+      <mass value="1.7201733736363" />
+      <inertia ixx="0.003363358" iyy="0.006961913" izz="0.007424205" iyz="-3.0884e-05" ixz="-0.001236643" ixy="-3.631e-06" />
+    </inertial>
+  </link>
+
+  <link name="l_sole"/>
+    
+  <link name="r_sole"/>
+
+  <joint name="l_sole_joint" type="fixed">
+    <origin xyz="0.025 0 -0.0740875" />
+    <parent link="l_foot"/>
+    <child link="l_sole"/>
+  </joint>
+
+  <joint name="r_sole_joint" type="fixed">
+    <origin xyz="0.025 0 -0.0740875" />
+    <parent link="r_foot"/>
+    <child link="r_sole"/>
+  </joint>
+
+  <link name="l_hip_yaw_trunnion">
+    <!-- Axis = "z", -->
+    <inertial>
+      <mass value="0.051573426573425" />
+      <inertia ixx="0.0085833333333333" iyy="0.0085833333333333" izz="0.00075" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+
+  <link name="r_hip_yaw_trunnion">
+    <!-- Axis = "z", -->
+    <inertial>
+      <mass value="0.051573426573425" />
+      <inertia ixx="0.0085833333333333" iyy="0.0085833333333333" izz="0.00075" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+
+
+  <link name="l_hip_pitch_trunnion">
+    <!-- Axis = "y", -->
+    <inertial>
+      <origin rpy="1.5707963267949 0 0" />
+      <mass value="0.051573426573425" />
+      <inertia ixx="0.0085833333333333" iyy="0.0085833333333333" izz="0.00075" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+
+  <link name="r_hip_pitch_trunnion">
+    <!-- Axis = "y", -->
+    <inertial>
+      <origin rpy="1.5707963267949 0 0" />
+      <mass value="0.051573426573425" />
+      <inertia ixx="0.0085833333333333" iyy="0.0085833333333333" izz="0.00075" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+
+
+  <link name="l_ankle_pitch_trunnion">
+    <!-- Axis = "y", -->
+    <inertial>
+      <origin rpy="1.5707963267949 0 0" />
+      <mass value="0.051573426573425" />
+      <inertia ixx="0.0085833333333333" iyy="0.0085833333333333" izz="0.00075" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+
+  <link name="r_ankle_pitch_trunnion">
+    <!-- Axis = "y", -->
+    <inertial>
+      <origin rpy="1.5707963267949 0 0" />
+      <mass value="0.051573426573425" />
+      <inertia ixx="0.0085833333333333" iyy="0.0085833333333333" izz="0.00075" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+
+  <joint name="base_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 0 1"/>
+    <parent link="base_link" />
+    <child link="torso" />
+  </joint>
+
+  <joint name="l_hip_yaw" type="revolute">
+    <origin xyz="0 0.1 0" />
+    <parent link="torso" />
+    <child link="l_hip_yaw_trunnion" />
+    <axis xyz="0 0 1" />
+    <limit lower="-0.34906585039887" upper="0.78539816339745" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_hip_yaw" type="revolute">
+    <origin xyz="0 -0.1 0" />
+    <parent link="torso" />
+    <child link="r_hip_yaw_trunnion" />
+    <axis xyz="0 0 1" />
+    <limit lower="-0.78539816339745" upper="0.34906585039887" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="l_hip_roll" type="revolute">
+    <origin xyz="0 0 0" />
+    <parent link="l_hip_yaw_trunnion" />
+    <child link="l_hip_pitch_trunnion" />
+    <axis xyz="1 0 0" />
+    <limit lower="-0.5235987755983" upper="0.78539816339745" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_hip_roll" type="revolute">
+    <origin xyz="0 0 0" />
+    <parent link="r_hip_yaw_trunnion" />
+    <child link="r_hip_pitch_trunnion" />
+    <axis xyz="1 0 0" />
+    <limit lower="-0.78539816339745" upper="0.5235987755983" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="l_hip_pitch" type="revolute">
+    <origin xyz="0 0 0" />
+    <parent link="l_hip_pitch_trunnion" />
+    <child link="l_thigh" />
+    <axis xyz="0 1 0" />
+    <limit lower="-2.0943951023932" upper="0.5235987755983" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_hip_pitch" type="revolute">
+    <origin xyz="0 0 0" />
+    <parent link="r_hip_pitch_trunnion" />
+    <child link="r_thigh" />
+    <axis xyz="0 1 0" />
+    <limit lower="-2.0943951023932" upper="0.5235987755983" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="l_knee_pitch" type="revolute">
+    <origin xyz="0 0 -0.41" />
+    <parent link="l_thigh" />
+    <child link="l_shin" />
+    <axis xyz="0 1 0" />
+    <limit lower="0" upper="2.3561944901923" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_knee_pitch" type="revolute">
+    <origin xyz="0 0 -0.41" />
+    <parent link="r_thigh" />
+    <child link="r_shin" />
+    <axis xyz="0 1 0" />
+    <limit lower="0" upper="2.3561944901923" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="l_ankle_pitch" type="revolute">
+    <origin xyz="0 0 -0.41" />
+    <parent link="l_shin" />
+    <child link="l_ankle_pitch_trunnion" />
+    <axis xyz="0 1 0" />
+    <limit lower="-0.95993108859688" upper="0.61086523819802" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_ankle_pitch" type="revolute">
+    <origin xyz="0 0 -0.41" />
+    <parent link="r_shin" />
+    <child link="r_ankle_pitch_trunnion" />
+    <axis xyz="0 1 0" />
+    <limit lower="-0.95993108859688" upper="0.61086523819802" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="l_ankle_roll" type="revolute">
+    <origin xyz="0 0 0" />
+    <parent link="l_ankle_pitch_trunnion" />
+    <child link="l_foot" />
+    <axis xyz="1 0 0" />
+    <limit lower="-0.5235987755983" upper="0.5235987755983" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_ankle_roll" type="revolute">
+    <origin xyz="0 0 0" />
+    <parent link="r_ankle_pitch_trunnion" />
+    <child link="r_foot" />
+    <axis xyz="1 0 0" />
+    <limit lower="-0.5235987755983" upper="0.5235987755983" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="waist_yaw" type="revolute">
+    <origin xyz="0 0 0.365" />
+    <parent link="torso" />
+    <child link="waist_pitch_trunnion" />
+    <axis xyz="0 0 1" />
+    <limit lower="-0.78539816339745" upper="0.78539816339745" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <link name="waist_pitch_trunnion">
+    <!-- Axis = "y", -->
+    <inertial>
+      <origin rpy="1.5707963267949 0 0" />
+      <mass value="0.051573426573425" />
+      <inertia ixx="0.0085833333333333" iyy="0.0085833333333333" izz="0.00075" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+
+  <joint name="waist_pitch" type="revolute">
+    <origin xyz="0 0 0" />
+    <parent link="waist_pitch_trunnion" />
+    <child link="chest" />
+    <axis xyz="0 1 0" />
+    <limit lower="-0.34906585039887" upper="0.34906585039887" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <link name="chest">
+    <collision name="chest_collision">
+      <origin xyz="0.001 0 0.09375" />
+      <geometry>
+        <box size="0.25 0.3 0.3685" />
+      </geometry>
+    </collision>
+    <visual name="chest_visual">
+      <origin xyz="0.001 0 0.09375" />
+      <geometry>
+        <box size="0.25 0.3 0.3685" />
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="-0.009475235 0.003477582 0.109792633" />
+      <mass value="8.9112224908039" />
+      <inertia ixx="0.212139518" iyy="0.177608078" izz="0.082558505" iyz="0.000482353" ixz="-0.001780773" ixy="0.000361146" />
+    </inertial>
+  </link>
+
+  <joint name="head_yaw" type="revolute">
+    <origin xyz="0 0 0.278" />
+    <parent link="chest" />
+    <child link="neck" />
+    <axis xyz="0 0 1" />
+    <limit lower="-1.5707963267949" upper="1.5707963267949" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <link name="neck">
+    <collision name="neck_collision">
+      <origin xyz="0 0.003 0.024025" />
+      <geometry>
+        <box size="0.0541 0.096 0.05405" />
+      </geometry>
+    </collision>
+    <visual name="neck_visual">
+      <origin xyz="0 0.003 0.024025" />
+      <geometry>
+        <box size="0.0541 0.096 0.05405" />
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="1.2e-08 0.000124683 0.024528056" />
+      <mass value="0.42837005699299" />
+      <inertia ixx="0.000336505" iyy="0.000143407" izz="0.000323735" iyz="-8.463e-06" ixz="0" ixy="-0" />
+    </inertial>
+  </link>
+
+  <joint name="head_pitch" type="revolute">
+    <origin xyz="0 0 0.027" />
+    <parent link="neck" />
+    <child link="head" />
+    <axis xyz="0 1 0" />
+    <limit lower="-0.5235987755983" upper="1.0471975511966" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <link name="head">
+    <collision name="head_collision">
+      <origin xyz="-0.0142568 0 0.08855" />
+      <geometry>
+        <box size="0.155386 0.102 0.2191" />
+      </geometry>
+    </collision>
+    <visual name="head_visual">
+      <origin xyz="-0.0142568 0 0.08855" />
+      <geometry>
+        <box size="0.155386 0.102 0.2191" />
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="-0.019216774 4.1336e-05 0.144911706" />
+      <mass value="2.2650798087587" />
+      <inertia ixx="0.013808097" iyy="0.011370053" izz="0.007199137" iyz="-9.74e-06" ixz="0.002271466" ixy="1.389e-06" />
+    </inertial>
+  </link>
+
+  <!-- Flir Camera Frames -->
+  <!-- Left Flir Camera -->
+  <joint name="left_flir_frame_joint" type="fixed">
+    <origin xyz="0.0211362 0.084 0.180" />
+    <parent link="head" />
+    <child link="left_flir_camera_frame" />
+  </joint>
+
+  <link name="left_flir_camera_frame">
+  </link>
+
+  <joint name="left_flir_optical_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.5708 0.0 -1.5708" />
+    <parent link="left_flir_camera_frame" />
+    <child link="left_flir_optical_frame" />
+  </joint>
+
+  <link name="left_flir_optical_frame">
+  </link>
+
+  <!-- Right Flir Camera -->
+  <joint name="right_flir_frame_joint" type="fixed">
+     <origin xyz="0.0211362 -0.084 0.180" />
+    <parent link="head" />
+    <parent link="head" />
+    <child link="right_flir_camera_frame" />
+  </joint>
+
+  <link name="right_flir_camera_frame">
+  </link>
+
+  <joint name="right_flir_optical_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.5708 0.0 -1.5708" />
+    <parent link="right_flir_camera_frame" />
+    <child link="right_flir_optical_frame" />
+  </joint>
+
+  <link name="right_flir_optical_frame">
+  </link>
+
+  <!-- MultiSense stereo camera -->
+  <gazebo reference="left_camera_frame">
+    <sensor type="multicamera" name="stereo_camera">
+      <!-- see MultiSenseSLPlugin.h for available modes -->
+      <update_rate>30.0</update_rate>
+      <camera name="left">
+        <!-- Spec sheet says 80deg X 45deg @ 1024x544pix.  Based on feedback
+             from teams, we're instead doing 80deg X 80deg @ 800x800pix. -->
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>800</width>
+          <height>800</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <camera name="right">
+        <pose>0 -0.07 0 0 0 0</pose>
+        <!-- Spec sheet says 80deg X 45deg @ 1024x544pix.  Based on feedback
+             from teams, we're instead doing 80deg X 80deg @ 800x800pix. -->
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>800</width>
+          <height>800</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise is sampled independently per pixel on each frame.
+               That pixel's noise value is added to each of its color
+               channels, which at that point lie in the range [0,1].
+               The stddev value of 0.007 is based on experimental data
+               from a camera in a Sandia hand pointed at a static scene
+               in a couple of different lighting conditions.  -->
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin name="stereo_camera_controller" filename="libgazebo_ros_multicamera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>multisense</cameraName>
+        <imageTopicName>image_color</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>/multisense/left_camera_optical_frame</frameName>
+        <!--<rightFrameName>/multisense/right_camera_optical_frame</rightFrameName>-->
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- Multisense params Imported from Official Multisense URDF -->
+  <link name="multisense_root"/>
+
+  <joint name="multisense_joint" type="fixed">
+    <origin xyz="-0.000435 0 0.18625" />
+    <parent link="head"/>
+    <child link="multisense_root"/>
+  </joint>
+
+  <joint name="left_camera_joint" type="fixed">
+    <origin xyz="0.052 0.035 0.0"/>
+    <parent link="multisense_root"/>
+    <child link="left_camera_frame"/>
+  </joint>
+
+  <link name="left_camera_frame"/>
+
+  <joint name="right_camera_joint" type="fixed">
+    <origin xyz="0.052 -0.035 0.0"/>
+    <parent link="multisense_root"/>
+    <child link="right_camera_frame"/>
+  </joint>
+
+  <link name="right_camera_frame"/>
+
+  <joint name="left_camera_optical_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.57079632679 0.0 -1.57079632679"/>
+    <parent link="left_camera_frame"/>
+    <child link="/multisense/left_camera_optical_frame"/>
+  </joint>
+
+  <link name="/multisense/left_camera_optical_frame"/>
+
+  <joint name="right_camera_optical_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.57079632679 0.0 -1.57079632679"/>
+    <parent link="right_camera_frame"/>
+    <child link="/multisense/right_camera_optical_frame"/>
+  </joint>
+
+  <link name="/multisense/right_camera_optical_frame"/>
+
+  <joint name="accel_joint" type="fixed">
+    <origin xyz="0.047 0.0302 -0.00075" rpy="0.0 1.57079632679 0.0"/>
+    <parent link="multisense_root"/>
+    <child link="accel"/>
+  </joint>
+
+  <link name="accel"/>
+
+  <joint name="mag_joint" type="fixed">
+    <origin xyz="0.047 0.0302 -0.00075" rpy="0.0 1.57079632679 0.0"/>
+    <parent link="multisense_root"/>
+    <child link="mag"/>
+  </joint>
+
+  <link name="mag"/>
+
+  <joint name="gyro_joint" type="fixed">
+    <origin xyz="0.047 0.03880 0.00125" rpy="-1.57079632679 0.0 -1.57079632679"/>
+    <parent link="multisense_root"/>
+    <child link="gyro"/>
+  </joint>
+
+  <link name="gyro"/>
+
+  <!-- Head Lidar -->
+  <joint name="head_lidar_roll" type="continuous">
+    <origin xyz="0 0 0.089" />
+    <parent link="head" />
+    <child link="head_lidar" />
+    <axis xyz="1 0 0" />
+    <limit effort="150" velocity="1.6"/>
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <link name="head_lidar">
+    <collision name="head_lidar_collision">
+      <origin xyz="0 0 0" />
+      <geometry>
+        <box size="0.1395 0.06 0.093" />
+      </geometry>
+    </collision>
+    <visual name="head_lidar_visual">
+      <origin xyz="0.0098 0 0" />
+      <geometry>
+        <box size="0.1395 0.06 0.093" />
+      </geometry>
+      <material name="$black"/>
+    </visual>
+    <inertial>
+      <origin xyz="0.025657021 -2.21e-06 -3.295381276" />
+      <mass value="0.44774993965034" />
+      <inertia ixx="0.000368817" iyy="0.00087532" izz="0.000707833" iyz="-2.1e-08" ixz="-7.653e-06" ixy="5.5e-08" />
+    </inertial>
+  </link>
+
+  <joint name="head_lidar_emitter_joint" type="fixed">
+    <origin xyz="0.0495 0 0.02" />
+    <parent link="head_lidar" />
+    <child link="head_lidar_emitter" />
+  </joint>
+
+  <link name="head_lidar_emitter"/>
+
+  <joint name="head_lidar_receiver_joint" type="fixed">
+    <origin xyz="0.0495 0 0.02" />
+    <parent link="head_lidar" />
+    <child link="head_lidar_receiver" />
+  </joint>
+
+  <link name="head_lidar_receiver"/>
+
+  <joint name="l_shoulder_pitch" type="revolute">
+    <origin xyz="0 0.2375 0.214" />
+    <parent link="chest" />
+    <child link="l_shoulder_pitch_trunnion" />
+    <axis xyz="0 1 0" />
+    <limit lower="-0.7418" upper="1.5707963267949" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_shoulder_pitch" type="revolute">
+    <origin xyz="0 -0.2375 0.214" />
+    <parent link="chest" />
+    <child link="r_shoulder_pitch_trunnion" />
+    <axis xyz="0 1 0" />
+    <limit lower="-0.7418" upper="1.5707963267949" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+
+  <link name="l_shoulder_pitch_trunnion">
+    <origin xyz="0 0 0" />
+    <!-- Axis = "y", -->
+    <inertial>
+      <origin rpy="1.5707963267949 0 0" />
+      <mass value="0.051573426573425" />
+      <inertia ixx="0.0085833333333333" iyy="0.0085833333333333" izz="0.00075" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+
+  <link name="r_shoulder_pitch_trunnion">
+    <origin xyz="0 0 0" />
+    <!-- Axis = "y", -->
+    <inertial>
+      <origin rpy="1.5707963267949 0 0" />
+      <mass value="0.051573426573425" />
+      <inertia ixx="0.0085833333333333" iyy="0.0085833333333333" izz="0.00075" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+
+
+  <joint name="l_shoulder_roll" type="revolute">
+    <origin xyz="0 0 0" />
+    <parent link="l_shoulder_pitch_trunnion" />
+    <child link="l_shoulder_yaw_trunnion" />
+    <axis xyz="1 0 0" />
+    <limit lower="0" upper="3.1415926535898" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_shoulder_roll" type="revolute">
+    <origin xyz="0 0 0" />
+    <parent link="r_shoulder_pitch_trunnion" />
+    <child link="r_shoulder_yaw_trunnion" />
+    <axis xyz="1 0 0" />
+    <limit lower="-3.1415926535898" upper="0" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+
+  <link name="l_shoulder_yaw_trunnion">
+    <!-- Axis = "z", -->
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.051573426573425" />
+      <inertia ixx="0.0085833333333333" iyy="0.0085833333333333" izz="0.00075" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+
+  <link name="r_shoulder_yaw_trunnion">
+    <!-- Axis = "z", -->
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.051573426573425" />
+      <inertia ixx="0.0085833333333333" iyy="0.0085833333333333" izz="0.00075" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+
+
+  <joint name="l_shoulder_yaw" type="revolute">
+    <origin xyz="0 0 0" />
+    <parent link="l_shoulder_yaw_trunnion" />
+    <child link="l_arm" />
+    <axis xyz="0 0 1" />
+    <limit lower="-3.1415926535898" upper="3.1415926535898" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_shoulder_yaw" type="revolute">
+    <origin xyz="0 0 0" />
+    <parent link="r_shoulder_yaw_trunnion" />
+    <child link="r_arm" />
+    <axis xyz="0 0 1" />
+    <limit lower="-3.1415926535898" upper="3.1415926535898" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <link name="l_arm">
+    <collision name="l_arm_collision">
+      <origin xyz="0 0 -0.1398848" />
+      <geometry>
+        <box size="0.144 0.114 0.3337695" />
+      </geometry>
+    </collision>
+    <visual name="l_arm_visual">
+      <origin xyz="0 0 -0.1398848" />
+      <geometry>
+        <box size="0.144 0.114 0.3337695" />
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0.007214087 -0.001779321 -0.112868931" />
+      <mass value="3.0258177870279" />
+      <inertia ixx="0.038478468" iyy="0.039609455" izz="0.004412843" iyz="-0.000681544" ixz="-0.003774572" ixy="4.9829e-05" />
+    </inertial>
+  </link>
+
+  <link name="r_arm">
+    <collision name="r_arm_collision">
+      <origin xyz="0 0 -0.1398848" />
+      <geometry>
+        <box size="0.144 0.114 0.3337695" />
+      </geometry>
+    </collision>
+    <visual name="r_arm_visual">
+      <origin xyz="0 0 -0.1398848" />
+      <geometry>
+        <box size="0.144 0.114 0.3337695" />
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0.007213335 0.001779321 -0.112868931" />
+      <mass value="3.0258177870279" />
+      <inertia ixx="0.038478468" iyy="0.039609764" izz="0.004413151" iyz="0.000681544" ixz="-0.003774703" ixy="-4.9825e-05" />
+    </inertial>
+  </link>
+
+
+  <joint name="l_elbow_pitch" type="revolute">
+    <origin xyz="0.03 0 -0.27" />
+    <parent link="l_arm" />
+    <child link="l_forearm" />
+    <axis xyz="0 1 0" />
+    <limit lower="-2.763" upper="0" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_elbow_pitch" type="revolute">
+    <origin xyz="0.03 0 -0.27" />
+    <parent link="r_arm" />
+    <child link="r_forearm" />
+    <axis xyz="0 1 0" />
+    <limit lower="-2.763" upper="0" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <link name="l_forearm">
+    <collision name="l_forearm_collision">
+      <origin xyz="-0.0257566 0 -0.1107567" />
+      <geometry>
+        <box size="0.0984867 0.12 0.2684867" />
+      </geometry>
+    </collision>
+    <visual name="l_forearm_visual">
+      <origin xyz="-0.0257566 0 -0.1107567" />
+      <geometry>
+        <box size="0.0984867 0.12 0.2684867" />
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="-0.030544339 0.00037668700000001 -0.135152852" />
+      <mass value="1.5466488026748" />
+      <inertia ixx="0.006819683" iyy="0.006750973" izz="0.001205454" iyz="4.3534e-05" ixz="0.000101312" ixy="5.676e-06" />
+    </inertial>
+  </link>
+
+  <link name="r_forearm">
+    <collision name="r_forearm_collision">
+      <origin xyz="-0.0257566 0 -0.1107567" />
+      <geometry>
+        <box size="0.0984867 0.12 0.2684867" />
+      </geometry>
+    </collision>
+    <visual name="r_forearm_visual">
+      <origin xyz="-0.0257566 0 -0.1107567" />
+      <geometry>
+        <box size="0.0984867 0.12 0.2684867" />
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="-0.030544339 8.3232999999988e-05 -0.135152852" />
+      <mass value="1.5466488026748" />
+      <inertia ixx="0.006819886" iyy="0.006750973" izz="0.001205657" iyz="3.9504e-05" ixz="0.000101316" ixy="4.675e-06" />
+    </inertial>
+  </link>
+
+  <link name="l_foreforearm">
+    <collision name="l_foreforearm_collision">
+      <origin xyz="0 0 -0.0925" />
+      <geometry>
+        <box size="0.096 0.048 0.15" />
+      </geometry>
+    </collision>
+    <visual name="l_foreforearm_visual">
+      <origin xyz="0 0 -0.0925" />
+      <geometry>
+        <box size="0.096 0.048 0.15" />
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0.000452337 0 -0.079473129" />
+      <mass value="0.4784829261888" />
+      <inertia ixx="0.000584304" iyy="0.000662668" izz="0.000222334" iyz="-0" ixz="1.3796e-05" ixy="-0" />
+    </inertial>
+  </link>
+
+  <link name="r_foreforearm">
+    <collision name="r_foreforearm_collision">
+      <origin xyz="0 0 -0.0925" />
+      <geometry>
+        <box size="0.096 0.048 0.15" />
+      </geometry>
+    </collision>
+    <visual name="r_foreforearm_visual">
+      <origin xyz="0 0 -0.0925" />
+      <geometry>
+        <box size="0.096 0.048 0.15" />
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0.000452337 0 -0.079473129" />
+      <mass value="0.4784829261888" />
+      <inertia ixx="0.000584304" iyy="0.000662668" izz="0.000222334" iyz="-0" ixz="1.3796e-05" ixy="-0" />
+    </inertial>
+  </link>
+
+  <joint name="l_wrist_yaw" type="revolute">
+    <origin xyz="-0.03 0 -0.224" />
+    <parent link="l_forearm" />
+    <child link="l_wrist_yaw_trunnion" />
+    <axis xyz="0 0 1" />
+    <limit lower="-3.1415926535898" upper="2.2165" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_wrist_yaw" type="revolute">
+    <origin xyz="-0.03 0 -0.224" />
+    <parent link="r_forearm" />
+    <child link="r_wrist_yaw_trunnion" />
+    <axis xyz="0 0 1" />
+    <limit lower="-2.2165" upper="3.1415926535898" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+
+  <link name="l_wrist_yaw_trunnion">
+    <!-- Axis = "z", -->
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.051573426573425" />
+      <inertia ixx="0.0085833333333333" iyy="0.0085833333333333" izz="0.00075" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+
+  <link name="r_wrist_yaw_trunnion">
+    <!-- Axis = "z", -->
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.051573426573425" />
+      <inertia ixx="0.0085833333333333" iyy="0.0085833333333333" izz="0.00075" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+
+  <joint name="l_wrist_roll" type="revolute">
+    <origin xyz="0 0 0" />
+    <parent link="l_wrist_yaw_trunnion" />
+    <child link="l_foreforearm" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.5675" upper="1.5675" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_wrist_roll" type="revolute">
+    <origin xyz="0 0 0" />
+    <parent link="r_wrist_yaw_trunnion" />
+    <child link="r_foreforearm" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.5675" upper="1.5675" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="l_wrist_pitch" type="revolute">
+    <origin xyz="0 0 -0.135" />
+    <parent link="l_foreforearm" />
+    <child link="l_palm" />
+    <axis xyz="0 0 1" />
+    <limit lower="-3.1415926535898" upper="3.1415926535898" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_wrist_pitch" type="revolute">
+    <origin xyz="0 0 -0.135" />
+    <parent link="r_foreforearm" />
+    <child link="r_palm" />
+    <axis xyz="0 0 1" />
+    <limit lower="-3.1415926535898" upper="3.1415926535898" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <link name="l_palm">
+    <collision name="l_palm_collision">
+      <origin xyz="-0.0155 0 -0.0528" />
+      <geometry>
+        <box size="0.1 0.115 0.045" />
+      </geometry>
+    </collision>
+    <visual name="l_palm_visual">
+      <origin xyz="-0.0155 0 -0.0528" />
+      <geometry>
+        <box size="0.1 0.115 0.045" />
+      </geometry>
+    </visual>
+    <inertial>
+      <!-- These are the inertial properties of the hand, but we're storing them in the palm -->
+      <origin xyz="-0.001397658 -0.003533558 -0.050588331" />
+      <mass value="0.6948956863811" />
+      <inertia ixx="0.001226466" iyy="0.000902363" izz="0.000978176" iyz="-1.6886e-05" ixz="1.73e-06" ixy="2.295e-06" />
+    </inertial>
+  </link>
+
+  <link name="r_palm">
+    <collision name="r_palm_collision">
+      <origin xyz="-0.0155 0 -0.0528" />
+      <geometry>
+        <box size="0.1 0.115 0.045" />
+      </geometry>
+    </collision>
+    <visual name="r_palm_visual">
+      <origin xyz="-0.0155 0 -0.0528" />
+      <geometry>
+        <box size="0.1 0.115 0.045" />
+      </geometry>
+    </visual>
+    <inertial>
+      <!-- These are the inertial properties of the hand, but we're storing them in the palm -->
+      <origin xyz="-0.001289459 0.003590313 -0.050387019" />
+      <mass value="0.69091040863634" />
+      <inertia ixx="0.001216336" iyy="0.000886794" izz="0.000967611" iyz="1.3538e-05" ixz="-4.852e-06" ixy="-5.455e-06" />
+    </inertial>
+  </link>
+
+
+  <joint name="l_finger" type="revolute">
+    <origin xyz="0.0305 -0.0361 -0.0753" />
+    <parent link="l_palm" />
+    <child link="l_finger_link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.3131" upper="2.0448" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_finger" type="revolute">
+    <origin xyz="0.0305 0.0361 -0.0753" />
+    <parent link="r_palm" />
+    <child link="r_finger_link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-2.0448" upper="1.3131" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+
+  <link name="l_finger_link">
+    <collision name="l_finger_link_collision">
+      <origin xyz="-0.006 -0.0114 -0.045" />
+      <geometry>
+        <box size="0.02 0.02 0.09" />
+      </geometry>
+    </collision>
+    <visual name="l_finger_link_visual">
+      <origin xyz="-0.006 -0.0114 -0.045" />
+      <geometry>
+        <box size="0.02 0.02 0.09" />
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0.002130973 -0.002211594 -0.030809453" />
+      <mass value="0.06553488744755" />
+      <inertia ixx="4.5416e-05" iyy="4.2966e-05" izz="5.913e-06" iyz="-1.243e-06" ixz="1.898e-06" ixy="-3.89e-07" />
+    </inertial>
+  </link>
+
+  <link name="r_finger_link">
+    <collision name="r_finger_link_collision">
+      <origin xyz="-0.006 0.0114 -0.045" />
+      <geometry>
+        <box size="0.02 0.02 0.09" />
+      </geometry>
+    </collision>
+    <visual name="r_finger_link_visual">
+      <origin xyz="-0.006 0.0114 -0.045" />
+      <geometry>
+        <box size="0.02 0.02 0.09" />
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0.001840062 0.00193721 -0.031920591" />
+      <mass value="0.16729933036713" />
+      <inertia ixx="0.000117267" iyy="0.000110685" izz="1.4689e-05" iyz="2.888e-06" ixz="4.075e-06" ixy="9.96e-07" />
+    </inertial>
+  </link>
+
+  <joint name="l_gripper" type="revolute">
+    <origin xyz="-0.033 -0.0361 -0.0753" />
+    <parent link="l_palm" />
+    <child link="l_gripper_link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.3131" upper="2.0448" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_gripper" type="revolute">
+    <origin xyz="-0.033 0.0361 -0.0753" />
+    <parent link="r_palm" />
+    <child link="r_gripper_link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-2.0448" upper="1.3131" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+
+  <link name="l_gripper_link">
+    <collision name="l_gripper_link_collision">
+      <origin xyz="-0.0225 -0.0114 -0.05" />
+      <geometry>
+        <box size="0.02 0.02 0.1" />
+      </geometry>
+    </collision>
+    <visual name="l_gripper_link_visual">
+      <origin xyz="-0.0225 -0.0114 -0.05" />
+      <geometry>
+        <box size="0.02 0.02 0.1" />
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="-0.001551544 -0.001746072 -0.035510388" />
+      <mass value="0.15047602807692" />
+      <inertia ixx="9.5861e-05" iyy="9.1176e-05" izz="1.2994e-05" iyz="-2.408e-06" ixz="-2.577e-06" ixy="9.41e-07" />
+    </inertial>
+  </link>
+
+  <link name="r_gripper_link">
+    <collision name="r_gripper_link_collision">
+      <origin xyz="-0.0225 0.0114 -0.05" />
+      <geometry>
+        <box size="0.02 0.02 0.1" />
+      </geometry>
+    </collision>
+    <visual name="r_gripper_link_visual">
+      <origin xyz="-0.0225 0.0114 -0.05" />
+      <geometry>
+        <box size="0.02 0.02 0.1" />
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="-0.001490316 0.002013669 -0.028059492" />
+      <mass value="0.071959428391606" />
+      <inertia ixx="5.1654e-05" iyy="4.9064e-05" izz="6.653e-06" iyz="8.56e-07" ixz="-6.44e-07" ixy="-4.79e-07" />
+    </inertial>
+  </link>
+
+
+  <joint name="l_thumb" type="fixed">
+    <origin xyz="-0.0155 0.0425 -0.0753" />
+    <parent link="l_palm" />
+    <child link="l_thumb_link" />
+  </joint>
+
+  <joint name="r_thumb" type="fixed">
+    <origin xyz="-0.0155 -0.0425 -0.0753" />
+    <parent link="r_palm" />
+    <child link="r_thumb_link" />
+  </joint>
+
+
+  <link name="l_thumb_link">
+    <collision name="l_thumb_link_collision">
+      <origin xyz="0 0 -0.04" />
+      <geometry>
+        <box size="0.1 0.03 0.08" />
+      </geometry>
+    </collision>
+    <visual name="l_thumb_link_visual">
+      <origin xyz="0 0 -0.04" />
+      <geometry>
+        <box size="0.1 0.03 0.08" />
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0 0 -0.04" />
+      <mass value="0.051573426573425" />
+      <inertia ixx="0.0085833333333333" iyy="0.0085833333333333" izz="0.00075" iyz="0" ixz="0" ixy="0" />
+    </inertial>
+  </link>
+
+  <link name="r_thumb_link">
+    <collision name="r_thumb_link_collision">
+      <origin xyz="0 0 -0.04" />
+      <geometry>
+        <box size="0.1 0.03 0.08" />
+      </geometry>
+    </collision>
+    <visual name="r_thumb_link_visual">
+      <origin xyz="0 0 -0.04" />
+      <geometry>
+        <box size="0.1 0.03 0.08" />
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0 0 -0.04" />
+      <mass value="0.051573426573425" />
+      <inertia ixx="0.0085833333333333" iyy="0.0085833333333333" izz="0.00075" iyz="0" ixz="0" ixy="0" />
+    </inertial>
+  </link>
+</robot>
+
+

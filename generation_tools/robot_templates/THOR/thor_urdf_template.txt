@@ -1,0 +1,1205 @@
+<?xml version="1.0"?>
+
+<robot name="thor">
+
+  <link name="base_link">
+    <origin xyz="${torso_frame.X} ${torso_frame.Y} ${torso_frame.Z}" />
+    <inertial>
+      <mass value="0" />
+      <inertia ixx="0" iyy="0" izz="0" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <link name="torso">
+    <origin xyz="${torso_frame.X} ${torso_frame.Y} ${torso_frame.Z}" />
+    <collision name="torso_collision">
+       <origin xyz="${torso.Xcog - torso_frame.X} ${torso.Ycog - torso_frame.Y} ${torso.Zcog - torso_frame.Z}" />
+      <geometry>
+        <box size="${torso.Xbb} ${torso.Ybb} ${torso.Zbb}" />
+      </geometry>
+    </collision>
+    <visual name="torso_visual">
+      <origin xyz="${torso.origin}" />
+      <geometry>
+        ${torso.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="${torso.Xcbar - torso_frame.X} ${torso.Ycbar - torso_frame.Y} ${torso.Zcbar - torso_frame.Z}" />
+      <mass value="${torso.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${torso.Ixc}" iyy="${torso.Iyc}" izz="${torso.Izc}" iyz="${torso.Iyzc}" ixz="${torso.Ixzc}" ixy="${torso.Ixyc}" />
+    </inertial>
+  </link>
+
+  <link name="kvh_link" />
+
+  <joint name="kvh_joint" type="fixed">
+    <origin xyz="${kvh_joint.X - torso_frame.X} ${kvh_joint.Y - torso_frame.Y} ${kvh_joint.Z - torso_frame.Z}" rpy="${kvh_joint.roll} ${kvh_joint.pitch} ${kvh_joint.yaw}" />
+    <axis xyz="0 0 1" />
+    <parent link="torso" />
+    <child link="kvh_link" />
+  </joint>
+  
+  <link name="microstrain_link" />
+
+  <joint name="microstrain_joint" type="fixed">
+    <origin xyz="${microstrain_joint.X - torso_frame.X} ${microstrain_joint.Y - torso_frame.Y} ${microstrain_joint.Z - torso_frame.Z}" rpy="${microstrain_joint.roll} ${microstrain_joint.pitch} ${microstrain_joint.yaw}" />
+    <axis xyz="0 0 1" />
+    <parent link="torso" />
+    <child link="microstrain_link" />
+  </joint>
+
+  <link name="l_thigh">
+    <collision name="l_thigh_collision">
+      <origin xyz="${l_thigh.Xcog - l_hip.X} ${l_thigh.Ycog - l_hip.Y} ${l_thigh.Zcog - l_hip.Z}" />
+      <geometry>
+        <box size="${l_thigh.Xbb} ${l_thigh.Ybb} ${l_thigh.Zbb}" />
+      </geometry>
+    </collision>
+    <visual name="l_thigh_visual">
+      <origin xyz="${l_thigh.origin}" />
+      <geometry>
+        ${l_thigh.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="${l_thigh.Xcbar - l_hip.X} ${l_thigh.Ycbar - l_hip.Y} ${l_thigh.Zcbar - l_hip.Z}" />
+      <mass value="${l_thigh.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${l_thigh.Ixc}" iyy="${l_thigh.Iyc}" izz="${l_thigh.Izc}" iyz="${l_thigh.Iyzc}" ixz="${l_thigh.Ixzc}" ixy="${l_thigh.Ixyc}" />
+    </inertial>
+  </link>
+
+  <link name="r_thigh">
+    <collision name="r_thigh_collision">
+      <origin xyz="${r_thigh.Xcog - r_hip.X} ${r_thigh.Ycog - r_hip.Y} ${r_thigh.Zcog - r_hip.Z}" />
+      <geometry>
+        <box size="${r_thigh.Xbb} ${r_thigh.Ybb} ${r_thigh.Zbb}" />
+      </geometry>
+    </collision>
+    <visual name="r_thigh_visual">
+      <origin xyz="${r_thigh.origin}" />
+      <geometry>
+        ${r_thigh.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="${r_thigh.Xcbar - r_hip.X} ${r_thigh.Ycbar - r_hip.Y} ${r_thigh.Zcbar - r_hip.Z}" />
+      <mass value="${r_thigh.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${r_thigh.Ixc}" iyy="${r_thigh.Iyc}" izz="${r_thigh.Izc}" iyz="${r_thigh.Iyzc}" ixz="${r_thigh.Ixzc}" ixy="${r_thigh.Ixyc}" />
+    </inertial>
+  </link>
+
+
+  <link name="l_shin">
+    <collision name="l_shin_collision">
+      <origin xyz="${l_shin.Xcog - l_knee.X} ${l_shin.Ycog - l_knee.Y} ${l_shin.Zcog - l_knee.Z}" />
+      <geometry>
+        <box size="${l_shin.Xbb} ${l_shin.Ybb} ${l_shin.Zbb}" />
+      </geometry>
+    </collision>
+    <visual name="l_shin_visual">
+      <origin xyz="${l_shin.origin}" />
+      <geometry>
+        ${l_shin.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="${l_shin.Xcbar - l_knee.X} ${l_shin.Ycbar - l_knee.Y} ${l_shin.Zcbar - l_knee.Z}" />
+      <mass value="${l_shin.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${l_shin.Ixc}" iyy="${l_shin.Iyc}" izz="${l_shin.Izc}" iyz="${l_shin.Iyzc}" ixz="${l_shin.Ixzc}" ixy="${l_shin.Ixyc}" />
+    </inertial>
+  </link>
+
+  <link name="r_shin">
+    <collision name="r_shin_collision">
+      <origin xyz="${r_shin.Xcog - r_knee.X} ${r_shin.Ycog - r_knee.Y} ${r_shin.Zcog - r_knee.Z}" />
+      <geometry>
+        <box size="${r_shin.Xbb} ${r_shin.Ybb} ${r_shin.Zbb}" />
+      </geometry>
+    </collision>
+    <visual name="r_shin_visual">
+      <origin xyz="${r_shin.origin}" />
+      <geometry>
+        ${r_shin.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="${r_shin.Xcbar - r_knee.X} ${r_shin.Ycbar - r_knee.Y} ${r_shin.Zcbar - r_knee.Z}" />
+      <mass value="${r_shin.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${r_shin.Ixc}" iyy="${r_shin.Iyc}" izz="${r_shin.Izc}" iyz="${r_shin.Iyzc}" ixz="${r_shin.Ixzc}" ixy="${r_shin.Ixyc}" />
+    </inertial>
+  </link>
+
+
+  <link name="l_foot">
+    <collision name="l_foot_collision">
+      <origin xyz="${l_foot.Xcog - l_ankle.X} ${l_foot.Ycog - l_ankle.Y} ${l_foot.Zcog - l_ankle.Z}" />
+      <geometry>
+        <box size="${l_foot.Xbb} ${l_foot.Ybb} ${l_foot.Zbb}" />
+      </geometry>
+    </collision>
+    <visual name="l_foot_visual">
+      <origin xyz="${l_foot.origin}" />
+      <geometry>
+        ${l_foot.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="${l_foot.Xcbar - l_ankle.X} ${l_foot.Ycbar - l_ankle.Y} ${l_foot.Zcbar - l_ankle.Z}" />
+      <mass value="${l_foot.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${l_foot.Ixc}" iyy="${l_foot.Iyc}" izz="${l_foot.Izc}" iyz="${l_foot.Iyzc}" ixz="${l_foot.Ixzc}" ixy="${l_foot.Ixyc}" />
+    </inertial>
+  </link>
+
+  <link name="r_foot">
+    <collision name="r_foot_collision">
+      <origin xyz="${r_foot.Xcog - r_ankle.X} ${r_foot.Ycog - r_ankle.Y} ${r_foot.Zcog - r_ankle.Z}" />
+      <geometry>
+        <box size="${r_foot.Xbb} ${r_foot.Ybb} ${r_foot.Zbb}" />
+      </geometry>
+    </collision>
+    <visual name="r_foot_visual">
+      <origin xyz="${r_foot.origin}" />
+      <geometry>
+        ${r_foot.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="${r_foot.Xcbar - r_ankle.X} ${r_foot.Ycbar - r_ankle.Y} ${r_foot.Zcbar - r_ankle.Z}" />
+      <mass value="${r_foot.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${r_foot.Ixc}" iyy="${r_foot.Iyc}" izz="${r_foot.Izc}" iyz="${r_foot.Iyzc}" ixz="${r_foot.Ixzc}" ixy="${r_foot.Ixyc}" />
+    </inertial>
+  </link>
+
+  <link name="l_sole"/>
+    
+  <link name="r_sole"/>
+
+  <joint name="l_sole_joint" type="fixed">
+    <origin xyz="${l_foot_frame.X - l_ankle.X} ${l_foot_frame.Y - l_ankle.Y} ${l_foot_frame.Z - l_ankle.Z}" />
+    <parent link="l_foot"/>
+    <child link="l_sole"/>
+  </joint>
+
+  <joint name="r_sole_joint" type="fixed">
+    <origin xyz="${r_foot_frame.X - r_ankle.X} ${r_foot_frame.Y - r_ankle.Y} ${r_foot_frame.Z - r_ankle.Z}" />
+    <parent link="r_foot"/>
+    <child link="r_sole"/>
+  </joint>
+
+  <link name="l_hip_yaw_trunnion">
+    <!-- Axis = "z", -->
+    <inertial>
+      <mass value="${trunnion.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${trunnion.Ixc}" iyy="${trunnion.Iyc}" izz="${trunnion.Izc}" ixy="${trunnion.Ixyc}" ixz="${trunnion.Ixzc}" iyz="${trunnion.Iyzc}" />
+    </inertial>
+  </link>
+
+  <link name="r_hip_yaw_trunnion">
+    <!-- Axis = "z", -->
+    <inertial>
+      <mass value="${trunnion.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${trunnion.Ixc}" iyy="${trunnion.Iyc}" izz="${trunnion.Izc}" ixy="${trunnion.Ixyc}" ixz="${trunnion.Ixzc}" iyz="${trunnion.Iyzc}" />
+    </inertial>
+  </link>
+
+
+  <link name="l_hip_pitch_trunnion">
+    <!-- Axis = "y", -->
+    <inertial>
+      <origin rpy="${math.pi/2} 0 0" />
+      <mass value="${trunnion.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${trunnion.Ixc}" iyy="${trunnion.Iyc}" izz="${trunnion.Izc}" ixy="${trunnion.Ixyc}" ixz="${trunnion.Ixzc}" iyz="${trunnion.Iyzc}" />
+    </inertial>
+  </link>
+
+  <link name="r_hip_pitch_trunnion">
+    <!-- Axis = "y", -->
+    <inertial>
+      <origin rpy="${math.pi/2} 0 0" />
+      <mass value="${trunnion.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${trunnion.Ixc}" iyy="${trunnion.Iyc}" izz="${trunnion.Izc}" ixy="${trunnion.Ixyc}" ixz="${trunnion.Ixzc}" iyz="${trunnion.Iyzc}" />
+    </inertial>
+  </link>
+
+
+  <link name="l_ankle_pitch_trunnion">
+    <!-- Axis = "y", -->
+    <inertial>
+      <origin rpy="${math.pi/2} 0 0" />
+      <mass value="${trunnion.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${trunnion.Ixc}" iyy="${trunnion.Iyc}" izz="${trunnion.Izc}" ixy="${trunnion.Ixyc}" ixz="${trunnion.Ixzc}" iyz="${trunnion.Iyzc}" />
+    </inertial>
+  </link>
+
+  <link name="r_ankle_pitch_trunnion">
+    <!-- Axis = "y", -->
+    <inertial>
+      <origin rpy="${math.pi/2} 0 0" />
+      <mass value="${trunnion.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${trunnion.Ixc}" iyy="${trunnion.Iyc}" izz="${trunnion.Izc}" ixy="${trunnion.Ixyc}" ixz="${trunnion.Ixzc}" iyz="${trunnion.Iyzc}" />
+    </inertial>
+  </link>
+
+  <joint name="base_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 0 1"/>
+    <parent link="base_link" />
+    <child link="torso" />
+  </joint>
+
+  <joint name="l_hip_yaw" type="revolute">
+    <origin xyz="${l_hip.X - torso_frame.X} ${l_hip.Y - torso_frame.Y} ${l_hip.Z - torso_frame.Z}" />
+    <parent link="torso" />
+    <child link="l_hip_yaw_trunnion" />
+    <axis xyz="0 0 1" />
+    <limit lower="${l_hip.yaw_lower_limit}" upper="${l_hip.yaw_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_hip_yaw" type="revolute">
+    <origin xyz="${r_hip.X - torso_frame.X} ${r_hip.Y - torso_frame.Y} ${r_hip.Z - torso_frame.Z}" />
+    <parent link="torso" />
+    <child link="r_hip_yaw_trunnion" />
+    <axis xyz="0 0 1" />
+    <limit lower="${r_hip.yaw_lower_limit}" upper="${r_hip.yaw_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="l_hip_roll" type="revolute">
+    <origin xyz="0 0 0" />
+    <parent link="l_hip_yaw_trunnion" />
+    <child link="l_hip_pitch_trunnion" />
+    <axis xyz="1 0 0" />
+    <limit lower="${l_hip.roll_lower_limit}" upper="${l_hip.roll_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_hip_roll" type="revolute">
+    <origin xyz="0 0 0" />
+    <parent link="r_hip_yaw_trunnion" />
+    <child link="r_hip_pitch_trunnion" />
+    <axis xyz="1 0 0" />
+    <limit lower="${r_hip.roll_lower_limit}" upper="${r_hip.roll_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="l_hip_pitch" type="revolute">
+    <origin xyz="0 0 0" />
+    <parent link="l_hip_pitch_trunnion" />
+    <child link="l_thigh" />
+    <axis xyz="0 1 0" />
+    <limit lower="${l_hip.pitch_lower_limit}" upper="${l_hip.pitch_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_hip_pitch" type="revolute">
+    <origin xyz="0 0 0" />
+    <parent link="r_hip_pitch_trunnion" />
+    <child link="r_thigh" />
+    <axis xyz="0 1 0" />
+    <limit lower="${r_hip.pitch_lower_limit}" upper="${r_hip.pitch_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="l_knee_pitch" type="revolute">
+    <origin xyz="${l_knee.X - l_hip.X} ${l_knee.Y - l_hip.Y} ${l_knee.Z - l_hip.Z}" />
+    <parent link="l_thigh" />
+    <child link="l_shin" />
+    <axis xyz="0 1 0" />
+    <limit lower="${l_knee.pitch_lower_limit}" upper="${l_knee.pitch_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_knee_pitch" type="revolute">
+    <origin xyz="${r_knee.X - r_hip.X} ${r_knee.Y - r_hip.Y} ${r_knee.Z - r_hip.Z}" />
+    <parent link="r_thigh" />
+    <child link="r_shin" />
+    <axis xyz="0 1 0" />
+    <limit lower="${r_knee.pitch_lower_limit}" upper="${r_knee.pitch_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="l_ankle_pitch" type="revolute">
+    <origin xyz="${l_ankle.X - l_knee.X} ${l_ankle.Y - l_knee.Y} ${l_ankle.Z - l_knee.Z}" />
+    <parent link="l_shin" />
+    <child link="l_ankle_pitch_trunnion" />
+    <axis xyz="0 1 0" />
+    <limit lower="${l_ankle.pitch_lower_limit}" upper="${l_ankle.pitch_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_ankle_pitch" type="revolute">
+    <origin xyz="${r_ankle.X - r_knee.X} ${r_ankle.Y - r_knee.Y} ${r_ankle.Z - r_knee.Z}" />
+    <parent link="r_shin" />
+    <child link="r_ankle_pitch_trunnion" />
+    <axis xyz="0 1 0" />
+    <limit lower="${r_ankle.pitch_lower_limit}" upper="${r_ankle.pitch_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="l_ankle_roll" type="revolute">
+    <origin xyz="0 0 0" />
+    <parent link="l_ankle_pitch_trunnion" />
+    <child link="l_foot" />
+    <axis xyz="1 0 0" />
+    <limit lower="${l_ankle.roll_lower_limit}" upper="${l_ankle.roll_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_ankle_roll" type="revolute">
+    <origin xyz="0 0 0" />
+    <parent link="r_ankle_pitch_trunnion" />
+    <child link="r_foot" />
+    <axis xyz="1 0 0" />
+    <limit lower="${r_ankle.roll_lower_limit}" upper="${r_ankle.roll_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="waist_yaw" type="revolute">
+    <origin xyz="${waist.X - torso_frame.X} ${waist.Y - torso_frame.Y} ${waist.Z - torso_frame.Z}" />
+    <parent link="torso" />
+    <child link="waist_pitch_trunnion" />
+    <axis xyz="0 0 1" />
+    <limit lower="${waist.yaw_lower_limit}" upper="${waist.yaw_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <link name="waist_pitch_trunnion">
+    <!-- Axis = "y", -->
+    <inertial>
+      <origin rpy="${math.pi/2} 0 0" />
+      <mass value="${trunnion.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${trunnion.Ixc}" iyy="${trunnion.Iyc}" izz="${trunnion.Izc}" ixy="${trunnion.Ixyc}" ixz="${trunnion.Ixzc}" iyz="${trunnion.Iyzc}" />
+    </inertial>
+  </link>
+
+  <joint name="waist_pitch" type="revolute">
+    <origin xyz="0 0 0" />
+    <parent link="waist_pitch_trunnion" />
+    <child link="chest" />
+    <axis xyz="0 1 0" />
+    <limit lower="${waist.pitch_lower_limit}" upper="${waist.pitch_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <link name="chest">
+    <collision name="chest_collision">
+      <origin xyz="${chest.Xcog - waist.X} ${chest.Ycog - waist.Y} ${chest.Zcog - waist.Z}" />
+      <geometry>
+        <box size="${chest.Xbb} ${chest.Ybb} ${chest.Zbb}" />
+      </geometry>
+    </collision>
+    <visual name="chest_visual">
+      <origin xyz="${chest.origin}" />
+      <geometry>
+        ${chest.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="${chest.Xcbar - waist.X} ${chest.Ycbar - waist.Y} ${chest.Zcbar - waist.Z}" />
+      <mass value="${chest.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${chest.Ixc}" iyy="${chest.Iyc}" izz="${chest.Izc}" iyz="${chest.Iyzc}" ixz="${chest.Ixzc}" ixy="${chest.Ixyc}" />
+    </inertial>
+  </link>
+
+  <joint name="head_yaw" type="revolute">
+    <origin xyz="${head_yaw.X - waist.X} ${head_yaw.Y - waist.Y} ${head_yaw.Z - waist.Z}" />
+    <parent link="chest" />
+    <child link="neck" />
+    <axis xyz="0 0 1" />
+    <limit lower="${head_yaw.yaw_lower_limit}" upper="${head_yaw.yaw_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <link name="neck">
+    <collision name="neck_collision">
+      <origin xyz="${neck.Xcog - head_yaw.X} ${neck.Ycog - head_yaw.Y} ${neck.Zcog - head_yaw.Z}" />
+      <geometry>
+        <box size="${neck.Xbb} ${neck.Ybb} ${neck.Zbb}" />
+      </geometry>
+    </collision>
+    <visual name="neck_visual">
+      <origin xyz="${neck.origin}" />
+      <geometry>
+        ${neck.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="${neck.Xcbar - head_yaw.X} ${neck.Ycbar - head_yaw.Y} ${neck.Zcbar - head_yaw.Z}" />
+      <mass value="${neck.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${neck.Ixc}" iyy="${neck.Iyc}" izz="${neck.Izc}" iyz="${neck.Iyzc}" ixz="${neck.Ixzc}" ixy="${neck.Ixyc}" />
+    </inertial>
+  </link>
+
+  <joint name="head_pitch" type="revolute">
+    <origin xyz="${head_pitch.X - head_yaw.X} ${head_pitch.Y - head_yaw.Y} ${head_pitch.Z - head_yaw.Z}" />
+    <parent link="neck" />
+    <child link="head" />
+    <axis xyz="0 1 0" />
+    <limit lower="${head_pitch.pitch_lower_limit}" upper="${head_pitch.pitch_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <link name="head">
+    <collision name="head_collision">
+      <origin xyz="${head.Xcog - head_pitch.X} ${head.Ycog - head_pitch.Y} ${head.Zcog - head_pitch.Z}" />
+      <geometry>
+        <box size="${head.Xbb} ${head.Ybb} ${head.Zbb}" />
+      </geometry>
+    </collision>
+    <visual name="head_visual">
+      <origin xyz="${head.origin}" />
+      <geometry>
+        ${head.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="${head.Xcbar - head_pitch.X} ${head.Ycbar - head_pitch.Y} ${head.Zcbar - head_pitch.Z}" />
+      <mass value="${head.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${head.Ixc}" iyy="${head.Iyc}" izz="${head.Izc}" iyz="${head.Iyzc}" ixz="${head.Ixzc}" ixy="${head.Ixyc}" />
+    </inertial>
+  </link>
+
+  <!-- Flir Camera Frames -->
+  <!-- Left Flir Camera -->
+  <joint name="left_flir_frame_joint" type="fixed">
+    <origin xyz="${head_pitch.X - head_yaw.X + 0.0211362} ${head_pitch.Y - head_yaw.Y + 0.084} 0.180" />
+    <parent link="head" />
+    <child link="left_flir_camera_frame" />
+  </joint>
+
+  <link name="left_flir_camera_frame">
+  </link>
+
+  <joint name="left_flir_optical_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.5708 0.0 -1.5708" />
+    <parent link="left_flir_camera_frame" />
+    <child link="left_flir_optical_frame" />
+  </joint>
+
+  <link name="left_flir_optical_frame">
+  </link>
+
+  <!-- Right Flir Camera -->
+  <joint name="right_flir_frame_joint" type="fixed">
+     <origin xyz="${head_pitch.X - head_yaw.X + 0.0211362} ${head_pitch.Y - head_yaw.Y - 0.084} 0.180" />
+    <parent link="head" />
+    <parent link="head" />
+    <child link="right_flir_camera_frame" />
+  </joint>
+
+  <link name="right_flir_camera_frame">
+  </link>
+
+  <joint name="right_flir_optical_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.5708 0.0 -1.5708" />
+    <parent link="right_flir_camera_frame" />
+    <child link="right_flir_optical_frame" />
+  </joint>
+
+  <link name="right_flir_optical_frame">
+  </link>
+
+  <!-- MultiSense stereo camera -->
+  <gazebo reference="left_camera_frame">
+    <sensor type="multicamera" name="stereo_camera">
+      <!-- see MultiSenseSLPlugin.h for available modes -->
+      <update_rate>30.0</update_rate>
+      <camera name="left">
+        <!-- Spec sheet says 80deg X 45deg @ 1024x544pix.  Based on feedback
+             from teams, we're instead doing 80deg X 80deg @ 800x800pix. -->
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>800</width>
+          <height>800</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <camera name="right">
+        <pose>0 -0.07 0 0 0 0</pose>
+        <!-- Spec sheet says 80deg X 45deg @ 1024x544pix.  Based on feedback
+             from teams, we're instead doing 80deg X 80deg @ 800x800pix. -->
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>800</width>
+          <height>800</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise is sampled independently per pixel on each frame.
+               That pixel's noise value is added to each of its color
+               channels, which at that point lie in the range [0,1].
+               The stddev value of 0.007 is based on experimental data
+               from a camera in a Sandia hand pointed at a static scene
+               in a couple of different lighting conditions.  -->
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin name="stereo_camera_controller" filename="libgazebo_ros_multicamera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>multisense</cameraName>
+        <imageTopicName>image_color</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>/multisense/left_camera_optical_frame</frameName>
+        <!--<rightFrameName>/multisense/right_camera_optical_frame</rightFrameName>-->
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- Multisense params Imported from Official Multisense URDF -->
+  <link name="multisense_root"/>
+
+  <joint name="multisense_joint" type="fixed">
+    <origin xyz="${multisense_joint.X - neck.X} ${multisense_joint.Y - neck.Y} ${multisense_joint.Z - neck.Z}" />
+    <parent link="head"/>
+    <child link="multisense_root"/>
+  </joint>
+
+  <joint name="left_camera_joint" type="fixed">
+    <origin xyz="0.052 0.035 0.0"/>
+    <parent link="multisense_root"/>
+    <child link="left_camera_frame"/>
+  </joint>
+
+  <link name="left_camera_frame"/>
+
+  <joint name="right_camera_joint" type="fixed">
+    <origin xyz="0.052 -0.035 0.0"/>
+    <parent link="multisense_root"/>
+    <child link="right_camera_frame"/>
+  </joint>
+
+  <link name="right_camera_frame"/>
+
+  <joint name="left_camera_optical_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.57079632679 0.0 -1.57079632679"/>
+    <parent link="left_camera_frame"/>
+    <child link="/multisense/left_camera_optical_frame"/>
+  </joint>
+
+  <link name="/multisense/left_camera_optical_frame"/>
+
+  <joint name="right_camera_optical_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.57079632679 0.0 -1.57079632679"/>
+    <parent link="right_camera_frame"/>
+    <child link="/multisense/right_camera_optical_frame"/>
+  </joint>
+
+  <link name="/multisense/right_camera_optical_frame"/>
+
+  <joint name="accel_joint" type="fixed">
+    <origin xyz="0.047 0.0302 -0.00075" rpy="0.0 1.57079632679 0.0"/>
+    <parent link="multisense_root"/>
+    <child link="accel"/>
+  </joint>
+
+  <link name="accel"/>
+
+  <joint name="mag_joint" type="fixed">
+    <origin xyz="0.047 0.0302 -0.00075" rpy="0.0 1.57079632679 0.0"/>
+    <parent link="multisense_root"/>
+    <child link="mag"/>
+  </joint>
+
+  <link name="mag"/>
+
+  <joint name="gyro_joint" type="fixed">
+    <origin xyz="0.047 0.03880 0.00125" rpy="-1.57079632679 0.0 -1.57079632679"/>
+    <parent link="multisense_root"/>
+    <child link="gyro"/>
+  </joint>
+
+  <link name="gyro"/>
+
+  <!-- Head Lidar -->
+  <joint name="head_lidar_roll" type="continuous">
+    <origin xyz="${head_lidar_roll.X - neck.X} ${head_lidar_roll.Y - neck.Y} ${head_lidar_roll.Z - neck.Z}" />
+    <parent link="head" />
+    <child link="head_lidar" />
+    <axis xyz="1 0 0" />
+    <limit effort="150" velocity="1.6"/>
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <link name="head_lidar">
+    <collision name="head_lidar_collision">
+      <origin xyz="0 0 0" />
+      <geometry>
+        <box size="${head_lidar.Xbb} ${head_lidar.Ybb} ${head_lidar.Zbb}" />
+      </geometry>
+    </collision>
+    <visual name="head_lidar_visual">
+      <origin xyz="${head_lidar.origin}" />
+      <geometry>
+        ${head_lidar.geometry}
+      </geometry>
+      <material name="$black"/>
+    </visual>
+    <inertial>
+      <origin xyz="${head_lidar.Xcbar - head_lidar_roll.X} ${head_lidar.Ycbar - head_lidar_roll.Y} ${-head_lidar.Zcbar - head_lidar_roll.Z}" />
+      <mass value="${head_lidar.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${head_lidar.Ixc}" iyy="${head_lidar.Iyc}" izz="${head_lidar.Izc}" iyz="${head_lidar.Iyzc}" ixz="${head_lidar.Ixzc}" ixy="${head_lidar.Ixyc}" />
+    </inertial>
+  </link>
+
+  <joint name="head_lidar_emitter_joint" type="fixed">
+    <origin xyz="${head_lidar.EmitterX} ${head_lidar.EmitterY} ${head_lidar.EmitterZ}" />
+    <parent link="head_lidar" />
+    <child link="head_lidar_emitter" />
+  </joint>
+
+  <link name="head_lidar_emitter"/>
+
+  <joint name="head_lidar_receiver_joint" type="fixed">
+    <origin xyz="${head_lidar.ReceiverX} ${head_lidar.ReceiverY} ${head_lidar.ReceiverZ}" />
+    <parent link="head_lidar" />
+    <child link="head_lidar_receiver" />
+  </joint>
+
+  <link name="head_lidar_receiver"/>
+
+  <joint name="l_shoulder_pitch" type="revolute">
+    <origin xyz="${l_shoulder.X - waist.X} ${l_shoulder.Y - waist.Y} ${l_shoulder.Z - waist.Z}" />
+    <parent link="chest" />
+    <child link="l_shoulder_pitch_trunnion" />
+    <axis xyz="0 1 0" />
+    <limit lower="${l_shoulder.pitch_lower_limit}" upper="${l_shoulder.pitch_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_shoulder_pitch" type="revolute">
+    <origin xyz="${r_shoulder.X - waist.X} ${r_shoulder.Y - waist.Y} ${r_shoulder.Z - waist.Z}" />
+    <parent link="chest" />
+    <child link="r_shoulder_pitch_trunnion" />
+    <axis xyz="0 1 0" />
+    <limit lower="${r_shoulder.pitch_lower_limit}" upper="${r_shoulder.pitch_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+
+  <link name="l_shoulder_pitch_trunnion">
+    <origin xyz="0 0 0" />
+    <!-- Axis = "y", -->
+    <inertial>
+      <origin rpy="${math.pi/2} 0 0" />
+      <mass value="${trunnion.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${trunnion.Ixc}" iyy="${trunnion.Iyc}" izz="${trunnion.Izc}" ixy="${trunnion.Ixyc}" ixz="${trunnion.Ixzc}" iyz="${trunnion.Iyzc}" />
+    </inertial>
+  </link>
+
+  <link name="r_shoulder_pitch_trunnion">
+    <origin xyz="0 0 0" />
+    <!-- Axis = "y", -->
+    <inertial>
+      <origin rpy="${math.pi/2} 0 0" />
+      <mass value="${trunnion.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${trunnion.Ixc}" iyy="${trunnion.Iyc}" izz="${trunnion.Izc}" ixy="${trunnion.Ixyc}" ixz="${trunnion.Ixzc}" iyz="${trunnion.Iyzc}" />
+    </inertial>
+  </link>
+
+
+  <joint name="l_shoulder_roll" type="revolute">
+    <origin xyz="0 0 0" />
+    <parent link="l_shoulder_pitch_trunnion" />
+    <child link="l_shoulder_yaw_trunnion" />
+    <axis xyz="1 0 0" />
+    <limit lower="${l_shoulder.roll_lower_limit}" upper="${l_shoulder.roll_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_shoulder_roll" type="revolute">
+    <origin xyz="0 0 0" />
+    <parent link="r_shoulder_pitch_trunnion" />
+    <child link="r_shoulder_yaw_trunnion" />
+    <axis xyz="1 0 0" />
+    <limit lower="${r_shoulder.roll_lower_limit}" upper="${r_shoulder.roll_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+
+  <link name="l_shoulder_yaw_trunnion">
+    <!-- Axis = "z", -->
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="${trunnion.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${trunnion.Ixc}" iyy="${trunnion.Iyc}" izz="${trunnion.Izc}" ixy="${trunnion.Ixyc}" ixz="${trunnion.Ixzc}" iyz="${trunnion.Iyzc}" />
+    </inertial>
+  </link>
+
+  <link name="r_shoulder_yaw_trunnion">
+    <!-- Axis = "z", -->
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="${trunnion.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${trunnion.Ixc}" iyy="${trunnion.Iyc}" izz="${trunnion.Izc}" ixy="${trunnion.Ixyc}" ixz="${trunnion.Ixzc}" iyz="${trunnion.Iyzc}" />
+    </inertial>
+  </link>
+
+
+  <joint name="l_shoulder_yaw" type="revolute">
+    <origin xyz="0 0 0" />
+    <parent link="l_shoulder_yaw_trunnion" />
+    <child link="l_arm" />
+    <axis xyz="0 0 1" />
+    <limit lower="${l_shoulder.yaw_lower_limit}" upper="${l_shoulder.yaw_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_shoulder_yaw" type="revolute">
+    <origin xyz="0 0 0" />
+    <parent link="r_shoulder_yaw_trunnion" />
+    <child link="r_arm" />
+    <axis xyz="0 0 1" />
+    <limit lower="${r_shoulder.yaw_lower_limit}" upper="${r_shoulder.yaw_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <link name="l_arm">
+    <collision name="l_arm_collision">
+      <origin xyz="${l_arm.Xcog - l_shoulder.X} ${l_arm.Ycog - l_shoulder.Y} ${l_arm.Zcog - l_shoulder.Z}" />
+      <geometry>
+        <box size="${l_arm.Xbb} ${l_arm.Ybb} ${l_arm.Zbb}" />
+      </geometry>
+    </collision>
+    <visual name="l_arm_visual">
+      <origin xyz="${l_arm.origin}" />
+      <geometry>
+        ${l_arm.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="${l_arm.Xcbar - l_shoulder.X} ${l_arm.Ycbar - l_shoulder.Y} ${l_arm.Zcbar - l_shoulder.Z}" />
+      <mass value="${l_arm.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${l_arm.Ixc}" iyy="${l_arm.Iyc}" izz="${l_arm.Izc}" iyz="${l_arm.Iyzc}" ixz="${l_arm.Ixzc}" ixy="${l_arm.Ixyc}" />
+    </inertial>
+  </link>
+
+  <link name="r_arm">
+    <collision name="r_arm_collision">
+      <origin xyz="${r_arm.Xcog - r_shoulder.X} ${r_arm.Ycog - r_shoulder.Y} ${r_arm.Zcog - r_shoulder.Z}" />
+      <geometry>
+        <box size="${r_arm.Xbb} ${r_arm.Ybb} ${r_arm.Zbb}" />
+      </geometry>
+    </collision>
+    <visual name="r_arm_visual">
+      <origin xyz="${r_arm.origin}" />
+      <geometry>
+        ${r_arm.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="${r_arm.Xcbar - r_shoulder.X} ${r_arm.Ycbar - r_shoulder.Y} ${r_arm.Zcbar - r_shoulder.Z}" />
+      <mass value="${r_arm.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${r_arm.Ixc}" iyy="${r_arm.Iyc}" izz="${r_arm.Izc}" iyz="${r_arm.Iyzc}" ixz="${r_arm.Ixzc}" ixy="${r_arm.Ixyc}" />
+    </inertial>
+  </link>
+
+
+  <joint name="l_elbow_pitch" type="revolute">
+    <origin xyz="${l_elbow.X - l_shoulder.X} ${l_elbow.Y - l_shoulder.Y} ${l_elbow.Z - l_shoulder.Z}" />
+    <parent link="l_arm" />
+    <child link="l_forearm" />
+    <axis xyz="0 1 0" />
+    <limit lower="${l_elbow.pitch_lower_limit}" upper="${l_elbow.pitch_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_elbow_pitch" type="revolute">
+    <origin xyz="${r_elbow.X - r_shoulder.X} ${r_elbow.Y - r_shoulder.Y} ${r_elbow.Z - r_shoulder.Z}" />
+    <parent link="r_arm" />
+    <child link="r_forearm" />
+    <axis xyz="0 1 0" />
+    <limit lower="${r_elbow.pitch_lower_limit}" upper="${r_elbow.pitch_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <link name="l_forearm">
+    <collision name="l_forearm_collision">
+      <origin xyz="${l_forearm.Xcog - l_elbow.X} ${l_forearm.Ycog - l_elbow.Y} ${l_forearm.Zcog - l_elbow.Z}" />
+      <geometry>
+        <box size="${l_forearm.Xbb} ${l_forearm.Ybb} ${l_forearm.Zbb}" />
+      </geometry>
+    </collision>
+    <visual name="l_forearm_visual">
+      <origin xyz="${l_forearm.origin}" />
+      <geometry>
+        ${l_forearm.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="${l_forearm.Xcbar - l_elbow.X} ${l_forearm.Ycbar - l_elbow.Y} ${l_forearm.Zcbar - l_elbow.Z}" />
+      <mass value="${l_forearm.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${l_forearm.Ixc}" iyy="${l_forearm.Iyc}" izz="${l_forearm.Izc}" iyz="${l_forearm.Iyzc}" ixz="${l_forearm.Ixzc}" ixy="${l_forearm.Ixyc}" />
+    </inertial>
+  </link>
+
+  <link name="r_forearm">
+    <collision name="r_forearm_collision">
+      <origin xyz="${r_forearm.Xcog - r_elbow.X} ${r_forearm.Ycog - r_elbow.Y} ${r_forearm.Zcog - r_elbow.Z}" />
+      <geometry>
+        <box size="${r_forearm.Xbb} ${r_forearm.Ybb} ${r_forearm.Zbb}" />
+      </geometry>
+    </collision>
+    <visual name="r_forearm_visual">
+      <origin xyz="${r_forearm.origin}" />
+      <geometry>
+        ${r_forearm.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="${r_forearm.Xcbar - r_elbow.X} ${r_forearm.Ycbar - r_elbow.Y} ${r_forearm.Zcbar - r_elbow.Z}" />
+      <mass value="${r_forearm.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${r_forearm.Ixc}" iyy="${r_forearm.Iyc}" izz="${r_forearm.Izc}" iyz="${r_forearm.Iyzc}" ixz="${r_forearm.Ixzc}" ixy="${r_forearm.Ixyc}" />
+    </inertial>
+  </link>
+
+  <link name="l_foreforearm">
+    <collision name="l_foreforearm_collision">
+      <origin xyz="${l_foreforearm.Xcog - l_wrist_upper.X} ${l_foreforearm.Ycog - l_wrist_upper.Y} ${l_foreforearm.Zcog - l_wrist_upper.Z}" />
+      <geometry>
+        <box size="${l_foreforearm.Xbb} ${l_foreforearm.Ybb} ${l_foreforearm.Zbb}" />
+      </geometry>
+    </collision>
+    <visual name="l_foreforearm_visual">
+      <origin xyz="${l_foreforearm.origin}" />
+      <geometry>
+        ${l_foreforearm.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="${l_foreforearm.Xcbar - l_wrist_upper.X} ${l_foreforearm.Ycbar - l_wrist_upper.Y} ${l_foreforearm.Zcbar - l_wrist_upper.Z}" />
+      <mass value="${l_foreforearm.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${l_foreforearm.Ixc}" iyy="${l_foreforearm.Iyc}" izz="${l_foreforearm.Izc}" iyz="${l_foreforearm.Iyzc}" ixz="${l_foreforearm.Ixzc}" ixy="${l_foreforearm.Ixyc}" />
+    </inertial>
+  </link>
+
+  <link name="r_foreforearm">
+    <collision name="r_foreforearm_collision">
+      <origin xyz="${r_foreforearm.Xcog - r_wrist_upper.X} ${r_foreforearm.Ycog - r_wrist_upper.Y} ${r_foreforearm.Zcog - r_wrist_upper.Z}" />
+      <geometry>
+        <box size="${r_foreforearm.Xbb} ${r_foreforearm.Ybb} ${r_foreforearm.Zbb}" />
+      </geometry>
+    </collision>
+    <visual name="r_foreforearm_visual">
+      <origin xyz="${r_foreforearm.origin}" />
+      <geometry>
+        ${r_foreforearm.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="${r_foreforearm.Xcbar - r_wrist_upper.X} ${r_foreforearm.Ycbar - r_wrist_upper.Y} ${r_foreforearm.Zcbar - r_wrist_upper.Z}" />
+      <mass value="${r_foreforearm.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${r_foreforearm.Ixc}" iyy="${r_foreforearm.Iyc}" izz="${r_foreforearm.Izc}" iyz="${r_foreforearm.Iyzc}" ixz="${r_foreforearm.Ixzc}" ixy="${r_foreforearm.Ixyc}" />
+    </inertial>
+  </link>
+
+  <joint name="l_wrist_yaw" type="revolute">
+    <origin xyz="${l_wrist_upper.X - l_elbow.X} ${l_wrist_upper.Y - l_elbow.Y} ${l_wrist_upper.Z - l_elbow.Z}" />
+    <parent link="l_forearm" />
+    <child link="l_wrist_yaw_trunnion" />
+    <axis xyz="0 0 1" />
+    <limit lower="${l_wrist_upper.yaw_lower_limit}" upper="${l_wrist_upper.yaw_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_wrist_yaw" type="revolute">
+    <origin xyz="${r_wrist_upper.X - r_elbow.X} ${r_wrist_upper.Y - r_elbow.Y} ${r_wrist_upper.Z - r_elbow.Z}" />
+    <parent link="r_forearm" />
+    <child link="r_wrist_yaw_trunnion" />
+    <axis xyz="0 0 1" />
+    <limit lower="${r_wrist_upper.yaw_lower_limit}" upper="${r_wrist_upper.yaw_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+
+  <link name="l_wrist_yaw_trunnion">
+    <!-- Axis = "z", -->
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="${trunnion.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${trunnion.Ixc}" iyy="${trunnion.Iyc}" izz="${trunnion.Izc}" ixy="${trunnion.Ixyc}" ixz="${trunnion.Ixzc}" iyz="${trunnion.Iyzc}" />
+    </inertial>
+  </link>
+
+  <link name="r_wrist_yaw_trunnion">
+    <!-- Axis = "z", -->
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="${trunnion.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${trunnion.Ixc}" iyy="${trunnion.Iyc}" izz="${trunnion.Izc}" ixy="${trunnion.Ixyc}" ixz="${trunnion.Ixzc}" iyz="${trunnion.Iyzc}" />
+    </inertial>
+  </link>
+
+  <joint name="l_wrist_roll" type="revolute">
+    <origin xyz="0 0 0" />
+    <parent link="l_wrist_yaw_trunnion" />
+    <child link="l_foreforearm" />
+    <axis xyz="1 0 0" />
+    <limit lower="${l_wrist_upper.roll_lower_limit}" upper="${l_wrist_upper.roll_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_wrist_roll" type="revolute">
+    <origin xyz="0 0 0" />
+    <parent link="r_wrist_yaw_trunnion" />
+    <child link="r_foreforearm" />
+    <axis xyz="1 0 0" />
+    <limit lower="${r_wrist_upper.roll_lower_limit}" upper="${r_wrist_upper.roll_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="l_wrist_pitch" type="revolute">
+    <origin xyz="${l_wrist_lower.X - l_wrist_upper.X} ${l_wrist_lower.Y - l_wrist_upper.Y} ${l_wrist_lower.Z - l_wrist_upper.Z}" />
+    <parent link="l_foreforearm" />
+    <child link="l_palm" />
+    <axis xyz="0 0 1" />
+    <limit lower="${l_wrist_lower.pitch_lower_limit}" upper="${l_wrist_lower.pitch_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_wrist_pitch" type="revolute">
+    <origin xyz="${r_wrist_lower.X - r_wrist_upper.X} ${r_wrist_lower.Y - r_wrist_upper.Y} ${r_wrist_lower.Z - r_wrist_upper.Z}" />
+    <parent link="r_foreforearm" />
+    <child link="r_palm" />
+    <axis xyz="0 0 1" />
+    <limit lower="${r_wrist_lower.pitch_lower_limit}" upper="${r_wrist_lower.pitch_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <link name="l_palm">
+    <collision name="l_palm_collision">
+      <origin xyz="${l_palm.Xcog - l_wrist_lower.X} ${l_palm.Ycog - l_wrist_lower.Y} ${l_palm.Zcog - l_wrist_lower.Z}" />
+      <geometry>
+        <box size="${l_palm.Xbb} ${l_palm.Ybb} ${l_palm.Zbb}" />
+      </geometry>
+    </collision>
+    <visual name="l_palm_visual">
+      <origin xyz="${l_palm.origin}" />
+      <geometry>
+        ${l_palm.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <!-- These are the inertial properties of the hand, but we're storing them in the palm -->
+      <origin xyz="${l_palm.Xcbar - l_wrist_lower.X} ${l_palm.Ycbar - l_wrist_lower.Y} ${l_palm.Zcbar - l_wrist_lower.Z}" />
+      <mass value="${l_palm.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${l_palm.Ixc}" iyy="${l_palm.Iyc}" izz="${l_palm.Izc}" iyz="${l_palm.Iyzc}" ixz="${l_palm.Ixzc}" ixy="${l_palm.Ixyc}" />
+    </inertial>
+  </link>
+
+  <link name="r_palm">
+    <collision name="r_palm_collision">
+      <origin xyz="${r_palm.Xcog - r_wrist_lower.X} ${r_palm.Ycog - r_wrist_lower.Y} ${r_palm.Zcog - r_wrist_lower.Z}" />
+      <geometry>
+        <box size="${r_palm.Xbb} ${r_palm.Ybb} ${r_palm.Zbb}" />
+      </geometry>
+    </collision>
+    <visual name="r_palm_visual">
+      <origin xyz="${r_palm.origin}" />
+      <geometry>
+        ${r_palm.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <!-- These are the inertial properties of the hand, but we're storing them in the palm -->
+      <origin xyz="${r_palm.Xcbar - r_wrist_lower.X} ${r_palm.Ycbar - r_wrist_lower.Y} ${r_palm.Zcbar - r_wrist_lower.Z}" />
+      <mass value="${r_palm.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${r_palm.Ixc}" iyy="${r_palm.Iyc}" izz="${r_palm.Izc}" iyz="${r_palm.Iyzc}" ixz="${r_palm.Ixzc}" ixy="${r_palm.Ixyc}" />
+    </inertial>
+  </link>
+
+
+  <joint name="l_finger" type="revolute">
+    <origin xyz="${l_finger.X - l_wrist_lower.X} ${l_finger.Y - l_wrist_lower.Y} ${l_finger.Z - l_wrist_lower.Z}" />
+    <parent link="l_palm" />
+    <child link="l_finger_link" />
+    <axis xyz="1 0 0" />
+    <limit lower="${l_finger.roll_lower_limit}" upper="${l_finger.roll_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_finger" type="revolute">
+    <origin xyz="${r_finger.X - r_wrist_lower.X} ${r_finger.Y - r_wrist_lower.Y} ${r_finger.Z - r_wrist_lower.Z}" />
+    <parent link="r_palm" />
+    <child link="r_finger_link" />
+    <axis xyz="1 0 0" />
+    <limit lower="${r_finger.roll_lower_limit}" upper="${r_finger.roll_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+
+  <link name="l_finger_link">
+    <collision name="l_finger_link_collision">
+      <origin xyz="${l_finger_link.Xcog - l_finger.X} ${l_finger_link.Ycog - l_finger.Y} ${l_finger_link.Zcog - l_finger.Z}" />
+      <geometry>
+        <box size="${l_finger_link.Xbb} ${l_finger_link.Ybb} ${l_finger_link.Zbb}" />
+      </geometry>
+    </collision>
+    <visual name="l_finger_link_visual">
+      <origin xyz="${l_finger_link.origin}" />
+      <geometry>
+        ${l_finger_link.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="${l_finger_link.Xcbar - l_finger.X} ${l_finger_link.Ycbar - l_finger.Y} ${l_finger_link.Zcbar - l_finger.Z}" />
+      <mass value="${l_finger_link.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${l_finger_link.Ixc}" iyy="${l_finger_link.Iyc}" izz="${l_finger_link.Izc}" iyz="${l_finger_link.Iyzc}" ixz="${l_finger_link.Ixzc}" ixy="${l_finger_link.Ixyc}" />
+    </inertial>
+  </link>
+
+  <link name="r_finger_link">
+    <collision name="r_finger_link_collision">
+      <origin xyz="${r_finger_link.Xcog - r_finger.X} ${r_finger_link.Ycog - r_finger.Y} ${r_finger_link.Zcog - r_finger.Z}" />
+      <geometry>
+        <box size="${r_finger_link.Xbb} ${r_finger_link.Ybb} ${r_finger_link.Zbb}" />
+      </geometry>
+    </collision>
+    <visual name="r_finger_link_visual">
+      <origin xyz="${r_finger_link.origin}" />
+      <geometry>
+        ${r_finger_link.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="${r_finger_link.Xcbar - r_finger.X} ${r_finger_link.Ycbar - r_finger.Y} ${r_finger_link.Zcbar - r_finger.Z}" />
+      <mass value="${r_finger_link.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${r_finger_link.Ixc}" iyy="${r_finger_link.Iyc}" izz="${r_finger_link.Izc}" iyz="${r_finger_link.Iyzc}" ixz="${r_finger_link.Ixzc}" ixy="${r_finger_link.Ixyc}" />
+    </inertial>
+  </link>
+
+  <joint name="l_gripper" type="revolute">
+    <origin xyz="${l_gripper.X - l_wrist_lower.X} ${l_gripper.Y - l_wrist_lower.Y} ${l_gripper.Z - l_wrist_lower.Z}" />
+    <parent link="l_palm" />
+    <child link="l_gripper_link" />
+    <axis xyz="1 0 0" />
+    <limit lower="${l_gripper.roll_lower_limit}" upper="${l_gripper.roll_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+  <joint name="r_gripper" type="revolute">
+    <origin xyz="${r_gripper.X - r_wrist_lower.X} ${r_gripper.Y - r_wrist_lower.Y} ${r_gripper.Z - r_wrist_lower.Z}" />
+    <parent link="r_palm" />
+    <child link="r_gripper_link" />
+    <axis xyz="1 0 0" />
+    <limit lower="${r_gripper.roll_lower_limit}" upper="${r_gripper.roll_upper_limit}" effort="150" velocity="1.6" />
+    <dynamics damping="1.0" friction="0" />
+  </joint>
+
+
+  <link name="l_gripper_link">
+    <collision name="l_gripper_link_collision">
+      <origin xyz="${l_gripper_link.Xcog - l_gripper.X} ${l_gripper_link.Ycog - l_gripper.Y} ${l_gripper_link.Zcog - l_gripper.Z}" />
+      <geometry>
+        <box size="${l_gripper_link.Xbb} ${l_gripper_link.Ybb} ${l_gripper_link.Zbb}" />
+      </geometry>
+    </collision>
+    <visual name="l_gripper_link_visual">
+      <origin xyz="${l_gripper_link.origin}" />
+      <geometry>
+        ${l_gripper_link.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="${l_gripper_link.Xcbar - l_gripper.X} ${l_gripper_link.Ycbar - l_gripper.Y} ${l_gripper_link.Zcbar - l_gripper.Z}" />
+      <mass value="${l_gripper_link.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${l_gripper_link.Ixc}" iyy="${l_gripper_link.Iyc}" izz="${l_gripper_link.Izc}" iyz="${l_gripper_link.Iyzc}" ixz="${l_gripper_link.Ixzc}" ixy="${l_gripper_link.Ixyc}" />
+    </inertial>
+  </link>
+
+  <link name="r_gripper_link">
+    <collision name="r_gripper_link_collision">
+      <origin xyz="${r_gripper_link.Xcog - r_gripper.X} ${r_gripper_link.Ycog - r_gripper.Y} ${r_gripper_link.Zcog - r_gripper.Z}" />
+      <geometry>
+        <box size="${r_gripper_link.Xbb} ${r_gripper_link.Ybb} ${r_gripper_link.Zbb}" />
+      </geometry>
+    </collision>
+    <visual name="r_gripper_link_visual">
+      <origin xyz="${r_gripper_link.origin}" />
+      <geometry>
+        ${r_gripper_link.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="${r_gripper_link.Xcbar - r_gripper.X} ${r_gripper_link.Ycbar - r_gripper.Y} ${r_gripper_link.Zcbar - r_gripper.Z}" />
+      <mass value="${r_gripper_link.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${r_gripper_link.Ixc}" iyy="${r_gripper_link.Iyc}" izz="${r_gripper_link.Izc}" iyz="${r_gripper_link.Iyzc}" ixz="${r_gripper_link.Ixzc}" ixy="${r_gripper_link.Ixyc}" />
+    </inertial>
+  </link>
+
+
+  <joint name="l_thumb" type="fixed">
+    <origin xyz="${l_thumb.X - l_wrist_lower.X} ${l_thumb.Y - l_wrist_lower.Y} ${l_thumb.Z - l_wrist_lower.Z}" />
+    <parent link="l_palm" />
+    <child link="l_thumb_link" />
+  </joint>
+
+  <joint name="r_thumb" type="fixed">
+    <origin xyz="${r_thumb.X - r_wrist_lower.X} ${r_thumb.Y - r_wrist_lower.Y} ${r_thumb.Z - r_wrist_lower.Z}" />
+    <parent link="r_palm" />
+    <child link="r_thumb_link" />
+  </joint>
+
+
+  <link name="l_thumb_link">
+    <collision name="l_thumb_link_collision">
+      <origin xyz="${l_thumb_link.Xcog - l_thumb.X} ${l_thumb_link.Ycog - l_thumb.Y} ${l_thumb_link.Zcog - l_thumb.Z}" />
+      <geometry>
+        <box size="${l_thumb_link.Xbb} ${l_thumb_link.Ybb} ${l_thumb_link.Zbb}" />
+      </geometry>
+    </collision>
+    <visual name="l_thumb_link_visual">
+      <origin xyz="${l_thumb_link.origin}" />
+      <geometry>
+        ${l_thumb_link.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="${l_thumb_link.Xcog - l_thumb.X} ${l_thumb_link.Ycog - l_thumb.Y} ${l_thumb_link.Zcog - l_thumb.Z}" />
+      <mass value="${l_thumb_link.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${l_thumb_link.Ixc}" iyy="${l_thumb_link.Iyc}" izz="${l_thumb_link.Izc}" iyz="${l_thumb_link.Iyzc}" ixz="${l_thumb_link.Ixzc}" ixy="${l_thumb_link.Ixyc}" />
+    </inertial>
+  </link>
+
+  <link name="r_thumb_link">
+    <collision name="r_thumb_link_collision">
+      <origin xyz="${r_thumb_link.Xcog - r_thumb.X} ${r_thumb_link.Ycog - r_thumb.Y} ${r_thumb_link.Zcog - r_thumb.Z}" />
+      <geometry>
+        <box size="${r_thumb_link.Xbb} ${r_thumb_link.Ybb} ${r_thumb_link.Zbb}" />
+      </geometry>
+    </collision>
+    <visual name="r_thumb_link_visual">
+      <origin xyz="${r_thumb_link.origin}" />
+      <geometry>
+        ${r_thumb_link.geometry}
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="${r_thumb_link.Xcog - r_thumb.X} ${r_thumb_link.Ycog - r_thumb.Y} ${r_thumb_link.Zcog - r_thumb.Z}" />
+      <mass value="${r_thumb_link.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${r_thumb_link.Ixc}" iyy="${r_thumb_link.Iyc}" izz="${r_thumb_link.Izc}" iyz="${r_thumb_link.Iyzc}" ixz="${r_thumb_link.Ixzc}" ixy="${r_thumb_link.Ixyc}" />
+    </inertial>
+  </link>
+</robot>
