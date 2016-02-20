@@ -1,19 +1,37 @@
 #!/bin/bash
 
-##########################################################################
-## Written by Robert Griffin
-##########################################################################
+# Script to parse CAD data to create SDFs, URDFs, and KDL models
+# Processing files author : Nikolaus Wittenstein
+# Author : Robert Griffin <rjgriffin42@gmail.com>
 
-options='fh?'
+printUsage()
+{
+  echo ""
+  echo "Usage: generate_sdf.sh [-r robot_name] [-m meshes (true:-false)]"
+  echo ""
+  echo "Creates sdf and urdf files, as well as a KDL model."
+  echo ""
+  echo "Valid inputs for the robot target are : "
+  echo "   escher"
+  echo "   thor"
+  echo "   v2exoskeleton"
+  echo ""
+  echo "Meshes flag creates collisions for SDFs and URDFs using either"
+  echo "STL file meshes or bounding boxes."
+  echo ""
+}
+
+options='fh?:r:m'
 while getopts $options option ; do
     case $option in
-        h  ) usage; exit;;
-        \? ) usage; exit;;
-        *  ) usage; exit;;
+        r  ) robot_input=${OPTARG};;
+        m  ) use_meshes=${OPTARG};;
+        h  ) printUsage; exit 1;;
+        \? ) printUsage; exit 1;;
+        *  ) printUsage; exit 1;;
     esac
 done
 
-robot_input=$1
 robot_input=${robot_input:-escher}
 if [ $robot_input == "escher" ]; then
   robot="ESCHER"
@@ -35,60 +53,63 @@ else
   echo "     v2exoskeleton"
 fi
 
-use_meshes=$2
 use_meshes=${use_meshes:-false}
-
 script_dir=$(dirname $0)
 data_dir=$script_dir/robot_templates/$robot_dir
 target_dir=$script_dir/../model_directory/$robot_dir
-echo $data_dir
 
-#for KDL
-echo -e "*with \nlidar=1" > kdl_temp
-
-#for URDF
-echo -e "*with \nlidar=0" > urdf_temp
-
-#for SDF
-echo -e "*with \nlidar=0" > sdf_temp
-
-for i in kdl_temp urdf_temp sdf_temp sdf_temp; do
-  cat $data_dir/${robot_lower_case}_cad_data.txt >> $i
-
-  # reduce_template creates a file named something like "nx_data84". Rename it to something better.
-  mv $(./reduce_template.sh $i) $i
-done
-
-if [ $use_meshes == "true" ]; then
-
-  echo "Generating $robot URDF Mesh Collision Models"
-
-  # Robot URDF Mesh Model
-  lua $script_dir/format_model.lua $data_dir/${robot_lower_case}_urdf_geometry_mesh.txt $data_dir/${robot_lower_case}_urdf_template.txt > mesh_temp
-  lua $script_dir/format_model.lua urdf_temp mesh_temp > $target_dir/${robot_lower_case}.xacro
-
-  echo "Generating $robot SDF Mesh Collision Models"
+# Starts the building of the seperate files
+buildFiles()
+{
+  #for KDL
+  echo -e "*with \nlidar=1" > kdl_temp
   
-  # Robot SDF Mesh Model
-  lua $script_dir/format_model.lua $data_dir/${robot_lower_case}_sdf_geometry_mesh.txt $data_dir/${robot_lower_case}_sdf_template.txt > mesh_temp
-  lua $script_dir/format_model.lua sdf_temp mesh_temp > $target_dir/${robot_lower_case}.sdf
-else
-  echo "Generating $robot URDF Bounding Box Collision Models"
+  #for URDF
+  echo -e "*with \nlidar=0" > urdf_temp
   
-  # Robot URDF Bounding Box Model
-  lua $script_dir/format_model.lua $data_dir/${robot_lower_case}_urdf_geometry_bbox.txt $data_dir/${robot_lower_case}_urdf_template.txt > bbox_temp
-  lua $script_dir/format_model.lua urdf_temp bbox_temp > $target_dir/${robot_lower_case}.xacro
+  #for SDF
+  echo -e "*with \nlidar=0" > sdf_temp
   
-  echo "Generating $robot SDF Bounding Box Collision Models"
+  for i in kdl_temp urdf_temp sdf_temp sdf_temp; do
+    cat $data_dir/${robot_lower_case}_cad_data.txt >> $i
   
-  # Robot SDF Bounding Box Model
-  lua $script_dir/format_model.lua $data_dir/${robot_lower_case}_sdf_geometry_bbox.txt $data_dir/${robot_lower_case}_sdf_template.txt > bbox_temp
-  lua $script_dir/format_model.lua sdf_temp bbox_temp > $target_dir/${robot_lower_case}.sdf
-fi
+    # reduce_template creates a file named something like "nx_data84". Rename it to something better.
+    mv $(./reduce_template.sh $i) $i
+  done
+  
+  if [ $use_meshes == "true" ]; then
+  
+    echo "Generating $robot URDF Mesh Collision Models"
+  
+    # Robot URDF Mesh Model
+    lua $script_dir/format_model.lua $data_dir/${robot_lower_case}_urdf_geometry_mesh.txt $data_dir/${robot_lower_case}_urdf_template.txt > mesh_temp
+    lua $script_dir/format_model.lua urdf_temp mesh_temp > $target_dir/${robot_lower_case}.xacro
+  
+    echo "Generating $robot SDF Mesh Collision Models"
+    
+    # Robot SDF Mesh Model
+    lua $script_dir/format_model.lua $data_dir/${robot_lower_case}_sdf_geometry_mesh.txt $data_dir/${robot_lower_case}_sdf_template.txt > mesh_temp
+    lua $script_dir/format_model.lua sdf_temp mesh_temp > $target_dir/${robot_lower_case}.sdf
+  else
+    echo "Generating $robot URDF Bounding Box Collision Models"
+    
+    # Robot URDF Bounding Box Model
+    lua $script_dir/format_model.lua $data_dir/${robot_lower_case}_urdf_geometry_bbox.txt $data_dir/${robot_lower_case}_urdf_template.txt > bbox_temp
+    lua $script_dir/format_model.lua urdf_temp bbox_temp > $target_dir/${robot_lower_case}.xacro
+    
+    echo "Generating $robot SDF Bounding Box Collision Models"
+    
+    # Robot SDF Bounding Box Model
+    lua $script_dir/format_model.lua $data_dir/${robot_lower_case}_sdf_geometry_bbox.txt $data_dir/${robot_lower_case}_sdf_template.txt > bbox_temp
+    lua $script_dir/format_model.lua sdf_temp bbox_temp > $target_dir/${robot_lower_case}.sdf
+  fi
+  
+  #KDL Mechanics
+  echo "Generating $robot KDL Mechanics"
+  lua $script_dir/format_model.lua kdl_temp $data_dir/${robot_lower_case}_kdl_template.txt > $target_dir/${robot_lower_case}.cpp
+  
+  rm -f data_container*
+  rm -f *temp
+}
 
-#KDL Mechanics
-echo "Generating $robot KDL Mechanics"
-lua $script_dir/format_model.lua kdl_temp $data_dir/${robot_lower_case}_kdl_template.txt > $target_dir/${robot_lower_case}.cpp
-
-rm -f data_container*
-rm -f *temp
+buildFiles
