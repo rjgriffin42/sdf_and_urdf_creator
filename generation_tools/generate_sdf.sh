@@ -39,8 +39,9 @@ use_meshes=$2
 use_meshes=${use_meshes:-false}
 
 script_dir=$(dirname $0)
-data_dir=$script_dir/$robot_dir
+data_dir=$script_dir/robot_templates/$robot_dir
 target_dir=$script_dir/../model_directory/$robot_dir
+echo $data_dir
 
 #for KDL
 echo -e "*with \nlidar=1" > kdl_temp
@@ -52,7 +53,7 @@ echo -e "*with \nlidar=0" > urdf_temp
 echo -e "*with \nlidar=0" > sdf_temp
 
 for i in kdl_temp urdf_temp sdf_temp sdf_temp; do
-  cat $script_dir/$robot_dir/${robot_lower_case}_cad_data.txt >> $i
+  cat $data_dir/${robot_lower_case}_cad_data.txt >> $i
 
   # reduce_template creates a file named something like "nx_data84". Rename it to something better.
   mv $(./reduce_template.sh $i) $i
