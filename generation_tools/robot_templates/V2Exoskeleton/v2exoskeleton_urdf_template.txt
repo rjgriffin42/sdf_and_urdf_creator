@@ -1,50 +1,27 @@
 <?xml version="1.0"?>
-<robot name="V2Exoskeleton">
+<robot name="V2Exoskeleton" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <link name="torso">
-    <origin xyz="${torso_frame.X} ${torso_frame.Y} ${torso_frame.Z}" />
-    <collision name="torso_collision">
-      <origin xyz="${torso.Xcog - torso_frame.X} ${torso.Ycog - torso_frame.Y} ${torso.Zcog - torso_frame.Z}" />
+  <link name="pelvis">
+    <origin xyz="${pelvis_frame.X} ${pelvis_frame.Y} ${pelvis_frame.Z}" />
+    <visual name="pelvis_visual">
+      <origin xyz="${pelvis.origin}" />
       <geometry>
-        <box size="${torso.Xbb} ${torso.Ybb} ${torso.Zbb}" />
+        ${pelvis.geometry}
       </geometry>
-    </collision>
-    <visual name="torso_visual">
-      <origin xyz="${torso.origin}" />
-      <geometry>
-        ${torso.geometry}
-      </geometry>
-      <material name="$silver"/>
     </visual>
     <inertial>
-      <origin xyz="${torso.Xcbar - torso_frame.X} ${torso.Ycbar - torso_frame.Y} ${torso.Zcbar - torso_frame.Z}" />
-      <mass value="${torso.Mass * mass.sdf_scale_factor}" />
-      <inertia ixx="${torso.Ixc}" iyy="${torso.Iyc}" izz="${torso.Izc}" iyz="${torso.Iyzc}" ixz="${torso.Ixzc}" ixy="${torso.Ixyc}" />
+      <origin xyz="${pelvis.Xcbar - pelvis_frame.X} ${pelvis.Ycbar - pelvis_frame.Y} ${pelvis.Zcbar - pelvis_frame.Z}" />
+      <mass value="${pelvis.Mass * mass.sdf_scale_factor}" />
+      <inertia ixx="${pelvis.Ixc}" iyy="${pelvis.Iyc}" izz="${pelvis.Izc}" iyz="${pelvis.Iyzc}" ixz="${pelvis.Ixzc}" ixy="${pelvis.Ixyc}" />
     </inertial>
   </link>
 
-  <link name="microstrain_link" />
-
-  <joint name="microstrain_joint" type="fixed">
-    <origin xyz="${microstrain_joint.X - torso_frame.X} ${microstrain_joint.Y - torso_frame.Y} ${microstrain_joint.Z - torso_frame.Z}" rpy="${microstrain_joint.roll} ${microstrain_joint.pitch} ${microstrain_joint.yaw}" />
-    <axis xyz="0 0 1" />
-    <parent link="torso" />
-    <child link="microstrain_link" />
-  </joint>
-
-  <link name="l_thigh">
-    <collision name="l_thigh_collision">
-      <origin xyz="${l_thigh.Xcog - l_hip.X} ${l_thigh.Ycog - l_hip.Y} ${l_thigh.Zcog - l_hip.Z}" rpy="${l_thigh.roll} ${l_thigh.pitch} ${l_thigh.yaw}" />
-      <geometry>
-        <box size="${l_thigh.Xbb} ${l_thigh.Ybb} ${l_thigh.Zbb}" />
-      </geometry>
-    </collision>
-    <visual name="l_thigh_visual">
+  <link name="l_uleg">
+    <visual name="l_uleg_visual">
       <origin xyz="${l_thigh.origin}" />
       <geometry>
         ${l_thigh.geometry}
       </geometry>
-      <material name="$silver"/>
     </visual>
     <inertial>
       <origin xyz="${l_thigh.Xcbar - l_hip.X} ${l_thigh.Ycbar - l_hip.Y} ${l_thigh.Zcbar - l_hip.Z}" />
@@ -53,19 +30,12 @@
     </inertial>
   </link>
 
-  <link name="r_thigh">
-    <collision name="r_thigh_collision">
-      <origin xyz="${r_thigh.Xcog - r_hip.X} ${r_thigh.Ycog - r_hip.Y} ${r_thigh.Zcog - r_hip.Z}" rpy="${r_thigh.roll} ${r_thigh.pitch} ${r_thigh.yaw}" />
-      <geometry>
-        <box size="${r_thigh.Xbb} ${r_thigh.Ybb} ${r_thigh.Zbb}" />
-      </geometry>
-    </collision>
-    <visual name="r_thigh_visual">
+  <link name="r_uleg">
+    <visual name="r_uleg_visual">
       <origin xyz="${r_thigh.origin}" />
       <geometry>
         ${r_thigh.geometry}
       </geometry>
-      <material name="$silver"/>
     </visual>
     <inertial>
       <origin xyz="${r_thigh.Xcbar - r_hip.X} ${r_thigh.Ycbar - r_hip.Y} ${r_thigh.Zcbar - r_hip.Z}" />
@@ -74,19 +44,12 @@
     </inertial>
   </link>
 
-  <link name="l_shin">
-    <collision name="l_shin_collision">
-      <origin xyz="${l_shin.Xcog - l_knee.X} ${l_shin.Ycog - l_knee.Y} ${l_shin.Zcog - l_knee.Z}" rpy="${l_shin.roll} ${l_shin.pitch} ${l_shin.yaw}" />
-      <geometry>
-        <box size="${l_shin.Xbb} ${l_shin.Ybb} ${l_shin.Zbb}" />
-      </geometry>
-    </collision>
-    <visual name="l_shin_visual">
+  <link name="l_lleg">
+    <visual name="l_lleg_visual">
       <origin xyz="${l_shin.origin}" />
       <geometry>
         ${l_shin.geometry}
       </geometry>
-      <material name="$silver"/>
     </visual>
     <inertial>
       <origin xyz="${l_shin.Xcbar - l_knee.X} ${l_shin.Ycbar - l_knee.Y} ${l_shin.Zcbar - l_knee.Z}" />
@@ -95,19 +58,12 @@
     </inertial>
   </link>
 
-  <link name="r_shin">
-    <collision name="r_shin_collision">
-      <origin xyz="${r_shin.Xcog - r_knee.X} ${r_shin.Ycog - r_knee.Y} ${r_shin.Zcog - r_knee.Z}" rpy="${r_shin.roll} ${r_shin.pitch} ${r_shin.yaw}" />
-      <geometry>
-        <box size="${r_shin.Xbb} ${r_shin.Ybb} ${r_shin.Zbb}" />
-      </geometry>
-    </collision>
-    <visual name="r_shin_visual">
+  <link name="r_lleg">
+    <visual name="r_lleg_visual">
       <origin xyz="${r_shin.origin}" />
       <geometry>
         ${r_shin.geometry}
       </geometry>
-      <material name="$silver"/>
     </visual>
     <inertial>
       <origin xyz="${r_shin.Xcbar - r_knee.X} ${r_shin.Ycbar - r_knee.Y} ${r_shin.Zcbar - r_knee.Z}" />
@@ -116,19 +72,13 @@
     </inertial>
   </link>
 
+
   <link name="l_foot">
-    <collision name="l_foot_collision">
-      <origin xyz="${l_foot.Xcog - l_ankle.X} ${l_foot.Ycog - l_ankle.Y} ${l_foot.Zcog - l_ankle.Z}" />
-      <geometry>
-        <box size="${l_foot.Xbb} ${l_foot.Ybb} ${l_foot.Zbb}" />
-      </geometry>
-    </collision>
     <visual name="l_foot_visual">
       <origin xyz="${l_foot.origin}" />
       <geometry>
         ${l_foot.geometry}
       </geometry>
-      <material name="$silver"/>
     </visual>
     <inertial>
       <origin xyz="${l_foot.Xcbar - l_ankle.X} ${l_foot.Ycbar - l_ankle.Y} ${l_foot.Zcbar - l_ankle.Z}" />
@@ -138,18 +88,11 @@
   </link>
 
   <link name="r_foot">
-    <collision name="r_foot_collision">
-      <origin xyz="${r_foot.Xcog - r_ankle.X} ${r_foot.Ycog - r_ankle.Y} ${r_foot.Zcog - r_ankle.Z}" />
-      <geometry>
-        <box size="${r_foot.Xbb} ${r_foot.Ybb} ${r_foot.Zbb}" />
-      </geometry>
-    </collision>
     <visual name="r_foot_visual">
       <origin xyz="${r_foot.origin}" />
       <geometry>
         ${r_foot.geometry}
       </geometry>
-      <material name="$silver"/>
     </visual>
     <inertial>
       <origin xyz="${r_foot.Xcbar - r_ankle.X} ${r_foot.Ycbar - r_ankle.Y} ${r_foot.Zcbar - r_ankle.Z}" />
@@ -158,57 +101,58 @@
     </inertial>
   </link>
 
-  <joint name="l_hip_pitch" type="revolute">
+  <joint name="l_leg_hpy" type="revolute">
     <origin xyz="0 0 0" />
-    <parent link="torso" />
-    <child link="l_thigh" />
+    <parent link="pelvis" />
+    <child link="l_uleg" />
     <axis xyz="0 1 0" />
-    <limit lower="${l_hip.pitch_lower_limit}" upper="${l_hip.pitch_upper_limit}" effort="500" velocity="1.6" />
+    <limit lower="${l_hip.pitch_lower_limit}" upper="${l_hip.pitch_upper_limit}" effort="150" velocity="1.6" />
     <dynamics damping="1.0" friction="0" />
   </joint>
 
-  <joint name="r_hip_pitch" type="revolute">
+  <joint name="r_leg_hpy" type="revolute">
     <origin xyz="0 0 0" />
-    <parent link="torso" />
-    <child link="r_thigh" />
+    <parent link="pelvis" />
+    <child link="r_uleg" />
     <axis xyz="0 1 0" />
-    <limit lower="${r_hip.pitch_lower_limit}" upper="${r_hip.pitch_upper_limit}" effort="500" velocity="1.6" />
+    <limit lower="${r_hip.pitch_lower_limit}" upper="${r_hip.pitch_upper_limit}" effort="150" velocity="1.6" />
     <dynamics damping="1.0" friction="0" />
   </joint>
 
-  <joint name="l_knee_pitch" type="revolute">
+  <joint name="l_leg_kny" type="revolute">
     <origin xyz="${l_knee.X - l_hip.X} ${l_knee.Y - l_hip.Y} ${l_knee.Z - l_hip.Z}" />
-    <parent link="l_thigh" />
-    <child link="l_shin" />
+    <parent link="l_uleg" />
+    <child link="l_lleg" />
     <axis xyz="0 1 0" />
-    <limit lower="${l_knee.pitch_lower_limit}" upper="${l_knee.pitch_upper_limit}" effort="500" velocity="1.6" />
+    <limit lower="${l_knee.pitch_lower_limit}" upper="${l_knee.pitch_upper_limit}" effort="150" velocity="1.6" />
     <dynamics damping="1.0" friction="0" />
   </joint>
 
-  <joint name="r_knee_pitch" type="revolute">
+  <joint name="r_leg_kny" type="revolute">
     <origin xyz="${r_knee.X - r_hip.X} ${r_knee.Y - r_hip.Y} ${r_knee.Z - r_hip.Z}" />
-    <parent link="r_thigh" />
-    <child link="r_shin" />
+    <parent link="r_uleg" />
+    <child link="r_lleg" />
     <axis xyz="0 1 0" />
-    <limit lower="${r_knee.pitch_lower_limit}" upper="${r_knee.pitch_upper_limit}" effort="500" velocity="1.6" />
+    <limit lower="${r_knee.pitch_lower_limit}" upper="${r_knee.pitch_upper_limit}" effort="150" velocity="1.6" />
     <dynamics damping="1.0" friction="0" />
   </joint>
 
-  <joint name="l_ankle_pitch" type="revolute">
+  <joint name="l_leg_aky" type="revolute">
     <origin xyz="${l_ankle.X - l_knee.X} ${l_ankle.Y - l_knee.Y} ${l_ankle.Z - l_knee.Z}" />
-    <parent link="l_shin" />
+    <parent link="l_lleg" />
     <child link="l_foot" />
     <axis xyz="0 1 0" />
-    <limit lower="${l_ankle.pitch_lower_limit}" upper="${l_ankle.pitch_upper_limit}" effort="500" velocity="1.6" />
+    <limit lower="${l_ankle.pitch_lower_limit}" upper="${l_ankle.pitch_upper_limit}" effort="150" velocity="1.6" />
     <dynamics damping="1.0" friction="0" />
   </joint>
 
-  <joint name="r_ankle_pitch" type="revolute">
+  <joint name="r_leg_aky" type="revolute">
     <origin xyz="${r_ankle.X - r_knee.X} ${r_ankle.Y - r_knee.Y} ${r_ankle.Z - r_knee.Z}" />
-    <parent link="r_shin" />
+    <parent link="r_lleg" />
     <child link="r_foot" />
     <axis xyz="0 1 0" />
-    <limit lower="${r_ankle.pitch_lower_limit}" upper="${r_ankle.pitch_upper_limit}" effort="500" velocity="1.6" />
+    <limit lower="${r_ankle.pitch_lower_limit}" upper="${r_ankle.pitch_upper_limit}" effort="150" velocity="1.6" />
     <dynamics damping="1.0" friction="0" />
   </joint>
+
 </robot>

@@ -1,291 +1,235 @@
 <?xml version="1.0" ?>
 <sdf version="1.4">
 <model name="V2Exoskeleton">
-  <static>false</static>
 
-  <link name="torso">
-    <pose>-0.0085 0 1.0180015 0 0 0</pose>
-    <collision name="torso_collision">
+  <link name="pelvis">
+    <pose>0.025 0.8 0.22 0 0 0</pose>
+    <visual name="pelvis_visual">
+      <pose>-0.025 -0.8 -0.22 1.5707963267949 0 1.5707963267949</pose>
       <geometry>
-        <box>
-          <size>0.25 0.3 0.3299971</size>
-        </box>
-      </geometry>
-    </collision>
-    <visual name="torso_visual">
-      <pose>0 0 0 0 0 0</pose>
-      <geometry>
-        <box>
-					<size>0.25 0.3 0.3299971</size>
-				</box>
+        <mesh>
+					<uri>file://meshes/pelvis.stl</uri>
+				</mesh>
       </geometry>
     </visual>
     <inertial>
-      <pose>-0.002953866 -2.8926e-05 0.014503041 0 0 0</pose>
-      <mass>12.352637257467</mass>
+      <pose>-0.3834 -0.8 0.6729 0 0 0</pose>
+      <mass>4.4169343065694</mass>
       <inertia>
-        <ixx>0.192434317</ixx>
-        <iyy>0.138750791</iyy>
-        <izz>0.152566986</izz>
-        <iyz>6.1397e-05</iyz>
-        <ixz>0.005354688</ixz>
-        <ixy>0.000154048</ixy>
+        <ixx>0.521</ixx>
+        <iyy>0.184</iyy>
+        <izz>0.384</izz>
+        <iyz>-0.23</iyz>
+        <ixz>0</ixz>
+        <ixy>0</ixy>
       </inertia>
     </inertial>
-    <sensor name="imu_sensor" type="imu">
-      <pose>0 0 0 0 0 1.5707963</pose>
+    <sensor name="imu_sensor_at_pelvis_frame" type="imu">
       <always_on>1</always_on>
-      <visualize>1</visualize>
-      <topic>imu_sensor</topic>
+      <update_rate>1000</update_rate>
+      <imu>
+        <noise>
+          <accel>
+            <bias_mean>0.1</bias_mean>
+            <bias_stddev>0.001</bias_stddev>
+            <mean>0</mean>
+            <stddev>0.017</stddev>
+          </accel>
+          <rate>
+            <bias_mean>7.5e-06</bias_mean>
+            <bias_stddev>8e-07</bias_stddev>
+            <mean>0</mean>
+            <stddev>0.0001</stddev>
+          </rate>
+          <type>gaussian</type>
+        </noise>
+      </imu>
+      <pose>0 0 0 0 0 0</pose>
+    </sensor>
+    <sensor name="imu_sensor_at_imu_frame" type="imu">
+      <always_on>1</always_on>
+      <update_rate>1000</update_rate>
+      <imu>
+        <noise>
+          <accel>
+            <bias_mean>0.1</bias_mean>
+            <bias_stddev>0.001</bias_stddev>
+            <mean>0</mean>
+            <stddev>0.017</stddev>
+          </accel>
+          <rate>
+            <bias_mean>7.5e-06</bias_mean>
+            <bias_stddev>8e-07</bias_stddev>
+            <mean>0</mean>
+            <stddev>0.0001</stddev>
+          </rate>
+          <type>gaussian</type>
+        </noise>
+      </imu>
+      <pose>0 0 0 0 0 0</pose>
     </sensor>
   </link>
 
 
-  <link name="l_thigh">
-    <pose>-0.002281 0.117675 0.6903315 0 0 0</pose>
-    <collision name="l_thigh_collision">
-      <geometry>
-        <box>
-          <size>0.1 0.18965 0.4496629</size>
-        </box>
-      </geometry>
-    </collision>
+  <link name="l_uleg">
+    <pose>0 0.0332 0.30716 0 0 0</pose>
     <visual name="l_thigh_visual">
-      <pose>0 0 0 0 0 0</pose>
+      <pose>-0 -0.0332 -0.30716 0 0 0</pose>
       <geometry>
-        <box>
-					<size>0.1 0.18965 0.4496629</size>
-				</box>
+        <mesh>
+					<uri>file://meshes/left_thigh.stl</uri>
+				</mesh>
       </geometry>
     </visual>
     <inertial>
-      <pose>-0.007275145 0.001182411 -0.002326944 0 0 0</pose>
-      <mass>7.1491717950398</mass>
+      <pose>-0.148639 0.1878 0.257032 0 0 0</pose>
+      <mass>3.6007616629642</mass>
       <inertia>
-        <ixx>0.084250058</ixx>
-        <iyy>0.096381201</iyy>
-        <izz>0.045852856</izz>
-        <iyz>-0.001798911</iyz>
-        <ixz>-0.016761334</ixz>
-        <ixy>-0.004359838</ixy>
+        <ixx>0.3834</ixx>
+        <iyy>0.013</iyy>
+        <izz>0.3746</izz>
+        <iyz>-0.0434</iyz>
+        <ixz>0.0001</ixz>
+        <ixy>0</ixy>
       </inertia>
     </inertial>
   </link>
 
-  <link name="r_thigh">
-    <pose>-0.002281 -0.117675 0.6903315 0 0 0</pose>
-    <collision name="r_thigh_collision">
-      <geometry>
-        <box>
-          <size>0.1 0.18965 0.4496629</size>
-        </box>
-      </geometry>
-    </collision>
+  <link name="r_uleg">
+    <pose>0.02 -0.0625 -0.061 0 0 0</pose>
     <visual name="r_thigh_visual">
-      <pose>0 0 0 0 0 0</pose>
+      <pose>-0.02 0.0625 0.061 -1.5707963267949 0 -1.5707963267949</pose>
       <geometry>
-        <box>
-					<size>0.1 0.18965 0.4496629</size>
-				</box>
+        <mesh>
+					<uri>file://meshes/right_thigh.stl</uri>
+				</mesh>
       </geometry>
     </visual>
     <inertial>
-      <pose>-0.011960341 -0.003014569 0.0026838300000001 0 0 0</pose>
-      <mass>6.7392390451449</mass>
+      <pose>-0.168639 -0.1585 0.625192 0 0 0</pose>
+      <mass>3.6007616629642</mass>
       <inertia>
-        <ixx>0.079240154</ixx>
-        <iyy>0.089456087</iyy>
-        <izz>0.043072055</izz>
-        <iyz>0.003245855</iyz>
-        <ixz>-0.014283399</ixz>
-        <ixy>-0.005800059</ixy>
+        <ixx>0.3834</ixx>
+        <iyy>0.013</iyy>
+        <izz>0.3746</izz>
+        <iyz>-0.0434</iyz>
+        <ixz>0.0001</ixz>
+        <ixy>0</ixy>
       </inertia>
     </inertial>
   </link>
 
 
-  <link name="l_shin">
-    <pose>0.0190724 0.1021182 0.2811108 0 0 0</pose>
-    <collision name="l_shin_collision">
-      <geometry>
-        <box>
-          <size>0.1 0.13 0.4512008</size>
-        </box>
-      </geometry>
-    </collision>
+  <link name="l_lleg">
+    <pose>-0.0975 0.9975 0.5025 0 0 0</pose>
     <visual name="l_shin_visual">
-      <pose>0 0 0 0 0 0</pose>
+      <pose>0.0975 -0.9975 -0.5025 1.5707963267949 0 1.5707963267949</pose>
       <geometry>
-        <box>
-					<size>0.1 0.13 0.4512008</size>
-				</box>
+        <mesh>
+					<uri>file://meshes/left_shin.stl</uri>
+				</mesh>
       </geometry>
     </visual>
     <inertial>
-      <pose>0.020009023 -0.001720267 0.053753428 0 0 0</pose>
-      <mass>4.5253558007679</mass>
+      <pose>-0.188955 -0.8097 -0.469365 0 0 0</pose>
+      <mass>3.1555274833386</mass>
       <inertia>
-        <ixx>0.046092742</ixx>
-        <iyy>0.047576074</iyy>
-        <izz>0.017089465</izz>
-        <iyz>-0.000398792</iyz>
-        <ixz>0.007328075</ixz>
-        <ixy>-5.375e-05</ixy>
+        <ixx>0.0775</ixx>
+        <iyy>0.009</iyy>
+        <izz>0.0711</izz>
+        <iyz>-0.0085</iyz>
+        <ixz>0.0004</ixz>
+        <ixy>-0.0021</ixy>
       </inertia>
     </inertial>
   </link>
 
-  <link name="r_shin">
-    <pose>0.0190724 -0.1021182 0.2811108 0 0 0</pose>
-    <collision name="r_shin_collision">
-      <geometry>
-        <box>
-          <size>0.1 0.13 0.4512008</size>
-        </box>
-      </geometry>
-    </collision>
+  <link name="r_lleg">
+    <pose>-0.0975 0.6135 0.5025 0 0 0</pose>
     <visual name="r_shin_visual">
-      <pose>0 0 0 0 0 0</pose>
+      <pose>0.0975 -0.6135 -0.5025 1.5707963267949 0 1.5707963267949</pose>
       <geometry>
-        <box>
-					<size>0.1 0.13 0.4512008</size>
-				</box>
+        <mesh>
+					<uri>file://meshes/right_shin.stl</uri>
+				</mesh>
       </geometry>
     </visual>
     <inertial>
-      <pose>0.020008902 0.001800992 0.053753033 0 0 0</pose>
-      <mass>4.5253557242616</mass>
+      <pose>-0.188955 -0.8013 -0.469365 0 0 0</pose>
+      <mass>3.1555274833386</mass>
       <inertia>
-        <ixx>0.046093172</ixx>
-        <iyy>0.047576244</iyy>
-        <izz>0.017089664</izz>
-        <iyz>0.000388378</iyz>
-        <ixz>0.007328046</ixz>
-        <ixy>7.7546e-05</ixy>
+        <ixx>0.0775</ixx>
+        <iyy>0.009</iyy>
+        <izz>0.0711</izz>
+        <iyz>-0.0085</iyz>
+        <ixz>0.0004</ixz>
+        <ixy>-0.0021</ixy>
       </inertia>
     </inertial>
   </link>
 
 
   <link name="l_foot">
-    <pose>0.025 0.1 0.0266724 0 0 0</pose>
-    <collision name="l_foot_collision">
-      <geometry>
-        <box>
-          <size>0.25 0.1485 0.05493235</size>
-        </box>
-      </geometry>
-      <!-- From atlas model -->
-      <surface>
-        <friction>
-          <ode>
-            <mu>0.9</mu>
-            <mu2>0.9</mu2>
-            <fdir1>1 0 0</fdir1>
-          </ode>
-        </friction>
-        <contact>
-          <ode>
-            <max_vel>1.0</max_vel>
-            <min_depth>0.003</min_depth>
-          </ode>
-        </contact>
-      </surface>
-    </collision>
+    <pose>-0.0685 0.1725 0.086 0 0 0</pose>
     <visual name="l_foot_visual">
-      <pose>0 0 0 0 0 0</pose>
+      <pose>0.0685 -0.1725 -0.086 1.5707963267949 0 1.5707963267949</pose>
       <geometry>
-        <box>
-					<size>0.25 0.1485 0.05493235</size>
-				</box>
+        <mesh>
+					<uri>file://meshes/left_foot.stl</uri>
+				</mesh>
       </geometry>
     </visual>
     <inertial>
-      <pose>-0.028605608 0.000378564 0.010183651 0 0 0</pose>
-      <mass>1.7554505521062</mass>
+      <pose>-0.1102431 -0.056064 -0.248288 0 0 0</pose>
+      <mass>0.49010367079234</mass>
       <inertia>
-        <ixx>0.003706824</ixx>
-        <iyy>0.007284474</iyy>
-        <izz>0.007592302</izz>
-        <iyz>2.331e-05</iyz>
-        <ixz>-0.001373646</ixz>
-        <ixy>1.3207e-05</ixy>
+        <ixx>0.4259</ixx>
+        <iyy>0.01108</iyy>
+        <izz>0.42668</izz>
+        <iyz>-0.02838</iyz>
+        <ixz>0.00276</ixz>
+        <ixy>-0.04594</ixy>
       </inertia>
     </inertial>
-    <sensor name="l_foot_contact_sensor" type="contact">
-      <always_on>1</always_on>
-      <contact>
-        <collision>l_foot_collision</collision>
-      </contact>
-    </sensor>
   </link>
 
   <link name="r_foot">
-    <pose>0.025 -0.1 0.0266724 0 0 0</pose>
-    <collision name="r_foot_collision">
-      <geometry>
-        <box>
-          <size>0.25 0.1485 0.05493235</size>
-        </box>
-      </geometry>
-      <!-- From atlas model -->
-      <surface>
-        <friction>
-          <ode>
-            <mu>0.9</mu>
-            <mu2>0.9</mu2>
-            <fdir1>1 0 0</fdir1>
-          </ode>
-        </friction>
-        <contact>
-          <ode>
-            <max_vel>1.0</max_vel>
-            <min_depth>0.003</min_depth>
-          </ode>
-        </contact>
-      </surface>
-    </collision>
+    <pose>-0.1225 0.6325 0.086 0 0 0</pose>
     <visual name="r_foot_visual">
-      <pose>0 0 0 0 0 0</pose>
+      <pose>0.1225 -0.6325 -0.086 1.5707963267949 0 1.5707963267949</pose>
       <geometry>
-        <box>
-					<size>0.25 0.1485 0.05493235</size>
-				</box>
+        <mesh>
+					<uri>file://meshes/right_foot.stl</uri>
+				</mesh>
       </geometry>
     </visual>
     <inertial>
-      <pose>-0.028322076 -0.000365984 0.010187761 0 0 0</pose>
-      <mass>1.7588867652665</mass>
+      <pose>-0.0562431 -0.748936 -0.248288 0 0 0</pose>
+      <mass>0.49010367079234</mass>
       <inertia>
-        <ixx>0.003363358</ixx>
-        <iyy>0.006961913</iyy>
-        <izz>0.007424205</izz>
-        <iyz>-2.3263e-05</iyz>
-        <ixz>-0.001368115</ixz>
-        <ixy>-8.734e-06</ixy>
+        <ixx>0.4259</ixx>
+        <iyy>0.01108</iyy>
+        <izz>0.42668</izz>
+        <iyz>-0.02838</iyz>
+        <ixz>0.00276</ixz>
+        <ixy>-0.04594</ixy>
       </inertia>
     </inertial>
-    <sensor name="r_foot_contact_sensor" type="contact">
-      <always_on>1</always_on>
-      <contact>
-        <collision>r_foot_collision</collision>
-      </contact>
-    </sensor>
   </link>
 
-  <joint name="l_hip_pitch" type="revolute">
-    <pose>0.002281 -0.017675 0.2096685 0 0 0</pose>
+  <joint name="l_leg_hpy" type="revolute">
+    <pose>-0.22235 0.1878 0.455232 0 0 0</pose>
     <parent>
-      l_hip_pitch_trunnion
+      pelvis
     </parent>
     <child>
-      l_thigh
+      l_uleg
     </child>
     <axis>
       <xyz>0 1 0</xyz>
       <limit>
-        <lower>-0.34906585039887</lower>
-        <upper>0.78539816339745</upper>
+        <lower>-2.0943951023932</lower>
+        <upper>0.5235987755983</upper>
         <effort>150</effort>
         <velocity>12</velocity>
       </limit>
@@ -301,19 +245,19 @@
     </physics>
   </joint>
 
-  <joint name="r_hip_pitch" type="revolute">
-    <pose>0.002281 0.017675 0.2096685 0 0 0</pose>
+  <joint name="r_leg_hpy" type="revolute">
+    <pose>-0.24235 -0.1585 0.823392 0 0 0</pose>
     <parent>
-      r_hip_pitch_trunnion
+      pelvis
     </parent>
     <child>
-      r_thigh
+      r_uleg
     </child>
     <axis>
       <xyz>0 1 0</xyz>
       <limit>
-        <lower>-0.78539816339745</lower>
-        <upper>0.34906585039887</upper>
+        <lower>-2.0943951023932</lower>
+        <upper>0.5235987755983</upper>
         <effort>150</effort>
         <velocity>12</velocity>
       </limit>
@@ -329,41 +273,13 @@
     </physics>
   </joint>
 
-  <joint name="l_knee_pitch" type="revolute">
-    <pose>-0.0190724 -0.0021182 0.2088892 0 0 0</pose>
+  <joint name="l_leg_kny" type="revolute">
+    <pose>-0.188955 -0.7765 -0.162205 0 0 0</pose>
     <parent>
-      l_thigh
+      l_uleg
     </parent>
     <child>
-      l_shin
-    </child>
-    <axis>
-      <xyz>0 1 0</xyz>
-      <limit>
-        <lower>0</lower>
-        <upper>2.3561944901923</upper>
-        <effort>150</effort>
-        <velocity>12</velocity>
-      </limit>
-      <dynamics>
-        <damping>1.0</damping>
-        <friction>0</friction>
-      </dynamics>
-    </axis>
-    <physics>
-      <ode>
-        <cfm_damping>1</cfm_damping>
-      </ode>
-    </physics>
-  </joint>
-
-  <joint name="r_knee_pitch" type="revolute">
-    <pose>-0.0190724 0.0021182 0.2088892 0 0 0</pose>
-    <parent>
-      r_thigh
-    </parent>
-    <child>
-      r_shin
+      l_lleg
     </child>
     <axis>
       <xyz>0 1 0</xyz>
@@ -385,9 +301,37 @@
     </physics>
   </joint>
 
-  <joint name="l_ankle_pitch" type="revolute">
+  <joint name="r_leg_kny" type="revolute">
+    <pose>-0.188955 -0.8345 -0.162205 0 0 0</pose>
     <parent>
-      l_shin
+      r_uleg
+    </parent>
+    <child>
+      r_lleg
+    </child>
+    <axis>
+      <xyz>0 1 0</xyz>
+      <limit>
+        <lower>0</lower>
+        <upper>2.3561944901923</upper>
+        <effort>150</effort>
+        <velocity>12</velocity>
+      </limit>
+      <dynamics>
+        <damping>1.0</damping>
+        <friction>0</friction>
+      </dynamics>
+    </axis>
+    <physics>
+      <ode>
+        <cfm_damping>1</cfm_damping>
+      </ode>
+    </physics>
+  </joint>
+
+  <joint name="l_leg_aky" type="revolute">
+    <parent>
+      l_lleg
     </parent>
     <child>
       l_foot
@@ -412,9 +356,9 @@
     </physics>
   </joint>
 
-  <joint name="r_ankle_pitch" type="revolute">
+  <joint name="r_leg_aky" type="revolute">
     <parent>
-      r_shin
+      r_lleg
     </parent>
     <child>
       r_foot

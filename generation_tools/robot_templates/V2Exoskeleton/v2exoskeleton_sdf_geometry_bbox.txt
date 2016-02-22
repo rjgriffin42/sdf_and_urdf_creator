@@ -1,27 +1,27 @@
 **torso
-geometry=<box>\n					<size>${torso.Xbb} ${torso.Ybb} ${torso.Zbb}</size>\n				</box>
-pose=0 0 0 0 0 0
+geometry=<mesh>\n					<uri>file://meshes/pelvis.stl</uri>\n				</mesh>
+pose=${-torso.Xcog} ${-torso.Ycog} ${-torso.Zcog} 0 0 0
 
 **l_thigh
-geometry=<box>\n					<size>${l_thigh.Xbb} ${l_thigh.Ybb} ${l_thigh.Zbb}</size>\n				</box>
-pose=0 0 0 0 0 0
+geometry=<mesh>\n					<uri>file://meshes/left_thigh.stl</uri>\n				</mesh>
+pose=${-l_thigh.Xcog} ${-l_thigh.Ycog} ${-l_thigh.Zcog} 0 0 0
 
 **r_thigh
-geometry=<box>\n					<size>${r_thigh.Xbb} ${r_thigh.Ybb} ${r_thigh.Zbb}</size>\n				</box>
-pose=0 0 0 0 0 0
+geometry=<mesh>\n					<uri>file://meshes/right_thigh.stl</uri>\n				</mesh>
+pose=${-r_thigh.Xcog} ${-r_thigh.Ycog} ${-r_thigh.Zcog} 0 0 0
 
 **l_shin
-geometry=<box>\n					<size>${l_shin.Xbb} ${l_shin.Ybb} ${l_shin.Zbb}</size>\n				</box>
-pose=0 0 0 0 0 0
+geometry=<mesh>\n					<uri>file://meshes/left_shin.stl</uri>\n				</mesh>
+pose=${-l_shin.Xcog} ${-l_shin.Ycog} ${-l_shin.Zcog} 0 0 0
 
 **r_shin
-geometry=<box>\n					<size>${r_shin.Xbb} ${r_shin.Ybb} ${r_shin.Zbb}</size>\n				</box>
-pose=0 0 0 0 0 0
+geometry=<mesh>\n					<uri>file://meshes/right_shin.stl</uri>\n				</mesh>
+pose=${-r_shin.Xcog} ${-r_shin.Ycog} ${-r_shin.Zcog} 0 0 0
 
 **l_foot
-geometry=<box>\n					<size>${l_foot.Xbb} ${l_foot.Ybb} ${l_foot.Zbb}</size>\n				</box>
-pose=0 0 0 0 0 0
+geometry=<mesh>\n					<uri>file://meshes/left_foot.stl</uri>\n				</mesh>
+pose=${-l_foot.Xcog} ${-l_foot.Ycog} ${-l_foot.Zcog} 0 0 0
 
 **r_foot
-geometry=<box>\n					<size>${r_foot.Xbb} ${r_foot.Ybb} ${r_foot.Zbb}</size>\n				</box>
-pose=0 0 0 0 0 0
+geometry=<mesh>\n					<uri>file://meshes/right_foot.stl</uri>\n				</mesh>
+pose=${-r_foot.Xcog} ${-r_foot.Ycog} ${-r_foot.Zcog} 0 0 0

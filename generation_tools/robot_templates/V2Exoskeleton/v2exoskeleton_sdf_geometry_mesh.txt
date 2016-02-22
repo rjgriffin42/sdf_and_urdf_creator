@@ -1,27 +1,27 @@
-**torso
-geometry=<mesh>\n					<uri>file://escher/meshes/torso.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
-pose=${-torso.Xcog} ${-torso.Ycog} ${-torso.Zcog} 0 0 0
+**pelvis
+geometry=<mesh>\n					<uri>file://meshes/pelvis.stl</uri>\n				</mesh>
+pose=${-pelvis.Xcog} ${-pelvis.Ycog} ${-pelvis.Zcog} ${pelvis.rollcog} ${pelvis.pitchcog} ${pelvis.yawcog}
 
 **l_thigh
-geometry=<mesh>\n					<uri>file://escher/meshes/l_thigh.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
-pose=${-l_thigh.Xcog} ${-l_thigh.Ycog} ${-l_thigh.Zcog} 0 0 0
+geometry=<mesh>\n					<uri>file://meshes/left_thigh.stl</uri>\n				</mesh>
+pose=${-l_thigh.Xcog} ${-l_thigh.Ycog} ${-l_thigh.Zcog} ${l_thigh.rollcog} ${l_thigh.pitchcog} ${l_thigh.yawcog}
 
 **r_thigh
-geometry=<mesh>\n					<uri>file://escher/meshes/r_thigh.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
-pose=${-r_thigh.Xcog} ${-r_thigh.Ycog} ${-r_thigh.Zcog} 0 0 0
+geometry=<mesh>\n					<uri>file://meshes/right_thigh.stl</uri>\n				</mesh>
+pose=${-r_thigh.Xcog} ${-r_thigh.Ycog} ${-r_thigh.Zcog} ${r_thigh.rollcog} ${r_thigh.pitchcog} ${r_thigh.yawcog}
 
 **l_shin
-geometry=<mesh>\n					<uri>file://escher/meshes/l_shin.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
-pose=${-l_shin.Xcog} ${-l_shin.Ycog} ${-l_shin.Zcog} 0 0 0
+geometry=<mesh>\n					<uri>file://meshes/left_shin.stl</uri>\n				</mesh>
+pose=${-l_shin.Xcog} ${-l_shin.Ycog} ${-l_shin.Zcog} ${l_shin.rollcog} ${l_shin.pitchcog} ${l_shin.yawcog}
 
 **r_shin
-geometry=<mesh>\n					<uri>file://escher/meshes/r_shin.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
-pose=${-r_shin.Xcog} ${-r_shin.Ycog} ${-r_shin.Zcog} 0 0 0
+geometry=<mesh>\n					<uri>file://meshes/right_shin.stl</uri>\n				</mesh>
+pose=${-r_shin.Xcog} ${-r_shin.Ycog} ${-r_shin.Zcog} ${r_shin.rollcog} ${r_shin.pitchcog} ${r_shin.yawcog}
 
 **l_foot
-geometry=<mesh>\n					<uri>file://escher/meshes/l_foot.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
-pose=${-l_foot.Xcog} ${-l_foot.Ycog} ${-l_foot.Zcog} 0 0 0
+geometry=<mesh>\n					<uri>file://meshes/left_foot.stl</uri>\n				</mesh>
+pose=${-l_foot.Xcog} ${-l_foot.Ycog} ${-l_foot.Zcog} ${l_foot.rollcog} ${l_foot.pitchcog} ${l_foot.yawcog}
 
 **r_foot
-geometry=<mesh>\n					<uri>file://escher/meshes/r_foot.stl</uri>\n					<scale>.001 .001 .001</scale>\n				</mesh>
-pose=${-r_foot.Xcog} ${-r_foot.Ycog} ${-r_foot.Zcog} 0 0 0
+geometry=<mesh>\n					<uri>file://meshes/right_foot.stl</uri>\n				</mesh>
+pose=${-r_foot.Xcog} ${-r_foot.Ycog} ${-r_foot.Zcog} ${r_foot.rollcog} ${r_foot.pitchcog} ${r_foot.yawcog}

@@ -1,53 +1,76 @@
 <?xml version="1.0" ?>
 <sdf version="1.4">
 <model name="V2Exoskeleton">
-  <static>false</static>
 
-  <link name="torso">
-    <pose>${torso.Xcog} ${torso.Ycog} ${torso.Zcog} 0 0 0</pose>
-    <collision name="torso_collision">
+  <link name="pelvis">
+    <pose>${pelvis.Xcog} ${pelvis.Ycog} ${pelvis.Zcog} 0 0 0</pose>
+    <visual name="pelvis_visual">
+      <pose>${pelvis.pose}</pose>
       <geometry>
-        <box>
-          <size>${torso.Xbb} ${torso.Ybb} ${torso.Zbb}</size>
-        </box>
-      </geometry>
-    </collision>
-    <visual name="torso_visual">
-      <pose>${torso.pose}</pose>
-      <geometry>
-        ${torso.geometry}
+        ${pelvis.geometry}
       </geometry>
     </visual>
     <inertial>
-      <pose>${torso.Xcbar - torso.Xcog} ${torso.Ycbar - torso.Ycog} ${torso.Zcbar - torso.Zcog} 0 0 0</pose>
-      <mass>${torso.Mass * mass.sdf_scale_factor}</mass>
+      <pose>${pelvis.Xcbar - pelvis.Xcog} ${pelvis.Ycbar - pelvis.Ycog} ${pelvis.Zcbar - pelvis.Zcog} 0 0 0</pose>
+      <mass>${pelvis.Mass * mass.sdf_scale_factor}</mass>
       <inertia>
-        <ixx>${torso.Ixc}</ixx>
-        <iyy>${torso.Iyc}</iyy>
-        <izz>${torso.Izc}</izz>
-        <iyz>${torso.Iyzc}</iyz>
-        <ixz>${torso.Ixzc}</ixz>
-        <ixy>${torso.Ixyc}</ixy>
+        <ixx>${pelvis.Ixc}</ixx>
+        <iyy>${pelvis.Iyc}</iyy>
+        <izz>${pelvis.Izc}</izz>
+        <iyz>${pelvis.Iyzc}</iyz>
+        <ixz>${pelvis.Ixzc}</ixz>
+        <ixy>${pelvis.Ixyc}</ixy>
       </inertia>
     </inertial>
-    <sensor name="imu_sensor" type="imu">
-      <pose>0 0 0 0 0 1.5707963</pose>
+    <sensor name="imu_sensor_at_pelvis_frame" type="imu">
       <always_on>1</always_on>
-      <visualize>1</visualize>
-      <topic>imu_sensor</topic>
+      <update_rate>1000</update_rate>
+      <imu>
+        <noise>
+          <accel>
+            <bias_mean>0.1</bias_mean>
+            <bias_stddev>0.001</bias_stddev>
+            <mean>0</mean>
+            <stddev>0.017</stddev>
+          </accel>
+          <rate>
+            <bias_mean>7.5e-06</bias_mean>
+            <bias_stddev>8e-07</bias_stddev>
+            <mean>0</mean>
+            <stddev>0.0001</stddev>
+          </rate>
+          <type>gaussian</type>
+        </noise>
+      </imu>
+      <pose>0 0 0 0 0 0</pose>
+    </sensor>
+    <sensor name="imu_sensor_at_imu_frame" type="imu">
+      <always_on>1</always_on>
+      <update_rate>1000</update_rate>
+      <imu>
+        <noise>
+          <accel>
+            <bias_mean>0.1</bias_mean>
+            <bias_stddev>0.001</bias_stddev>
+            <mean>0</mean>
+            <stddev>0.017</stddev>
+          </accel>
+          <rate>
+            <bias_mean>7.5e-06</bias_mean>
+            <bias_stddev>8e-07</bias_stddev>
+            <mean>0</mean>
+            <stddev>0.0001</stddev>
+          </rate>
+          <type>gaussian</type>
+        </noise>
+      </imu>
+      <pose>0 0 0 0 0 0</pose>
     </sensor>
   </link>
 
 
-  <link name="l_thigh">
+  <link name="l_uleg">
     <pose>${l_thigh.Xcog} ${l_thigh.Ycog} ${l_thigh.Zcog} 0 0 0</pose>
-    <collision name="l_thigh_collision">
-      <geometry>
-        <box>
-          <size>${l_thigh.Xbb} ${l_thigh.Ybb} ${l_thigh.Zbb}</size>
-        </box>
-      </geometry>
-    </collision>
     <visual name="l_thigh_visual">
       <pose>${l_thigh.pose}</pose>
       <geometry>
@@ -68,15 +91,8 @@
     </inertial>
   </link>
 
-  <link name="r_thigh">
+  <link name="r_uleg">
     <pose>${r_thigh.Xcog} ${r_thigh.Ycog} ${r_thigh.Zcog} 0 0 0</pose>
-    <collision name="r_thigh_collision">
-      <geometry>
-        <box>
-          <size>${r_thigh.Xbb} ${r_thigh.Ybb} ${r_thigh.Zbb}</size>
-        </box>
-      </geometry>
-    </collision>
     <visual name="r_thigh_visual">
       <pose>${r_thigh.pose}</pose>
       <geometry>
@@ -98,15 +114,8 @@
   </link>
 
 
-  <link name="l_shin">
+  <link name="l_lleg">
     <pose>${l_shin.Xcog} ${l_shin.Ycog} ${l_shin.Zcog} 0 0 0</pose>
-    <collision name="l_shin_collision">
-      <geometry>
-        <box>
-          <size>${l_shin.Xbb} ${l_shin.Ybb} ${l_shin.Zbb}</size>
-        </box>
-      </geometry>
-    </collision>
     <visual name="l_shin_visual">
       <pose>${l_shin.pose}</pose>
       <geometry>
@@ -127,15 +136,8 @@
     </inertial>
   </link>
 
-  <link name="r_shin">
+  <link name="r_lleg">
     <pose>${r_shin.Xcog} ${r_shin.Ycog} ${r_shin.Zcog} 0 0 0</pose>
-    <collision name="r_shin_collision">
-      <geometry>
-        <box>
-          <size>${r_shin.Xbb} ${r_shin.Ybb} ${r_shin.Zbb}</size>
-        </box>
-      </geometry>
-    </collision>
     <visual name="r_shin_visual">
       <pose>${r_shin.pose}</pose>
       <geometry>
@@ -159,29 +161,6 @@
 
   <link name="l_foot">
     <pose>${l_foot.Xcog} ${l_foot.Ycog} ${l_foot.Zcog} 0 0 0</pose>
-    <collision name="l_foot_collision">
-      <geometry>
-        <box>
-          <size>${l_foot.Xbb} ${l_foot.Ybb} ${l_foot.Zbb}</size>
-        </box>
-      </geometry>
-      <!-- From atlas model -->
-      <surface>
-        <friction>
-          <ode>
-            <mu>0.9</mu>
-            <mu2>0.9</mu2>
-            <fdir1>1 0 0</fdir1>
-          </ode>
-        </friction>
-        <contact>
-          <ode>
-            <max_vel>1.0</max_vel>
-            <min_depth>0.003</min_depth>
-          </ode>
-        </contact>
-      </surface>
-    </collision>
     <visual name="l_foot_visual">
       <pose>${l_foot.pose}</pose>
       <geometry>
@@ -200,39 +179,10 @@
         <ixy>${l_foot.Ixyc}</ixy>
       </inertia>
     </inertial>
-    <sensor name="l_foot_contact_sensor" type="contact">
-      <always_on>1</always_on>
-      <contact>
-        <collision>l_foot_collision</collision>
-      </contact>
-    </sensor>
   </link>
 
   <link name="r_foot">
     <pose>${r_foot.Xcog} ${r_foot.Ycog} ${r_foot.Zcog} 0 0 0</pose>
-    <collision name="r_foot_collision">
-      <geometry>
-        <box>
-          <size>${r_foot.Xbb} ${r_foot.Ybb} ${r_foot.Zbb}</size>
-        </box>
-      </geometry>
-      <!-- From atlas model -->
-      <surface>
-        <friction>
-          <ode>
-            <mu>0.9</mu>
-            <mu2>0.9</mu2>
-            <fdir1>1 0 0</fdir1>
-          </ode>
-        </friction>
-        <contact>
-          <ode>
-            <max_vel>1.0</max_vel>
-            <min_depth>0.003</min_depth>
-          </ode>
-        </contact>
-      </surface>
-    </collision>
     <visual name="r_foot_visual">
       <pose>${r_foot.pose}</pose>
       <geometry>
@@ -251,21 +201,15 @@
         <ixy>${r_foot.Ixyc}</ixy>
       </inertia>
     </inertial>
-    <sensor name="r_foot_contact_sensor" type="contact">
-      <always_on>1</always_on>
-      <contact>
-        <collision>r_foot_collision</collision>
-      </contact>
-    </sensor>
   </link>
 
-  <joint name="l_hip_pitch" type="revolute">
+  <joint name="l_leg_hpy" type="revolute">
     <pose>${l_hip.X - l_thigh.Xcog} ${l_hip.Y - l_thigh.Ycog} ${l_hip.Z - l_thigh.Zcog} 0 0 0</pose>
     <parent>
-      l_hip_pitch_trunnion
+      pelvis
     </parent>
     <child>
-      l_thigh
+      l_uleg
     </child>
     <axis>
       <xyz>0 1 0</xyz>
@@ -287,13 +231,13 @@
     </physics>
   </joint>
 
-  <joint name="r_hip_pitch" type="revolute">
+  <joint name="r_leg_hpy" type="revolute">
     <pose>${r_hip.X - r_thigh.Xcog} ${r_hip.Y - r_thigh.Ycog} ${r_hip.Z - r_thigh.Zcog} 0 0 0</pose>
     <parent>
-      r_hip_pitch_trunnion
+      pelvis
     </parent>
     <child>
-      r_thigh
+      r_uleg
     </child>
     <axis>
       <xyz>0 1 0</xyz>
@@ -315,13 +259,13 @@
     </physics>
   </joint>
 
-  <joint name="l_knee_pitch" type="revolute">
+  <joint name="l_leg_kny" type="revolute">
     <pose>${l_knee.X - l_shin.Xcog} ${l_knee.Y - l_shin.Ycog} ${l_knee.Z - l_shin.Zcog} 0 0 0</pose>
     <parent>
-      l_thigh
+      l_uleg
     </parent>
     <child>
-      l_shin
+      l_lleg
     </child>
     <axis>
       <xyz>0 1 0</xyz>
@@ -343,13 +287,13 @@
     </physics>
   </joint>
 
-  <joint name="r_knee_pitch" type="revolute">
+  <joint name="r_leg_kny" type="revolute">
     <pose>${r_knee.X - r_shin.Xcog} ${r_knee.Y - r_shin.Ycog} ${r_knee.Z - r_shin.Zcog} 0 0 0</pose>
     <parent>
-      r_thigh
+      r_uleg
     </parent>
     <child>
-      r_shin
+      r_lleg
     </child>
     <axis>
       <xyz>0 1 0</xyz>
@@ -371,9 +315,9 @@
     </physics>
   </joint>
 
-  <joint name="l_ankle_pitch" type="revolute">
+  <joint name="l_leg_aky" type="revolute">
     <parent>
-      l_shin
+      l_lleg
     </parent>
     <child>
       l_foot
@@ -398,9 +342,9 @@
     </physics>
   </joint>
 
-  <joint name="r_ankle_pitch" type="revolute">
+  <joint name="r_leg_aky" type="revolute">
     <parent>
-      r_shin
+      r_lleg
     </parent>
     <child>
       r_foot
