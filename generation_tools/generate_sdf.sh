@@ -36,13 +36,15 @@ checkDirectory()
   fi
 }
 
-options='r:m:t:k:fh?:'
+options='r:m:t:k:u:s:fh?:'
 while getopts $options option ; do
     case $option in
         r  ) robot_input=${OPTARG};;
         m  ) use_meshes=${OPTARG};;
         t  ) checkDirectory ${OPTARG};;
         k  ) make_kdl=${OPTARG};;
+        u  ) make_urdf=${OPTARG};;
+        s  ) make_sdf=${OPTARG};;
         h  ) printUsage; exit 1;;
         \? ) printUsage; exit 1;;
         *  ) printUsage; exit 1;;
@@ -75,8 +77,10 @@ else
 fi
 
 # define variables
-use_meshes=${use_meshes:-false}
+use_meshes=${use_meshes:-true}
 make_kdl=${make_kdl:-false}
+make_urdf=${make_urdf:-false}
+make_sdf=${make_sdf:-true}
 
 script_dir=$(dirname $0)
 data_dir=$script_dir/robot_templates/$robot_dir
@@ -104,29 +108,37 @@ buildFiles()
   
   if [ $use_meshes == "true" ]; then
   
-    echo "Generating $robot URDF Mesh Collision Models"
+    if [ $make_urdf == "true" ]; then
+      echo "Generating $robot URDF Mesh Collision Models"
   
-    # Robot URDF Mesh Model
-    lua $script_dir/format_model.lua $data_dir/${robot_lower_case}_urdf_geometry_mesh.txt $data_dir/${robot_lower_case}_urdf_template.txt > mesh_temp
-    lua $script_dir/format_model.lua urdf_temp mesh_temp > $target_dir/${robot_lower_case}.xacro
+      # Robot URDF Mesh Model
+      lua $script_dir/format_model.lua $data_dir/${robot_lower_case}_urdf_geometry_mesh.txt $data_dir/${robot_lower_case}_urdf_template.txt > mesh_temp
+      lua $script_dir/format_model.lua urdf_temp mesh_temp > $target_dir/${robot_lower_case}.xacro
+    fi
   
-    echo "Generating $robot SDF Mesh Collision Models"
-    
-    # Robot SDF Mesh Model
-    lua $script_dir/format_model.lua $data_dir/${robot_lower_case}_sdf_geometry_mesh.txt $data_dir/${robot_lower_case}_sdf_template.txt > mesh_temp
-    lua $script_dir/format_model.lua sdf_temp mesh_temp > $target_dir/${robot_lower_case}.sdf
+    if [ $make_sdf == "true" ]; then
+      echo "Generating $robot SDF Mesh Collision Models"
+      
+      # Robot SDF Mesh Model
+      lua $script_dir/format_model.lua $data_dir/${robot_lower_case}_sdf_geometry_mesh.txt $data_dir/${robot_lower_case}_sdf_template.txt > mesh_temp
+      lua $script_dir/format_model.lua sdf_temp mesh_temp > $target_dir/${robot_lower_case}.sdf
+    fi
   else
-    echo "Generating $robot URDF Bounding Box Collision Models"
+    if [ $make_urdf == "true" ]; then
+      echo "Generating $robot URDF Bounding Box Collision Models"
+      
+      # Robot URDF Bounding Box Model
+      lua $script_dir/format_model.lua $data_dir/${robot_lower_case}_urdf_geometry_bbox.txt $data_dir/${robot_lower_case}_urdf_template.txt > bbox_temp
+      lua $script_dir/format_model.lua urdf_temp bbox_temp > $target_dir/${robot_lower_case}.xacro
+    fi
     
-    # Robot URDF Bounding Box Model
-    lua $script_dir/format_model.lua $data_dir/${robot_lower_case}_urdf_geometry_bbox.txt $data_dir/${robot_lower_case}_urdf_template.txt > bbox_temp
-    lua $script_dir/format_model.lua urdf_temp bbox_temp > $target_dir/${robot_lower_case}.xacro
-    
-    echo "Generating $robot SDF Bounding Box Collision Models"
-    
-    # Robot SDF Bounding Box Model
-    lua $script_dir/format_model.lua $data_dir/${robot_lower_case}_sdf_geometry_bbox.txt $data_dir/${robot_lower_case}_sdf_template.txt > bbox_temp
-    lua $script_dir/format_model.lua sdf_temp bbox_temp > $target_dir/${robot_lower_case}.sdf
+    if [ $make_sdf == "true" ]; then
+      echo "Generating $robot SDF Bounding Box Collision Models"
+      
+      # Robot SDF Bounding Box Model
+      lua $script_dir/format_model.lua $data_dir/${robot_lower_case}_sdf_geometry_bbox.txt $data_dir/${robot_lower_case}_sdf_template.txt > bbox_temp
+      lua $script_dir/format_model.lua sdf_temp bbox_temp > $target_dir/${robot_lower_case}.sdf
+    fi
   fi
   
   if [ $make_kdl == "true" ]; then
