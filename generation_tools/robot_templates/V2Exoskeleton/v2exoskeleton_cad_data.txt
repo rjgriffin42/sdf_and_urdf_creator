@@ -22,7 +22,7 @@ Xcbar, Ycbar, Zcbar   =   -0.1787431,    0.116436,    -0.162288
 Ixc, Iyc, Izc         =    0.4259,    0.01108,    0.42668
 Iyzc, Ixzc, Ixyc      =   -0.02838,   0.00276,   -0.04594
 
-Xcog, Ycog, Zcog =-0.0685,	 0.1725,	 0.086
+Xcog, Ycog, Zcog =-0.0685,	 -0.1725,	 -0.086
 rollcog, pitchcog, yawcog = ${math.pi/2}, 0.0, ${math.pi/2}
 Xbb, Ybb, Zbb    = 0.25,	0.1485,	0.05493235
 
@@ -32,7 +32,7 @@ Xcbar, Ycbar, Zcbar   =   -0.286455,    0.1878,    0.033135
 Ixc, Iyc, Izc         =    0.0775,    0.0090,    0.0711
 Iyzc, Ixzc, Ixyc      =   -0.0085,    0.0004,   -0.0021
 
-Xcog, Ycog, Zcog =-0.0975,	 0.9975,	 0.5025
+Xcog, Ycog, Zcog =-0.0975,	 -0.9975,	 -0.5025
 rollcog, pitchcog, yawcog = ${math.pi/2}, 0.0, ${math.pi/2}
 Xbb, Ybb, Zbb    = 0.10,	0.130,	0.4512008
 
@@ -42,8 +42,8 @@ Xcbar, Ycbar, Zcbar   =   -0.148639,    0.2210,    0.564192
 Ixc, Iyc, Izc         =    0.3834,    0.0130,    0.3746
 Iyzc, Ixzc, Ixyc      =   -0.0434,    0.0001,    0.0000
 
-Xcog, Ycog, Zcog = 0,  0.0332,  0.30716
-rollcog, pitchcog, yawcog = 0, 0, 0
+Xcog, Ycog, Zcog = -0.02,  0.1925,  0.061
+rollcog, pitchcog, yawcog = -${math.pi/2}, 0, -${math.pi/2}
 Xbb, Ybb, Zbb    = 0.10,	0.18965,	0.4496629
 
 ************************pelvis
@@ -52,7 +52,7 @@ Xcbar, Ycbar, Zcbar   =   -0.3584,   -0.0000,    0.8929
 Ixc, Iyc, Izc         =    0.521,    0.184,    0.384
 Iyzc, Ixzc, Ixyc      =   -0.230,    0.000,    0.000
 
-Xcog, Ycog, Zcog =  0.025,	 0.80,	 0.22
+Xcog, Ycog, Zcog =  -0.3834,	 -0.80,	 -0.22
 rollcog, pitchcog, yawcog = ${math.pi/2}, 0.0, ${math.pi/2}
 Xbb, Ybb, Zbb    = 0.250,	0.30,	0.3299971
 
@@ -62,7 +62,7 @@ Xcbar, Ycbar, Zcbar   =   -0.1787431,   -0.116436,   -0.162288
 Ixc, Iyc, Izc         =    0.4259,    0.01108,    0.42668
 Iyzc, Ixzc, Ixyc      =   -0.02838,   0.00276,   -0.04594
 
-Xcog, Ycog, Zcog = -0.1225,  0.6325,  0.086
+Xcog, Ycog, Zcog = -0.1225,  -0.6325,  -0.086
 rollcog, pitchcog, yawcog = ${math.pi/2}, 0.0, ${math.pi/2}
 Xbb, Ybb, Zbb    = 0.25,	0.1485,	0.05493235
 
@@ -72,7 +72,7 @@ Xcbar, Ycbar, Zcbar   =   -0.286455,   -0.1878,    0.033135
 Ixc, Iyc, Izc         =    0.0775,    0.0090,    0.0711
 Iyzc, Ixzc, Ixyc      =   -0.0085,    0.0004,   -0.0021
 
-Xcog, Ycog, Zcog = -0.0975,  0.6135,  0.5025
+Xcog, Ycog, Zcog = -0.0975,  -0.6135,  -0.5025
 rollcog, pitchcog, yawcog = ${math.pi/2}, 0.0, ${math.pi/2}
 Xbb, Ybb, Zbb    = 0.10,	0.130,	0.4512008
 
@@ -82,7 +82,7 @@ Xcbar, Ycbar, Zcbar   =   -0.148639,   -0.2210,    0.564192
 Ixc, Iyc, Izc         =    0.3834,    0.0130,    0.3746
 Iyzc, Ixzc, Ixyc      =   -0.0434,    0.0001,    0.0000
 
-Xcog, Ycog, Zcog =  0.02,	-0.0625,	-0.061
+Xcog, Ycog, Zcog =  -0.02,	0.0625,	0.061
 rollcog, pitchcog, yawcog = -${math.pi/2}, 0.0, -${math.pi/2}
 Xbb, Ybb, Zbb    = 0.10,	0.18965,	0.4496629
 
