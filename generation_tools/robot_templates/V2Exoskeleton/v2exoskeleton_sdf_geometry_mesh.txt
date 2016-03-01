@@ -1,6 +1,6 @@
 **pelvis
 geometry=<mesh>\n					<uri>MinaV2_Hip.STL</uri>\n				</mesh>
-pose=${pelvis.Xcog} ${pelvis.Ycog} ${pelvis.Zcog} ${pelvis.rollcog} ${pelvis.pitchcog} ${pelvis.yawcog}
+pose=${pelvis.Xcog-pelvis_frame.X} ${pelvis.Ycog-pelvis_frame.Y} ${pelvis.Zcog-pelvis_frame.Z} ${pelvis.rollcog} ${pelvis.pitchcog} ${pelvis.yawcog}
 
 **l_thigh
 geometry=<mesh>\n					<uri>MinaV2_Thigh_L.STL</uri>\n				</mesh>

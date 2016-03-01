@@ -3,17 +3,17 @@
 <model name="V2Exoskeleton">
 
   <link name="pelvis">
-    <pose>0.025 0.8 0.22 0 0 0</pose>
+    <pose>0 0 0 0 0 0</pose>
     <visual name="pelvis_visual">
-      <pose>-0.025 -0.8 -0.22 1.5707963267949 0 1.5707963267949</pose>
+      <pose>-0.16105 -0.8 -0.982392 1.5707963267949 0 1.5707963267949</pose>
       <geometry>
         <mesh>
-					<uri>file://meshes/pelvis.stl</uri>
+					<uri>MinaV2_Hip.STL</uri>
 				</mesh>
       </geometry>
     </visual>
     <inertial>
-      <pose>-0.3834 -0.8 0.6729 0 0 0</pose>
+      <pose>-0.13605 -0 0.130508 0 0 0</pose>
       <mass>4.4169343065694</mass>
       <inertia>
         <ixx>0.521</ixx>
@@ -70,19 +70,18 @@
     </sensor>
   </link>
 
-
   <link name="l_uleg">
-    <pose>0 0.0332 0.30716 0 0 0</pose>
+    <pose>0 0.221 0 0 0 0</pose>
     <visual name="l_thigh_visual">
-      <pose>-0 -0.0332 -0.30716 0 0 0</pose>
+      <pose>-0.02 0.1925 0.061 -1.5707963267949 0 -1.5707963267949</pose>
       <geometry>
         <mesh>
-					<uri>file://meshes/left_thigh.stl</uri>
+					<uri>MinaV2_Thigh_L.STL</uri>
 				</mesh>
       </geometry>
     </visual>
     <inertial>
-      <pose>-0.148639 0.1878 0.257032 0 0 0</pose>
+      <pose>0.073711 0 -0.1982 0 0 0</pose>
       <mass>3.6007616629642</mass>
       <inertia>
         <ixx>0.3834</ixx>
@@ -96,17 +95,17 @@
   </link>
 
   <link name="r_uleg">
-    <pose>0.02 -0.0625 -0.061 0 0 0</pose>
+    <pose>0 -0.221 0 0 0 0</pose>
     <visual name="r_thigh_visual">
       <pose>-0.02 0.0625 0.061 -1.5707963267949 0 -1.5707963267949</pose>
       <geometry>
         <mesh>
-					<uri>file://meshes/right_thigh.stl</uri>
+					<uri>MinaV2_Thigh_R.STL</uri>
 				</mesh>
       </geometry>
     </visual>
     <inertial>
-      <pose>-0.168639 -0.1585 0.625192 0 0 0</pose>
+      <pose>0.073711 0 -0.1982 0 0 0</pose>
       <mass>3.6007616629642</mass>
       <inertia>
         <ixx>0.3834</ixx>
@@ -119,19 +118,18 @@
     </inertial>
   </link>
 
-
   <link name="l_lleg">
-    <pose>-0.0975 0.9975 0.5025 0 0 0</pose>
+    <pose>-0.064105 0.221 -0.422097 0 0 0</pose>
     <visual name="l_shin_visual">
-      <pose>0.0975 -0.9975 -0.5025 1.5707963267949 0 1.5707963267949</pose>
+      <pose>-0.0975 -0.9975 -0.5025 1.5707963267949 0 1.5707963267949</pose>
       <geometry>
         <mesh>
-					<uri>file://meshes/left_shin.stl</uri>
+					<uri>MinaV2_Shin_L.STL</uri>
 				</mesh>
       </geometry>
     </visual>
     <inertial>
-      <pose>-0.188955 -0.8097 -0.469365 0 0 0</pose>
+      <pose>0 -0.0332 -0.30716 0 0 0</pose>
       <mass>3.1555274833386</mass>
       <inertia>
         <ixx>0.0775</ixx>
@@ -145,17 +143,17 @@
   </link>
 
   <link name="r_lleg">
-    <pose>-0.0975 0.6135 0.5025 0 0 0</pose>
+    <pose>-0.064105 -0.221 -0.422097 0 0 0</pose>
     <visual name="r_shin_visual">
-      <pose>0.0975 -0.6135 -0.5025 1.5707963267949 0 1.5707963267949</pose>
+      <pose>-0.0975 -0.6135 -0.5025 1.5707963267949 0 1.5707963267949</pose>
       <geometry>
         <mesh>
-					<uri>file://meshes/right_shin.stl</uri>
+					<uri>MinaV2_Shin_R.STL</uri>
 				</mesh>
       </geometry>
     </visual>
     <inertial>
-      <pose>-0.188955 -0.8013 -0.469365 0 0 0</pose>
+      <pose>0 0.0332 -0.30716 0 0 0</pose>
       <mass>3.1555274833386</mass>
       <inertia>
         <ixx>0.0775</ixx>
@@ -168,19 +166,18 @@
     </inertial>
   </link>
 
-
   <link name="l_foot">
-    <pose>-0.0685 0.1725 0.086 0 0 0</pose>
+    <pose>-0.014399 0.186 -0.8411594 0 0 0</pose>
     <visual name="l_foot_visual">
-      <pose>0.0685 -0.1725 -0.086 1.5707963267949 0 1.5707963267949</pose>
+      <pose>-0.0685 -0.1725 -0.086 1.5707963267949 0 1.5707963267949</pose>
       <geometry>
         <mesh>
-					<uri>file://meshes/left_foot.stl</uri>
+					<uri>MinaV2_Foot_L.STL</uri>
 				</mesh>
       </geometry>
     </visual>
     <inertial>
-      <pose>-0.1102431 -0.056064 -0.248288 0 0 0</pose>
+      <pose>0.0580059 -0.069564 -0.0835206 0 0 0</pose>
       <mass>0.49010367079234</mass>
       <inertia>
         <ixx>0.4259</ixx>
@@ -194,17 +191,17 @@
   </link>
 
   <link name="r_foot">
-    <pose>-0.1225 0.6325 0.086 0 0 0</pose>
+    <pose>-0.014399 -0.186 -0.8411594 0 0 0</pose>
     <visual name="r_foot_visual">
-      <pose>0.1225 -0.6325 -0.086 1.5707963267949 0 1.5707963267949</pose>
+      <pose>-0.1225 -0.6325 -0.086 1.5707963267949 0 1.5707963267949</pose>
       <geometry>
         <mesh>
-					<uri>file://meshes/right_foot.stl</uri>
+					<uri>MinaV2_Foot_R.STL</uri>
 				</mesh>
       </geometry>
     </visual>
     <inertial>
-      <pose>-0.0562431 -0.748936 -0.248288 0 0 0</pose>
+      <pose>0.0580059 0.069564 -0.0835206 0 0 0</pose>
       <mass>0.49010367079234</mass>
       <inertia>
         <ixx>0.4259</ixx>
@@ -218,7 +215,6 @@
   </link>
 
   <joint name="l_leg_hpy" type="revolute">
-    <pose>-0.22235 0.1878 0.455232 0 0 0</pose>
     <parent>
       pelvis
     </parent>
@@ -246,7 +242,6 @@
   </joint>
 
   <joint name="r_leg_hpy" type="revolute">
-    <pose>-0.24235 -0.1585 0.823392 0 0 0</pose>
     <parent>
       pelvis
     </parent>
@@ -274,7 +269,6 @@
   </joint>
 
   <joint name="l_leg_kny" type="revolute">
-    <pose>-0.188955 -0.7765 -0.162205 0 0 0</pose>
     <parent>
       l_uleg
     </parent>
@@ -302,7 +296,6 @@
   </joint>
 
   <joint name="r_leg_kny" type="revolute">
-    <pose>-0.188955 -0.8345 -0.162205 0 0 0</pose>
     <parent>
       r_uleg
     </parent>

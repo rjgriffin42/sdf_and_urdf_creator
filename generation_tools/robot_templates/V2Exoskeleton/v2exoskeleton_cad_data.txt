@@ -137,6 +137,6 @@ X, Y, Z = -0.186329,  0.104, -0.1685174
 Center of the sole
 X, Y, Z = -0.186329, -0.104, -0.1685174
 
-************************torso_frame
+************************pelvis_frame
 Directly between hips
 X, Y, Z = ${(l_hip.X + r_hip.X)/2}, ${(l_hip.Y + r_hip.Y)/2}, ${(l_hip.Z + r_hip.Z)/2}

@@ -11,7 +11,7 @@
       </geometry>
     </visual>
     <inertial>
-      <pose>${pelvis.Xcbar} ${pelvis.Ycbar} ${pelvis.Zcbar} 0 0 0</pose>
+      <pose>${pelvis.Xcbar-pelvis_frame.X} ${pelvis.Ycbar-pelvis_frame.Y} ${pelvis.Zcbar-pelvis_frame.Z} 0 0 0</pose>
       <mass>${pelvis.Mass * mass.sdf_scale_factor}</mass>
       <inertia>
         <ixx>${pelvis.Ixc}</ixx>
@@ -68,9 +68,8 @@
     </sensor>
   </link>
 
-
   <link name="l_uleg">
-    <pose>0 0 0 0 0 0</pose>
+    <pose>${l_hip.X-pelvis_frame.X} ${l_hip.Y-pelvis_frame.Y} ${l_hip.Z-pelvis_frame.Z} 0 0 0</pose>
     <visual name="l_thigh_visual">
       <pose>${l_thigh.pose}</pose>
       <geometry>
@@ -78,7 +77,7 @@
       </geometry>
     </visual>
     <inertial>
-      <pose>${l_thigh.Xcbar} ${l_thigh.Ycbar} ${l_thigh.Zcbar} 0 0 0</pose>
+      <pose>${l_thigh.Xcbar-l_hip.X} ${l_thigh.Ycbar-l_hip.Y} ${l_thigh.Zcbar-l_hip.Z} 0 0 0</pose>
       <mass>${l_thigh.Mass * mass.sdf_scale_factor}</mass>
       <inertia>
         <ixx>${l_thigh.Ixc}</ixx>
@@ -92,7 +91,7 @@
   </link>
 
   <link name="r_uleg">
-    <pose>0 0 0 0 0 0</pose>
+    <pose>${r_hip.X-pelvis_frame.X} ${r_hip.Y-pelvis_frame.Y} ${r_hip.Z-pelvis_frame.Z} 0 0 0</pose>
     <visual name="r_thigh_visual">
       <pose>${r_thigh.pose}</pose>
       <geometry>
@@ -100,7 +99,7 @@
       </geometry>
     </visual>
     <inertial>
-      <pose>${r_thigh.Xcbar} ${r_thigh.Ycbar} ${r_thigh.Zcbar} 0 0 0</pose>
+      <pose>${r_thigh.Xcbar-r_hip.X} ${r_thigh.Ycbar-r_hip.Y} ${r_thigh.Zcbar-r_hip.Z} 0 0 0</pose>
       <mass>${r_thigh.Mass * mass.sdf_scale_factor}</mass>
       <inertia>
         <ixx>${r_thigh.Ixc}</ixx>
@@ -113,9 +112,8 @@
     </inertial>
   </link>
 
-
   <link name="l_lleg">
-    <pose>0 0 0 0 0 0</pose>
+    <pose>${l_knee.X-pelvis_frame.X} ${l_knee.Y-pelvis_frame.Y} ${l_knee.Z-pelvis_frame.Z} 0 0 0</pose>
     <visual name="l_shin_visual">
       <pose>${l_shin.pose}</pose>
       <geometry>
@@ -123,7 +121,7 @@
       </geometry>
     </visual>
     <inertial>
-      <pose>${l_shin.Xcbar} ${l_shin.Ycbar} ${l_shin.Zcbar} 0 0 0</pose>
+      <pose>${l_shin.Xcbar-l_knee.X} ${l_shin.Ycbar-l_knee.Y} ${l_shin.Zcbar-l_knee.Z} 0 0 0</pose>
       <mass>${l_shin.Mass * mass.sdf_scale_factor}</mass>
       <inertia>
         <ixx>${l_shin.Ixc}</ixx>
@@ -137,7 +135,7 @@
   </link>
 
   <link name="r_lleg">
-    <pose>0 0 0 0 0 0</pose>
+    <pose>${r_knee.X-pelvis_frame.X} ${r_knee.Y-pelvis_frame.Y} ${r_knee.Z-pelvis_frame.Z} 0 0 0</pose>
     <visual name="r_shin_visual">
       <pose>${r_shin.pose}</pose>
       <geometry>
@@ -145,7 +143,7 @@
       </geometry>
     </visual>
     <inertial>
-      <pose>${r_shin.Xcbar} ${r_shin.Ycbar} ${r_shin.Zcbar} 0 0 0</pose>
+      <pose>${r_shin.Xcbar-r_knee.X} ${r_shin.Ycbar-r_knee.Y} ${r_shin.Zcbar-r_knee.Z} 0 0 0</pose>
       <mass>${r_shin.Mass * mass.sdf_scale_factor}</mass>
       <inertia>
         <ixx>${r_shin.Ixc}</ixx>
@@ -158,9 +156,8 @@
     </inertial>
   </link>
 
-
   <link name="l_foot">
-    <pose>0 0 0 0 0 0</pose>
+    <pose>${l_ankle.X-pelvis_frame.X} ${l_ankle.Y-pelvis_frame.Y} ${l_ankle.Z-pelvis_frame.Z} 0 0 0</pose>
     <visual name="l_foot_visual">
       <pose>${l_foot.pose}</pose>
       <geometry>
@@ -168,7 +165,7 @@
       </geometry>
     </visual>
     <inertial>
-      <pose>${l_foot.Xcbar} ${l_foot.Ycbar} ${l_foot.Zcbar} 0 0 0</pose>
+      <pose>${l_foot.Xcbar-l_ankle.X} ${l_foot.Ycbar-l_ankle.Y} ${l_foot.Zcbar-l_ankle.Z} 0 0 0</pose>
       <mass>${l_foot.Mass * mass.sdf_scale_factor}</mass>
       <inertia>
         <ixx>${l_foot.Ixc}</ixx>
@@ -182,7 +179,7 @@
   </link>
 
   <link name="r_foot">
-    <pose>0 0 0 0 0 0</pose>
+    <pose>${r_ankle.X-pelvis_frame.X} ${r_ankle.Y-pelvis_frame.Y} ${r_ankle.Z-pelvis_frame.Z} 0 0 0</pose>
     <visual name="r_foot_visual">
       <pose>${r_foot.pose}</pose>
       <geometry>
@@ -190,7 +187,7 @@
       </geometry>
     </visual>
     <inertial>
-      <pose>${r_foot.Xcbar} ${r_foot.Ycbar} ${r_foot.Zcbar} 0 0 0</pose>
+      <pose>${r_foot.Xcbar-r_ankle.X} ${r_foot.Ycbar-r_ankle.Y} ${r_foot.Zcbar-r_ankle.Z} 0 0 0</pose>
       <mass>${r_foot.Mass * mass.sdf_scale_factor}</mass>
       <inertia>
         <ixx>${r_foot.Ixc}</ixx>
@@ -204,7 +201,6 @@
   </link>
 
   <joint name="l_leg_hpy" type="revolute">
-    <pose>${l_hip.X} ${l_hip.Y} ${l_hip.Z} 0 0 0</pose>
     <parent>
       pelvis
     </parent>
@@ -232,7 +228,6 @@
   </joint>
 
   <joint name="r_leg_hpy" type="revolute">
-    <pose>${r_hip.X} ${r_hip.Y} ${r_hip.Z} 0 0 0</pose>
     <parent>
       pelvis
     </parent>
@@ -260,7 +255,6 @@
   </joint>
 
   <joint name="l_leg_kny" type="revolute">
-    <pose>${l_knee.X} ${l_knee.Y} ${l_knee.Z} 0 0 0</pose>
     <parent>
       l_uleg
     </parent>
@@ -288,7 +282,6 @@
   </joint>
 
   <joint name="r_leg_kny" type="revolute">
-    <pose>${r_knee.X} ${r_knee.Y} ${r_knee.Z} 0 0 0</pose>
     <parent>
       r_uleg
     </parent>
@@ -316,7 +309,6 @@
   </joint>
 
   <joint name="l_leg_aky" type="revolute">
-    <pose>${l_ankle.X} ${l_ankle.Y} ${l_ankle.Z} 0 0 0</pose>
     <parent>
       l_lleg
     </parent>
@@ -344,7 +336,6 @@
   </joint>
 
   <joint name="r_leg_aky" type="revolute">
-    <pose>${r_ankle.X} ${r_ankle.Y} ${r_ankle.Z} 0 0 0</pose>
     <parent>
       r_lleg
     </parent>
